@@ -15,6 +15,12 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+  <div class="language-buttons">
+    <button onclick="changeLanguage('es')">ES</button>
+    <button onclick="changeLanguage('en')">EN</button>
+    <button onclick="changeLanguage('pt')">PT</button>
+  </div>
+
   <div class="game-container">
     <!-- START SCREEN -->
     <div id="screen-start" class="screen active">
@@ -24,7 +30,7 @@
           alt="Capy Code Quest"
           class="start-illustration"
         />
-        <h1>Capy Code Quest</h1>
+        <h1 data-key="gameTitle">Capy Code Quest</h1>
         <p class="subtitle">
           Help the capybara find all the apples<br />
           using simple coding commands!
@@ -44,13 +50,18 @@
         </p>
         <div class="instructions">
           <p>
-            <strong>Goal:</strong> Help the capybara collect all the apples and
-            reach the house.
+            <strong data-key="goalLabel">Goal:</strong> 
+            <span data-key="goalText">   
+              Help the capybara collect all the apples and reach the house.
+            </span>
           </p>
+
           <p>
-            <strong>How to play:</strong> Select a level and use the commands
-            (Move, Turn, Repeat) to build a step-by-step solution. Then press
+            <strong data-key="howToPlayLabel">How to play:</strong> 
+            <span data-key="howToPlayText">
+              Select a level and use the commands (Move, Turn, Repeat) to build a step-by-step solution. Then press
             <strong>RUN</strong> to execute your program.
+            </span>
           </p>
         </div>
       </header>
@@ -62,7 +73,7 @@
       </main>
 
       <footer class="screen-footer">
-        <button id="btn-back-start" class="secondary">
+        <button id="btn-back-start" class="secondary" data-key="backToStart">
           ⟵ Back to Start
         </button>
       </footer>
@@ -79,21 +90,23 @@
 
       <main>
         <section class="grid-section">
-          <h2>Game Grid</h2>
+          <h2 data-key="gameGrid">Game Grid</h2>
           <div id="grid" class="grid"></div>
-          <div id="message" class="message">
+          <div id="message" class="message" data-key="readyMessage">
             Ready! Create your program and press RUN.
           </div>
         </section>
 
+        <h2 data-key="programTitle">Program</h2>
+
         <section class="controls-section">
           <h2>Commands</h2>
           <div class="buttons">
-            <button id="btn-move">Move Forward</button>
-            <button id="btn-left">Turn Left</button>
-            <button id="btn-right">Turn Right</button>
-            <button id="btn-repeat2">Repeat Forward 2x</button>
-            <button id="btn-repeat3">Repeat Forward 3x</button>
+            <button id="btn-move" data-key="moveFoward">moveForward</button>
+            <button id="btn-left" data-key="turnLeft">turnLeft</button>
+            <button id="btn-right" data-key="turnRight">turnRight</button>
+            <button id="btn-repeat2" data-key="repeat2">repeatForward 2x</button>
+            <button id="btn-repeat3" data-key="repeat3">repeatForward 3x</button>
           </div>
 
           <h2>Program</h2>
@@ -102,12 +115,12 @@
           </div>
 
           <div class="run-controls">
-            <button id="btn-run" class="primary">RUN</button>
-            <button id="btn-clear" class="secondary">CLEAR</button>
+            <button id="btn-run" class="primary" data-key="runButton">RUN</button>
+            <button id="btn-clear" class="secondary" data-key="clearButton">CLEAR</button>
           </div>
 
           <div class="next-level-container">
-            <button id="btn-next-level" class="primary hidden">
+            <button id="btn-next-level" class="primary hidden" data-key="nextLevel">
               Next Level ⟶
             </button>
           </div>
@@ -116,7 +129,7 @@
 
       <footer>
         <div class="footer-left">
-          <button id="btn-back-levels" class="secondary">
+          <button id="btn-back-levels" class="secondary" data-key="backToLevels">
             ⟵ Back to Levels
           </button>
         </div>
