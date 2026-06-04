@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:canva.link)",
+      "WebFetch(domain:www.canva.com)",
+      "Bash(git -C /home/orvalinha/Documents/capyVerseAcademy status)",
+      "Bash(git init *)",
+      "Bash(git remote *)",
+      "Bash(git branch *)",
+      "Bash(git add *)",
+      "Bash(git config *)"
+    ]
+  }
+}
