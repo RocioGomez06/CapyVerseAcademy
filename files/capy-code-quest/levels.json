@@ -1,0 +1,123 @@
+[
+  {
+    "id": 1,
+    "name": "Level 1 – First Steps",
+    "description": "Learn how to move and turn the capybara on a simple grid.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 2, "y": 2 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight"],
+    "obstacles": [], "switches": [], "gates": []
+  },
+  {
+    "id": 2,
+    "name": "Level 2 – Longer Path",
+    "description": "A longer path to practice planning your steps.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 1, "y": 1 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight"],
+    "obstacles": [], "switches": [], "gates": []
+  },
+  {
+    "id": 3,
+    "name": "Level 3 – Avoid the Rocks",
+    "description": "Watch out for the rocks! Plan your path carefully.",
+    "start": { "x": 0, "y": 2, "dirIndex": 0 },
+    "apples": [{ "x": 2, "y": 2 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [{ "x": 1, "y": 1 }, { "x": 2, "y": 1 }],
+    "switches": [], "gates": []
+  },
+  {
+    "id": 4,
+    "name": "Level 4 – Rock Corners",
+    "description": "The apple is surrounded by rocks. Find a safe path around them.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 2, "y": 2 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [{ "x": 2, "y": 1 }, { "x": 1, "y": 2 }, { "x": 3, "y": 2 }],
+    "switches": [], "gates": []
+  },
+  {
+    "id": 5,
+    "name": "Level 5 – Rock Garden",
+    "description": "The garden is full of rocks. Use turns and repeats to reach the apple.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 3, "y": 1 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [{ "x": 2, "y": 0 }, { "x": 2, "y": 1 }, { "x": 2, "y": 2 }, { "x": 3, "y": 2 }, { "x": 1, "y": 2 }],
+    "switches": [], "gates": []
+  },
+  {
+    "id": 6,
+    "name": "Level 6 – Long Corridor",
+    "description": "A long corridor! Use repeat to write shorter programs.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 4, "y": 2 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [{ "x": 1, "y": 4 }, { "x": 2, "y": 4 }, { "x": 3, "y": 4 }, { "x": 4, "y": 3 }, { "x": 3, "y": 1 }],
+    "switches": [], "gates": []
+  },
+  {
+    "id": 7,
+    "name": "Level 7 – First Switch",
+    "description": "An apple is locked behind a gate. Step on the switch to open it.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 0, "y": 1 }, { "x": 4, "y": 4 }, { "x": 4, "y": 1 }],
+    "goal": { "x": 2, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [{ "x": 4, "y": 0 }, { "x": 4, "y": 2 }, { "x": 3, "y": 2 }],
+    "switches": [{ "x": 2, "y": 3, "gateIndex": 0 }],
+    "gates": [{ "x": 3, "y": 1 }]
+  },
+  {
+    "id": 8,
+    "name": "Level 8 – Double Switch Puzzle",
+    "description": "Some apples are trapped. Use both switches to free them.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 0, "y": 0 }, { "x": 4, "y": 1 }, { "x": 4, "y": 3 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [{ "x": 4, "y": 2 }, { "x": 3, "y": 2 }, { "x": 4, "y": 4 }, { "x": 3, "y": 4 }],
+    "switches": [{ "x": 1, "y": 3, "gateIndex": 0 }, { "x": 2, "y": 1, "gateIndex": 1 }],
+    "gates": [{ "x": 3, "y": 1 }, { "x": 3, "y": 3 }]
+  },
+  {
+    "id": 9,
+    "name": "Level 9 – Locked Corridor",
+    "description": "A locked gate blocks the way. Use the switch to open it.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 1, "y": 1 }, { "x": 4, "y": 2 }],
+    "goal": { "x": 3, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [
+      { "x": 0, "y": 0 }, { "x": 1, "y": 0 }, { "x": 2, "y": 0 }, { "x": 4, "y": 0 },
+      { "x": 0, "y": 1 }, { "x": 2, "y": 1 }, { "x": 4, "y": 1 },
+      { "x": 0, "y": 2 }, { "x": 0, "y": 3 }, { "x": 4, "y": 3 },
+      { "x": 2, "y": 4 }, { "x": 4, "y": 4 }
+    ],
+    "switches": [{ "x": 3, "y": 4, "gateIndex": 0 }],
+    "gates": [{ "x": 1, "y": 2 }]
+  },
+  {
+    "id": 10,
+    "name": "Level 10 – Capybara Labyrinth",
+    "description": "Final challenge! A full maze with rocks, switches and apples.",
+    "start": { "x": 0, "y": 4, "dirIndex": 0 },
+    "apples": [{ "x": 2, "y": 4 }, { "x": 2, "y": 1 }, { "x": 4, "y": 2 }],
+    "goal": { "x": 4, "y": 0 },
+    "availableCommands": ["move", "turnLeft", "turnRight", "repeatForward2", "repeatForward3"],
+    "obstacles": [
+      { "x": 0, "y": 3 }, { "x": 0, "y": 2 }, { "x": 0, "y": 1 },
+      { "x": 1, "y": 3 }, { "x": 3, "y": 3 },
+      { "x": 3, "y": 0 }, { "x": 3, "y": 1 }, { "x": 3, "y": 4 }
+    ],
+    "switches": [{ "x": 1, "y": 4, "gateIndex": 0 }, { "x": 1, "y": 2, "gateIndex": 1 }],
+    "gates": [{ "x": 2, "y": 3 }, { "x": 3, "y": 2 }]
+  }
+]

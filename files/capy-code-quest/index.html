@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capy Code Quest</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper">
+
+    <!-- ARCADE CABINET FRAME -->
+    <div class="arcade-cabinet">
+
+      <!-- TITLE BAR (Win95 style) -->
+      <div class="title-bar">
+        <div class="title-bar-left">
+          <span class="title-bar-icon" aria-hidden="true">🐾</span>
+          <span class="title-bar-text">Capy Code Quest</span>
+        </div>
+        <div class="title-bar-controls">
+          <button class="title-btn lang-btn" onclick="changeLanguage('es')" title="Español">ES</button>
+          <button class="title-btn lang-btn" onclick="changeLanguage('en')" title="English">EN</button>
+          <button class="title-btn lang-btn" onclick="changeLanguage('pt')" title="Português">PT</button>
+          <button class="title-btn fullscreen-btn" id="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen" aria-label="Toggle fullscreen">⛶</button>
+        </div>
+      </div>
+
+      <!-- GAME CONTENT AREA -->
+      <div class="game-content" id="game-content">
+
+        <!-- START SCREEN -->
+        <div id="screen-start" class="screen active">
+          <div class="screen-center start-screen">
+            <img src="assets/capy-topdown.png" alt="Capy the capybara" class="start-illustration" />
+            <h1 data-key="gameTitle">Capy Code Quest</h1>
+            <p class="subtitle" data-key="startSubtitle">Help the capybara find all the apples<br />using simple coding commands!</p>
+            <button id="btn-go-levels" class="primary big-button">▶ TAP TO START</button>
+          </div>
+        </div>
+
+        <!-- LEVEL SELECT SCREEN -->
+        <div id="screen-levels" class="screen">
+          <header class="screen-header">
+            <h1 data-key="selectLevelTitle">SELECT LEVEL</h1>
+            <p class="subtitle">Choose a puzzle and practice your coding skills.</p>
+            <div class="instructions">
+              <p><strong data-key="goalLabel">Goal:</strong>
+                <span data-key="goalText"> Help the capybara collect all the apples and reach the house.</span></p>
+              <p><strong data-key="howToPlayLabel">How to play:</strong>
+                <span data-key="howToPlayText"> Use the commands to build a step-by-step solution. Press RUN to execute.</span></p>
+            </div>
+          </header>
+          <main>
+            <section>
+              <div id="levels-list" class="levels-list"></div>
+            </section>
+          </main>
+          <footer class="screen-footer">
+            <button id="btn-back-start" class="secondary" data-key="backToStart">⟵ Back to Start</button>
+          </footer>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="screen-game" class="screen">
+          <header>
+            <h1>Capy Code Quest</h1>
+            <p id="current-level-label" class="subtitle">Level 1 – First Steps</p>
+          </header>
+
+          <main>
+            <!-- LEFT: GRID -->
+            <section class="grid-section">
+              <h2 data-key="gameGrid">Game Grid</h2>
+              <div id="grid" class="grid"></div>
+              <div id="message" class="message" data-key="readyMessage" aria-live="polite" aria-atomic="true">Ready! Create your program and press RUN.</div>
+            </section>
+
+            <!-- RIGHT: CONTROLS -->
+            <section class="controls-section">
+              <h2 data-key="commandsTitle">Commands</h2>
+              <div class="buttons">
+                <button id="btn-move"    data-key="moveFoward">moveForward</button>
+                <button id="btn-left"    data-key="turnLeft">turnLeft</button>
+                <button id="btn-right"   data-key="turnRight">turnRight</button>
+                <button id="btn-repeat2" data-key="repeat2">repeatFwd 2x</button>
+                <button id="btn-repeat3" data-key="repeat3">repeatFwd 3x</button>
+              </div>
+
+              <h2 data-key="programTitle">Program</h2>
+              <div class="program-box">
+                <ol id="program-list"></ol>
+              </div>
+
+              <div class="run-controls">
+                <button id="btn-run"   class="primary"   data-key="runButton">▶ RUN</button>
+                <button id="btn-clear" class="secondary" data-key="clearButton">✕ CLEAR</button>
+              </div>
+
+              <div class="next-level-container">
+                <button id="btn-next-level" class="primary hidden" data-key="nextLevel">Next Level ⟶</button>
+              </div>
+            </section>
+          </main>
+
+          <footer class="game-footer">
+            <div class="footer-left">
+              <button id="btn-back-levels" class="secondary" data-key="backToLevels">⟵ Levels</button>
+            </div>
+            <div class="footer-center">
+              <span class="footer-brand">🐾 Capy Verse Academy</span>
+            </div>
+            <div class="footer-right">
+              <small>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+              </small>
+            </div>
+          </footer>
+        </div>
+
+      </div><!-- /.game-content -->
+
+      <!-- BOTTOM BEZEL -->
+      <div class="cabinet-bezel">
+        <span class="bezel-brand">★ CAPY VERSE ACADEMY ★</span>
+        <div class="bezel-leds">
+          <span class="led led-green"></span>
+          <span class="led led-yellow"></span>
+          <span class="led led-red"></span>
+        </div>
+      </div>
+
+    </div><!-- /.arcade-cabinet -->
+
+    <!-- PAGE FOOTER -->
+    <footer class="page-footer">
+      <span>© 2025 Capy Verse Academy &nbsp;·&nbsp; Educational Games for CS Learning</span>
+      <span>
+        <a href="#">Capy Code Quest</a> &nbsp;·&nbsp;
+        <a href="#">Logic Labs</a> &nbsp;·&nbsp;
+        <a href="#">Cyber Defense</a>
+      </span>
+      <span>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+      </span>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+  <script src="script.js"></script>
+</body>
+</html>
