@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Capy Code Quest</title>
+
+  <!-- Tipografías -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;500;600;700&display=swap"
+    rel="stylesheet"
+  />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="language-buttons">
+    <button onclick="changeLanguage('es')">ES</button>
+    <button onclick="changeLanguage('en')">EN</button>
+    <button onclick="changeLanguage('pt')">PT</button>
+  </div>
+
+  <div class="game-container">
+    <!-- START SCREEN -->
+    <div id="screen-start" class="screen active">
+      <div class="screen-center start-screen">
+        <img
+          src="assets/start-illustration.png"
+          alt="Capy Code Quest"
+          class="start-illustration"
+        />
+        <h1 data-key="gameTitle">Capy Code Quest</h1>
+        <p class="subtitle">
+          Help the capybara find all the apples<br />
+          using simple coding commands!
+        </p>
+        <button id="btn-go-levels" class="primary big-button">
+          Tap to start!
+        </button>
+      </div>
+    </div>
+
+    <!-- LEVEL SELECT SCREEN -->
+    <div id="screen-levels" class="screen">
+      <header class="screen-header">
+        <h1>Select a Level</h1>
+        <p class="subtitle">
+          Choose a puzzle to play and practice your coding skills.
+        </p>
+        <div class="instructions">
+          <p>
+            <strong data-key="goalLabel">Goal:</strong> 
+            <span data-key="goalText">   
+              Help the capybara collect all the apples and reach the house.
+            </span>
+          </p>
+
+          <p>
+            <strong data-key="howToPlayLabel">How to play:</strong> 
+            <span data-key="howToPlayText">
+              Select a level and use the commands (Move, Turn, Repeat) to build a step-by-step solution. Then press
+            <strong>RUN</strong> to execute your program.
+            </span>
+          </p>
+        </div>
+      </header>
+
+      <main>
+        <section>
+          <div id="levels-list" class="levels-list"></div>
+        </section>
+      </main>
+
+      <footer class="screen-footer">
+        <button id="btn-back-start" class="secondary" data-key="backToStart">
+          ⟵ Back to Start
+        </button>
+      </footer>
+    </div>
+
+    <!-- GAME SCREEN -->
+    <div id="screen-game" class="screen">
+      <header>
+        <h1>Capy Code Quest</h1>
+        <p id="current-level-label" class="subtitle">
+          Level 1 – First Steps
+        </p>
+      </header>
+
+      <main>
+        <section class="grid-section">
+          <h2 data-key="gameGrid">Game Grid</h2>
+          <div id="grid" class="grid"></div>
+          <div id="message" class="message" data-key="readyMessage">
+            Ready! Create your program and press RUN.
+          </div>
+        </section>
+
+        <h2 data-key="programTitle">Program</h2>
+
+        <section class="controls-section">
+          <h2>Commands</h2>
+          <div class="buttons">
+            <button id="btn-move" data-key="moveFoward">moveForward</button>
+            <button id="btn-left" data-key="turnLeft">turnLeft</button>
+            <button id="btn-right" data-key="turnRight">turnRight</button>
+            <button id="btn-repeat2" data-key="repeat2">repeatForward 2x</button>
+            <button id="btn-repeat3" data-key="repeat3">repeatForward 3x</button>
+          </div>
+
+          <h2>Program</h2>
+          <div class="program-box">
+            <ol id="program-list"></ol>
+          </div>
+
+          <div class="run-controls">
+            <button id="btn-run" class="primary" data-key="runButton">RUN</button>
+            <button id="btn-clear" class="secondary" data-key="clearButton">CLEAR</button>
+          </div>
+
+          <div class="next-level-container">
+            <button id="btn-next-level" class="primary hidden" data-key="nextLevel">
+              Next Level ⟶
+            </button>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="footer-left">
+          <button id="btn-back-levels" class="secondary" data-key="backToLevels">
+            ⟵ Back to Levels
+          </button>
+        </div>
+        <div class="footer-right">
+          <small>
+            Prototype for English Final Project – Capy Code Quest<br />
+            Licensed under
+            <a
+              href="https://creativecommons.org/licenses/by-nc-sa/4.0/"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Creative Commons CC BY-NC-SA 4.0
+            </a>
+          </small>
+        </div>
+      </footer>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
