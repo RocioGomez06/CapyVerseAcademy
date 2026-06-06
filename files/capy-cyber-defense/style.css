@@ -138,6 +138,16 @@ body {
   border-bottom: 2px solid var(--win-hi);
   border-right: 2px solid var(--win-hi);
 }
+.lang-btn.active {
+  background: var(--yellow);
+  color: #000;
+  border-top-color: #fff8aa;
+  border-left-color: #fff8aa;
+  border-bottom-color: #8a8000;
+  border-right-color: #8a8000;
+}
+.lang-btn.active:hover { background: var(--yellow); }
+
 .fullscreen-btn {
   font-size: 11px; padding: 2px 6px;
   background: #800000; color: white;

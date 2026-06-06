@@ -22,8 +22,9 @@
         <span class="title-bar-text">Capy Cyber Defense</span>
       </div>
       <div class="title-bar-controls">
-        <button class="title-btn lang-btn" onclick="setLang('es')" aria-label="Español">ES</button>
-        <button class="title-btn lang-btn" onclick="setLang('en')" aria-label="English">EN</button>
+        <button class="title-btn lang-btn" data-lang="es" onclick="setLang('es')" aria-label="Español" aria-pressed="false">ES</button>
+        <button class="title-btn lang-btn" data-lang="en" onclick="setLang('en')" aria-label="English" aria-pressed="true">EN</button>
+        <button class="title-btn lang-btn" data-lang="pt" onclick="setLang('pt')" aria-label="Português" aria-pressed="false">PT</button>
         <button class="title-btn pause-btn" id="btn-pause" onclick="togglePause()" aria-label="Pause game" style="display:none">⏸</button>
         <button class="title-btn fullscreen-btn" onclick="toggleFullscreen()" aria-label="Toggle fullscreen">⛶</button>
       </div>

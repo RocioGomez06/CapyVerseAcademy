@@ -10,16 +10,16 @@
 // ═══════════════════════════════════════════
 
 const COUNTERS = {
-  'identify-report':  { en: 'Identify & Report',      es: 'Identificar y Reportar' },
-  'strong-pass-2fa':  { en: 'Strong Password + 2FA',  es: 'Contraseña Segura + 2FA' },
-  'spam-filter':      { en: 'Spam Filter',             es: 'Filtro de Spam' },
-  'antivirus':        { en: 'Antivirus',               es: 'Antivirus' },
-  'antivirus-2fa':    { en: 'Antivirus + 2FA',         es: 'Antivirus + 2FA' },
-  'vpn':              { en: 'VPN',                     es: 'VPN' },
-  'vpn-https':        { en: 'VPN + HTTPS',             es: 'VPN + HTTPS' },
-  'firewall':         { en: 'Firewall',                es: 'Firewall' },
-  'backup-antivirus': { en: 'Backup + Antivirus',      es: 'Copia de Seguridad + Antivirus' },
-  'system-update':    { en: 'System Update / Patch',   es: 'Actualización del Sistema' },
+  'identify-report':  { en: 'Identify & Report',      es: 'Identificar y Reportar',           pt: 'Identificar e Reportar' },
+  'strong-pass-2fa':  { en: 'Strong Password + 2FA',  es: 'Contraseña Segura + 2FA',          pt: 'Senha Forte + 2FA' },
+  'spam-filter':      { en: 'Spam Filter',             es: 'Filtro de Spam',                   pt: 'Filtro de Spam' },
+  'antivirus':        { en: 'Antivirus',               es: 'Antivirus',                        pt: 'Antivírus' },
+  'antivirus-2fa':    { en: 'Antivirus + 2FA',         es: 'Antivirus + 2FA',                  pt: 'Antivírus + 2FA' },
+  'vpn':              { en: 'VPN',                     es: 'VPN',                              pt: 'VPN' },
+  'vpn-https':        { en: 'VPN + HTTPS',             es: 'VPN + HTTPS',                      pt: 'VPN + HTTPS' },
+  'firewall':         { en: 'Firewall',                es: 'Firewall',                         pt: 'Firewall' },
+  'backup-antivirus': { en: 'Backup + Antivirus',      es: 'Copia de Seguridad + Antivirus',   pt: 'Backup + Antivírus' },
+  'system-update':    { en: 'System Update / Patch',   es: 'Actualización del Sistema',        pt: 'Atualização do Sistema' },
 };
 
 const THREATS = {
@@ -30,6 +30,7 @@ const THREATS = {
     emoji: '🎣', color: '#E69F00',
     en: { name: 'Phishing', desc: 'A fake message tricks you into giving up passwords or personal data.' },
     es: { name: 'Phishing', desc: 'Un mensaje falso te engaña para que entregues contraseñas o datos personales.' },
+    pt: { name: 'Phishing', desc: 'Uma mensagem falsa te engana para entregar senhas ou dados pessoais.' },
     wrongEn: {
       'spam-filter': 'A spam filter may catch some, but phishing needs you to identify and report it yourself.',
       'antivirus':   'Antivirus can\'t stop you from being tricked. You must recognize the scam and report it.',
@@ -40,6 +41,11 @@ const THREATS = {
       'antivirus':   'El antivirus no te protege de ser engañado. Debes reconocer y reportar el intento.',
       'vpn':         'Una VPN oculta tu tráfico, pero no evita el engaño. ¡Identifícalo y repórtalo!',
     },
+    wrongPt: {
+      'spam-filter': 'O filtro pode capturar alguns, mas o phishing exige que você o identifique e reporte pessoalmente.',
+      'antivirus':   'O antivírus não impede que você seja enganado. Reconheça o golpe e reporte-o.',
+      'vpn':         'Uma VPN oculta seu tráfego, mas não evita um golpe de phishing. Identifique e reporte!',
+    },
   },
   weakpass: {
     hp: 1, damage: 2, speed: 4,
@@ -48,6 +54,7 @@ const THREATS = {
     emoji: '🔑', color: '#56B4E9',
     en: { name: 'Weak Password', desc: 'A short or common password that attackers can easily guess or brute-force.' },
     es: { name: 'Contraseña Débil', desc: 'Una contraseña corta o común que los atacantes pueden adivinar fácilmente.' },
+    pt: { name: 'Senha Fraca', desc: 'Uma senha curta ou comum que atacantes podem adivinhar ou descobrir facilmente.' },
     wrongEn: {
       'antivirus':  'Antivirus deals with malicious software, not weak login credentials.',
       'firewall':   'A firewall blocks network traffic, but it can\'t fix a weak password.',
@@ -58,6 +65,11 @@ const THREATS = {
       'firewall':   'Un firewall bloquea tráfico de red, pero no soluciona contraseñas inseguras.',
       'spam-filter':'El filtro de spam no evita que descifren tu contraseña.',
     },
+    wrongPt: {
+      'antivirus':  'O antivírus combate software malicioso, não credenciais de login fracas.',
+      'firewall':   'Um firewall bloqueia tráfego de rede, mas não pode corrigir uma senha fraca.',
+      'spam-filter':'Um filtro de spam não impede alguém de quebrar sua senha.',
+    },
   },
   spam: {
     hp: 1, damage: 1, speed: 5,
@@ -66,6 +78,7 @@ const THREATS = {
     emoji: '📧', color: '#009E73',
     en: { name: 'Spam', desc: 'Unsolicited bulk messages that clutter your inbox and may hide malicious links.' },
     es: { name: 'Spam', desc: 'Mensajes masivos no deseados que llenan tu bandeja y pueden ocultar enlaces maliciosos.' },
+    pt: { name: 'Spam', desc: 'Mensagens em massa indesejadas que enchem sua caixa e podem ocultar links maliciosos.' },
     wrongEn: {
       'identify-report': 'Reporting helps, but a spam filter automates the defense at scale.',
       'firewall':        'A firewall blocks network intrusions, not email spam.',
@@ -76,6 +89,11 @@ const THREATS = {
       'firewall':        'El firewall bloquea intrusiones de red, no correo no deseado.',
       'antivirus':       'El antivirus combate malware, no spam. ¡Usa un filtro!',
     },
+    wrongPt: {
+      'identify-report': 'Reportar ajuda, mas um filtro de spam automatiza a defesa em larga escala.',
+      'firewall':        'Um firewall bloqueia intrusões de rede, não spam de e-mail.',
+      'antivirus':       'O antivírus combate malware, não spam. Use um filtro de spam!',
+    },
   },
   malware: {
     hp: 2, damage: 3, speed: 3,
@@ -84,6 +102,7 @@ const THREATS = {
     emoji: '🦠', color: '#D55E00',
     en: { name: 'Malware', desc: 'Malicious software designed to damage, disrupt, or gain unauthorized access to systems.' },
     es: { name: 'Malware', desc: 'Software malicioso diseñado para dañar, interrumpir o acceder sin autorización a sistemas.' },
+    pt: { name: 'Malware', desc: 'Software malicioso projetado para danificar, interromper ou acessar sistemas sem autorização.' },
     wrongEn: {
       'firewall':   'A firewall blocks network entry points, but malware already inside needs antivirus to remove it.',
       'vpn':        'A VPN encrypts your connection, but won\'t detect or remove malware from your device.',
@@ -94,6 +113,11 @@ const THREATS = {
       'vpn':        'La VPN cifra tu conexión, pero no detecta ni elimina malware de tu dispositivo.',
       'spam-filter':'El filtro solo maneja correo. El malware necesita antivirus para ser detectado y eliminado.',
     },
+    wrongPt: {
+      'firewall':   'O firewall bloqueia pontos de entrada, mas o malware já dentro precisa de antivírus para ser removido.',
+      'vpn':        'Uma VPN criptografa sua conexão, mas não detecta nem remove malware do seu dispositivo.',
+      'spam-filter':'Um filtro de spam só lida com e-mail. Malware precisa de antivírus para ser encontrado e removido.',
+    },
   },
   keylogger: {
     hp: 2, damage: 3, speed: 3,
@@ -102,6 +126,7 @@ const THREATS = {
     emoji: '⌨️', color: '#CC79A7',
     en: { name: 'Keylogger', desc: 'Hidden software that records every keystroke — including passwords — and sends them to an attacker.' },
     es: { name: 'Keylogger', desc: 'Software oculto que registra cada tecla pulsada, incluidas contraseñas, y las envía al atacante.' },
+    pt: { name: 'Keylogger', desc: 'Software oculto que registra cada tecla pressionada, incluindo senhas, e as envia ao atacante.' },
     wrongEn: {
       'antivirus':  'Antivirus helps detect keyloggers, but you also need 2FA so stolen passwords are useless alone.',
       'vpn':        'A VPN encrypts traffic, but the keylogger captures keystrokes before encryption happens.',
@@ -112,6 +137,11 @@ const THREATS = {
       'vpn':        'La VPN cifra el tráfico, pero el keylogger captura las teclas antes del cifrado.',
       'spam-filter':'El filtro de spam no detecta software keylogger en tu dispositivo.',
     },
+    wrongPt: {
+      'antivirus':  'O antivírus ajuda a detectar keyloggers, mas você também precisa de 2FA para que senhas roubadas sejam inúteis.',
+      'vpn':        'Uma VPN criptografa o tráfego, mas o keylogger captura as teclas antes da criptografia.',
+      'spam-filter':'Um filtro de spam não detecta software keylogger rodando no seu dispositivo.',
+    },
   },
   fakewifi: {
     hp: 2, damage: 3, speed: 3,
@@ -120,6 +150,7 @@ const THREATS = {
     emoji: '📶', color: '#56B4E9',
     en: { name: 'Fake Wi-Fi', desc: 'A rogue access point that mimics a legitimate network to intercept your traffic.' },
     es: { name: 'Wi-Fi Falso', desc: 'Un punto de acceso falso que imita una red legítima para interceptar tu tráfico.' },
+    pt: { name: 'Wi-Fi Falso', desc: 'Um ponto de acesso falso que imita uma rede legítima para interceptar seu tráfego.' },
     wrongEn: {
       'firewall':   'A firewall on your device doesn\'t protect you from a rogue access point that already sees your data.',
       'spam-filter':'Spam filter handles email, not Wi-Fi network threats.',
@@ -130,6 +161,11 @@ const THREATS = {
       'spam-filter':'El filtro de spam maneja correo, no amenazas de red Wi-Fi.',
       'antivirus':  'El antivirus no protege tus datos en una red falsa. Una VPN los cifra de extremo a extremo.',
     },
+    wrongPt: {
+      'firewall':   'Um firewall no seu dispositivo não protege você de um ponto de acesso falso que já vê seus dados.',
+      'spam-filter':'Filtro de spam lida com e-mail, não com ameaças de rede Wi-Fi.',
+      'antivirus':  'O antivírus não protegerá seus dados numa rede falsa. Uma VPN criptografa de ponta a ponta.',
+    },
   },
   mitm: {
     hp: 3, damage: 4, speed: 2,
@@ -138,6 +174,7 @@ const THREATS = {
     emoji: '👤', color: '#0072B2',
     en: { name: 'Man-in-the-Middle', desc: 'An attacker secretly intercepts and possibly alters communication between two parties.' },
     es: { name: 'Man-in-the-Middle', desc: 'Un atacante intercepta y posiblemente altera la comunicación entre dos partes.' },
+    pt: { name: 'Man-in-the-Middle', desc: 'Um atacante intercepta secretamente e possivelmente altera a comunicação entre duas partes.' },
     wrongEn: {
       'vpn':       'A VPN alone is good, but you also need HTTPS to ensure end-to-end encryption and authentication.',
       'antivirus': 'Antivirus targets local malware, not a live interception of your network traffic.',
@@ -148,6 +185,11 @@ const THREATS = {
       'antivirus': 'El antivirus combate malware local, no la interceptación activa del tráfico.',
       'firewall':  'El firewall bloquea puertos, pero MITM opera en el nivel de tráfico. Necesitas VPN + HTTPS.',
     },
+    wrongPt: {
+      'vpn':       'Uma VPN sozinha ajuda, mas você também precisa de HTTPS para criptografia e autenticação de ponta a ponta.',
+      'antivirus': 'O antivírus combate malware local, não uma interceptação ativa do seu tráfego de rede.',
+      'firewall':  'Um firewall bloqueia ataques em nível de porta, mas MITM ocorre no nível de tráfego — VPN + HTTPS é a solução.',
+    },
   },
   ddos: {
     hp: 3, damage: 3, speed: 2,
@@ -156,6 +198,7 @@ const THREATS = {
     emoji: '💥', color: '#D55E00',
     en: { name: 'DDoS Attack', desc: 'A flood of traffic from many sources overwhelms a server and makes it unavailable.' },
     es: { name: 'Ataque DDoS', desc: 'Una avalancha de tráfico de múltiples fuentes satura un servidor dejándolo inaccesible.' },
+    pt: { name: 'Ataque DDoS', desc: 'Uma avalanche de tráfego de várias fontes sobrecarrega um servidor e o torna inacessível.' },
     wrongEn: {
       'antivirus':  'Antivirus targets software threats on your device, not massive network floods.',
       'vpn':        'A VPN hides your IP but won\'t stop a coordinated traffic flood hitting the server.',
@@ -166,6 +209,11 @@ const THREATS = {
       'vpn':        'La VPN oculta tu IP pero no detiene una avalancha coordinada al servidor.',
       'spam-filter':'El filtro de spam maneja correo, no ataques volumétricos de red.',
     },
+    wrongPt: {
+      'antivirus':  'O antivírus combate ameaças de software no seu dispositivo, não inundações massivas de rede.',
+      'vpn':        'Uma VPN oculta seu IP, mas não impedirá uma inundação de tráfego coordenada no servidor.',
+      'spam-filter':'Filtro de spam lida com e-mail, não com ataques volumétricos de rede.',
+    },
   },
   ransomware: {
     hp: 4, damage: 5, speed: 2,
@@ -174,6 +222,7 @@ const THREATS = {
     emoji: '💰', color: '#CC79A7',
     en: { name: 'Ransomware', desc: 'Malware that encrypts your files and demands payment to restore access.' },
     es: { name: 'Ransomware', desc: 'Malware que cifra tus archivos y exige un pago para restaurar el acceso.' },
+    pt: { name: 'Ransomware', desc: 'Malware que criptografa seus arquivos e exige pagamento para restaurar o acesso.' },
     wrongEn: {
       'antivirus':     'Antivirus helps detect ransomware, but without a backup you still lose your files if hit.',
       'firewall':      'A firewall blocks network entry but won\'t restore your files if ransomware gets in.',
@@ -184,6 +233,11 @@ const THREATS = {
       'firewall':      'El firewall bloquea entradas, pero no restaura archivos si el ransomware ya está dentro.',
       'system-update': 'Las actualizaciones cierran brechas, pero las copias de seguridad son clave para recuperarte.',
     },
+    wrongPt: {
+      'antivirus':     'O antivírus ajuda a detectar ransomware, mas sem backup você ainda perde seus arquivos.',
+      'firewall':      'Um firewall bloqueia a entrada na rede, mas não restaurará seus arquivos se o ransomware entrar.',
+      'system-update': 'Atualizações fecham vulnerabilidades, mas backups são essenciais — permitem restaurar sem pagar.',
+    },
   },
   zeroday: {
     hp: 4, damage: 5, speed: 1,
@@ -192,6 +246,7 @@ const THREATS = {
     emoji: '⚡', color: '#F0E442',
     en: { name: 'Zero-Day Exploit', desc: 'An attack targeting a software flaw unknown to the vendor, with no patch yet available.' },
     es: { name: 'Exploit Zero-Day', desc: 'Un ataque que explota una vulnerabilidad desconocida para el fabricante, sin parche disponible.' },
+    pt: { name: 'Exploit Zero-Day', desc: 'Um ataque que explora uma falha de software desconhecida pelo fabricante, sem correção disponível.' },
     wrongEn: {
       'antivirus': 'Antivirus signatures may not detect brand-new zero-day exploits. Patching closes the hole.',
       'firewall':  'A firewall limits exposure, but once a zero-day is known the real fix is the vendor\'s patch.',
@@ -202,25 +257,35 @@ const THREATS = {
       'firewall':  'El firewall limita la exposición, pero el arreglo real de un zero-day es el parche del fabricante.',
       'vpn':       'La VPN cifra la conexión pero no cierra la vulnerabilidad en el software.',
     },
+    wrongPt: {
+      'antivirus': 'O antivírus pode não detectar exploits zero-day completamente novos. O patch fecha a brecha.',
+      'firewall':  'Um firewall limita a exposição, mas o verdadeiro arreglo de um zero-day é o patch do fabricante.',
+      'vpn':       'Uma VPN criptografa sua conexão, mas não fecha a vulnerabilidade no software em si.',
+    },
   },
 };
 
 const GAMEMODES = [
   { id: 1, waves: 3,        newThreats: ['phishing', 'weakpass', 'spam'],
-    en: { name: 'First Contact',     sub: '3 waves · Intro threats' },
-    es: { name: 'Primer Contacto',   sub: '3 oleadas · Amenazas iniciales' } },
+    en: { name: 'First Contact',      sub: '3 waves · Intro threats' },
+    es: { name: 'Primer Contacto',    sub: '3 oleadas · Amenazas iniciales' },
+    pt: { name: 'Primeiro Contato',   sub: '3 ondas · Ameaças iniciais' } },
   { id: 2, waves: 5,        newThreats: ['malware', 'keylogger'],
-    en: { name: 'Device Under Attack', sub: '5 waves · New device threats' },
-    es: { name: 'Dispositivo Atacado', sub: '5 oleadas · Amenazas al dispositivo' } },
+    en: { name: 'Device Under Attack',  sub: '5 waves · New device threats' },
+    es: { name: 'Dispositivo Atacado',  sub: '5 oleadas · Amenazas al dispositivo' },
+    pt: { name: 'Dispositivo Atacado',  sub: '5 ondas · Novas ameaças ao dispositivo' } },
   { id: 3, waves: 10,       newThreats: ['fakewifi', 'mitm', 'ddos'],
-    en: { name: 'Network Breach',    sub: '10 waves · Network threats' },
-    es: { name: 'Brecha de Red',     sub: '10 oleadas · Amenazas de red' } },
+    en: { name: 'Network Breach',     sub: '10 waves · Network threats' },
+    es: { name: 'Brecha de Red',      sub: '10 oleadas · Amenazas de red' },
+    pt: { name: 'Brecha de Rede',     sub: '10 ondas · Ameaças de rede' } },
   { id: 4, waves: 15,       newThreats: ['ransomware', 'zeroday'],
-    en: { name: 'Critical Systems',  sub: '15 waves · High-severity threats' },
-    es: { name: 'Sistemas Críticos', sub: '15 oleadas · Amenazas críticas' } },
+    en: { name: 'Critical Systems',   sub: '15 waves · High-severity threats' },
+    es: { name: 'Sistemas Críticos',  sub: '15 oleadas · Amenazas críticas' },
+    pt: { name: 'Sistemas Críticos',  sub: '15 ondas · Ameaças de alta gravidade' } },
   { id: 5, waves: Infinity, newThreats: [],
-    en: { name: '∞ Deep Space',      sub: 'Infinite · All threats · High score' },
-    es: { name: '∞ Espacio Profundo', sub: 'Infinito · Todas las amenazas · Puntaje máximo' } },
+    en: { name: '∞ Deep Space',        sub: 'Infinite · All threats · High score' },
+    es: { name: '∞ Espacio Profundo',  sub: 'Infinito · Todas las amenazas · Puntaje máximo' },
+    pt: { name: '∞ Espaço Profundo',   sub: 'Infinito · Todas as ameaças · Recorde' } },
 ];
 
 const TRANSLATIONS = {
@@ -269,6 +334,52 @@ const TRANSLATIONS = {
     'unknown-threat':   '???',
     'toolbar-none':     'No counter selected',
   },
+  pt: {
+    'name-entry-title': 'INSIRA SEU NOME',
+    'name-prompt':      'INSIRA SEU INDICATIVO:',
+    'name-hint':        'Até 12 caracteres',
+    'name-confirm':     '▶ CONFIRMAR',
+    'name-entry-hint':  'Seu nome é salvo localmente. Sem necessidade de conta.',
+    'name-error':       'Você precisa de um indicativo para continuar!',
+    'switch-player':    '⇄ TROCAR JOGADOR',
+    'podium-title':     '★ MELHORES DEFENSORES ★',
+    'select-mode':      'SELECIONAR MODO',
+    'menu-hint':        'Complete cada modo para desbloquear o próximo.',
+    'briefing-tag':     'RELATÓRIO DE AMEAÇAS',
+    'briefing-sub':     'Novas ameaças detectadas no seu setor. Conheça o inimigo.',
+    'skip':             'PULAR ▶▶',
+    'briefing-launch':  '▶ INICIAR DEFESA',
+    'score-label':      'PONTOS',
+    'toolbar-hint':     'SELECIONE A CONTRAMEDIDA E CLIQUE NA AMEAÇA',
+    'counter-question': 'COMO VOCÊ CONTRA-ATACA ISSO?',
+    'popup-resume-hint':'Clique na contramedida correta para continuar',
+    'resume':           '▶ CONTINUAR',
+    'syllabus-btn':     '📖 TEMÁRIO',
+    'back-menu':        '⌂ VOLTAR AO MENU',
+    'syllabus-title':   '📖 TEMÁRIO DE AMEAÇAS',
+    'quit-title':       'SAIR DO JOGO?',
+    'quit-msg':         'O progresso será perdido. Tem certeza?',
+    'quit-yes':         'SIM, SAIR',
+    'quit-no':          'CANCELAR',
+    'win-title':        'SETOR PROTEGIDO!',
+    'next-gm':          'PRÓXIMO SETOR ▶',
+    'play-again':       '↺ JOGAR NOVAMENTE',
+    'gameover-title':   'SISTEMA COMPROMETIDO',
+    'gameover-sub':     'Todas as defesas foram superadas.',
+    'try-again':        '↺ TENTAR NOVAMENTE',
+    'waves-label':      'ONDAS',
+    'threats-label':    'AMEAÇAS DETIDAS',
+    'accuracy-label':   'PRECISÃO',
+    'highscore-label':  '★ NOVO RECORDE',
+    'counter-for':      'CONTRAMEDIDA:',
+    'locked-label':     '🔒 BLOQUEADO',
+    'completed-label':  '✓ CONCLUÍDO',
+    'wave-text':        'ONDA',
+    'gm5-hi':           'SEU MELHOR:',
+    'unknown-threat':   '???',
+    'toolbar-none':     'Nenhuma contramedida selecionada',
+  },
+
   es: {
     'name-entry-title': 'INGRESA TU NOMBRE',
     'name-prompt':      'INGRESA TU INDICATIVO:',
@@ -374,11 +485,11 @@ function shuffleArray(arr) {
 }
 
 function getThreatName(key) {
-  return THREATS[key][state.lang].name;
+  return (THREATS[key][state.lang] || THREATS[key]['en']).name;
 }
 
 function getCounterName(key) {
-  return COUNTERS[key] ? COUNTERS[key][state.lang] : key;
+  return COUNTERS[key] ? (COUNTERS[key][state.lang] || COUNTERS[key]['en']) : key;
 }
 
 function getPlayer() {
@@ -1104,11 +1215,13 @@ function selectCounter(threatId, chosenKey) {
 
     // Explanation
     const wrongMsgEl = document.getElementById('wrong-msg');
-    const wrongKey = state.lang === 'en' ? 'wrongEn' : 'wrongEs';
-    const msg = data[wrongKey]?.[chosenKey]
-      || (state.lang === 'en'
-          ? `${getCounterName(chosenKey)} won't work here. Try ${getCounterName(data.counter)}.`
-          : `${getCounterName(chosenKey)} no funciona aquí. Intenta con ${getCounterName(data.counter)}.`);
+    const wrongKey = state.lang === 'es' ? 'wrongEs' : state.lang === 'pt' ? 'wrongPt' : 'wrongEn';
+    const fallbacks = {
+      en: `${getCounterName(chosenKey)} won't work here. Try ${getCounterName(data.counter)}.`,
+      es: `${getCounterName(chosenKey)} no funciona aquí. Intenta con ${getCounterName(data.counter)}.`,
+      pt: `${getCounterName(chosenKey)} não funciona aqui. Tente ${getCounterName(data.counter)}.`,
+    };
+    const msg = data[wrongKey]?.[chosenKey] || fallbacks[state.lang] || fallbacks.en;
     wrongMsgEl.textContent = msg;
     wrongMsgEl.style.display = 'block';
   }
@@ -1446,6 +1559,14 @@ function goToMenu() {
 function setLang(lang) {
   state.lang = lang;
   document.getElementById('html-root').setAttribute('lang', lang);
+
+  // Highlight the active lang button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === lang;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
   applyTranslations();
 
   // Refresh dynamic content if on a screen
@@ -1490,7 +1611,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showScreen('screen-menu');
   }
 
-  applyTranslations();
+  setLang('en'); // sets active button highlight + applies translations
 
   // Keyboard: escape to pause/close popup
   document.addEventListener('keydown', e => {
