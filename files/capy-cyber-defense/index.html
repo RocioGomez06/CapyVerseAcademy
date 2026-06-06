@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capy Cyber Defense</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<a href="#game-content" class="skip-link">Skip to game</a>
+
+<div class="page-wrapper">
+  <div class="arcade-cabinet" id="cabinet">
+
+    <!-- WIN95 TITLE BAR -->
+    <div class="title-bar" role="banner">
+      <div class="title-bar-left">
+        <span class="title-bar-icon" aria-hidden="true">🛡️</span>
+        <span class="title-bar-text">Capy Cyber Defense</span>
+      </div>
+      <div class="title-bar-controls">
+        <button class="title-btn lang-btn" onclick="setLang('es')" aria-label="Español">ES</button>
+        <button class="title-btn lang-btn" onclick="setLang('en')" aria-label="English">EN</button>
+        <button class="title-btn pause-btn" id="btn-pause" onclick="togglePause()" aria-label="Pause game" style="display:none">⏸</button>
+        <button class="title-btn fullscreen-btn" onclick="toggleFullscreen()" aria-label="Toggle fullscreen">⛶</button>
+      </div>
+    </div>
+
+    <!-- GAME CONTENT -->
+    <div class="game-content" id="game-content">
+
+      <!-- SCREEN: NAME ENTRY -->
+      <div id="screen-name" class="screen active" role="main" aria-label="Player name entry">
+        <div class="name-entry-scene">
+          <div class="stars-bg" id="stars-name" aria-hidden="true"></div>
+          <div class="name-window" role="dialog" aria-label="Enter your callsign">
+            <div class="win95-titlebar">
+              <span class="win95-titlebar-text" data-i18n="name-entry-title">INSERT CALLSIGN</span>
+              <span aria-hidden="true" class="win95-titlebar-icon">▣</span>
+            </div>
+            <div class="name-window-body">
+              <p class="name-prompt-label" data-i18n="name-prompt">ENTER YOUR CALLSIGN:</p>
+              <div class="name-input-row">
+                <input type="text" id="name-input" maxlength="12"
+                  autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"
+                  aria-label="Player callsign" placeholder="PLAYER1" />
+                <span class="cursor-blink" aria-hidden="true"></span>
+              </div>
+              <p class="name-hint" data-i18n="name-hint">Up to 12 characters</p>
+              <button class="btn-confirm" id="btn-confirm-name" onclick="confirmName()" data-i18n="name-confirm">▶ CONFIRM</button>
+            </div>
+          </div>
+          <div class="name-entry-hint" data-i18n="name-entry-hint">
+            Your name is saved locally. No account needed.
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN: MAIN MENU -->
+      <div id="screen-menu" class="screen" role="main" aria-label="Main menu">
+        <div class="menu-scroll">
+          <div class="stars-bg" id="stars-menu" aria-hidden="true"></div>
+
+          <div class="menu-header">
+            <div class="greeting-box">
+              <p class="greeting-line" id="greeting-line" aria-live="polite">WELCOME, DEFENDER!</p>
+              <p class="greeting-sub" id="greeting-sub"></p>
+            </div>
+            <button class="btn-switch" onclick="switchPlayer()" data-i18n="switch-player">⇄ SWITCH PLAYER</button>
+          </div>
+
+          <!-- PODIUM -->
+          <div id="podium-section" class="podium-section" style="display:none" aria-label="High scores podium">
+            <h2 class="section-heading" data-i18n="podium-title">★ TOP DEFENDERS ★</h2>
+            <div id="podium-display" class="podium-display" role="list"></div>
+          </div>
+
+          <!-- GAMEMODE LIST -->
+          <h2 class="section-heading" data-i18n="select-mode">SELECT GAMEMODE</h2>
+          <div class="gamemode-list" id="gamemode-list" role="list" aria-label="Gamemodes"></div>
+
+          <p class="menu-footer-hint" data-i18n="menu-hint">Complete each gamemode to unlock the next one.</p>
+        </div>
+      </div>
+
+      <!-- SCREEN: BRIEFING -->
+      <div id="screen-briefing" class="screen" role="main" aria-label="Pre-game briefing">
+        <div class="briefing-scene">
+          <div class="stars-bg" id="stars-briefing" aria-hidden="true"></div>
+          <div class="briefing-content">
+            <div class="briefing-header">
+              <span class="briefing-tag" data-i18n="briefing-tag">THREAT BRIEFING</span>
+              <h2 class="briefing-title" id="briefing-title"></h2>
+              <p class="briefing-sub" data-i18n="briefing-sub">New threats detected in your sector. Know your enemy.</p>
+            </div>
+            <div class="briefing-cards" id="briefing-cards" role="list" aria-label="New threats this gamemode"></div>
+            <div class="briefing-footer">
+              <button class="btn-skip" id="btn-skip-briefing" onclick="skipBriefing()" style="display:none" data-i18n="skip">SKIP ▶▶</button>
+              <button class="btn-launch" id="btn-launch-game" onclick="launchGame()" data-i18n="briefing-launch">▶ LAUNCH DEFENSE</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN: GAME -->
+      <div id="screen-game" class="screen" role="main" aria-label="Gameplay screen">
+
+        <!-- HUD -->
+        <div class="hud" id="hud" role="status">
+          <div class="hud-left">
+            <div class="hud-hearts" id="hud-hearts" aria-label="Lives remaining"></div>
+          </div>
+          <div class="hud-center">
+            <div class="hud-gm-name" id="hud-gm-name"></div>
+            <div class="hud-wave" id="hud-wave" aria-live="polite"></div>
+          </div>
+          <div class="hud-right">
+            <div class="hud-score-label" data-i18n="score-label">SCORE</div>
+            <div class="hud-score" id="hud-score" aria-label="Score: 0">000000</div>
+          </div>
+        </div>
+
+        <!-- GAME FIELD -->
+        <div class="game-field" id="game-field">
+          <div class="field-stars" id="field-stars" aria-hidden="true"></div>
+          <div class="projectiles" id="projectiles" aria-hidden="true"></div>
+          <div class="ship" id="ship" aria-label="Your defense ship">
+            <div class="ship-inner" aria-hidden="true">🛸</div>
+            <div class="ship-thruster" aria-hidden="true"></div>
+          </div>
+        </div>
+
+        <!-- GM5 COUNTER TOOLBAR -->
+        <div class="counter-toolbar" id="counter-toolbar" style="display:none" role="toolbar" aria-label="Counter toolbar">
+          <p class="toolbar-hint" data-i18n="toolbar-hint">SELECT COUNTER FIRST, THEN CLICK THREAT</p>
+          <div class="toolbar-buttons" id="toolbar-buttons"></div>
+        </div>
+
+      </div>
+
+      <!-- SCREEN: WIN -->
+      <div id="screen-win" class="screen" role="main" aria-label="Gamemode complete">
+        <div class="result-screen">
+          <div class="stars-bg" id="stars-win" aria-hidden="true"></div>
+          <div class="result-icon win-icon" aria-hidden="true">🏆</div>
+          <h2 class="result-title win-color" data-i18n="win-title">SECTOR SECURED!</h2>
+          <p class="result-gm-name" id="win-gm-name"></p>
+          <div class="result-stats" id="win-stats" aria-live="polite"></div>
+          <div class="result-buttons">
+            <button class="btn-result btn-again" onclick="replayGamemode()" data-i18n="play-again">↺ PLAY AGAIN</button>
+            <button class="btn-result btn-next" id="btn-next-gm" onclick="nextGamemode()" data-i18n="next-gm">NEXT SECTOR ▶</button>
+            <button class="btn-result btn-menu" onclick="goToMenu()" data-i18n="back-menu">⌂ MENU</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SCREEN: GAME OVER -->
+      <div id="screen-gameover" class="screen" role="main" aria-label="Game over">
+        <div class="result-screen">
+          <div class="stars-bg" id="stars-gameover" aria-hidden="true"></div>
+          <div class="result-icon gameover-icon" aria-hidden="true">💀</div>
+          <h2 class="result-title gameover-color" data-i18n="gameover-title">SYSTEM COMPROMISED</h2>
+          <p class="result-sub" data-i18n="gameover-sub">All defenses were overwhelmed.</p>
+          <div class="result-stats" id="gameover-stats" aria-live="polite"></div>
+          <div class="result-buttons">
+            <button class="btn-result btn-again" onclick="replayGamemode()" data-i18n="try-again">↺ TRY AGAIN</button>
+            <button class="btn-result btn-menu" onclick="goToMenu()" data-i18n="back-menu">⌂ MENU</button>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.game-content -->
+
+    <!-- BOTTOM BEZEL -->
+    <div class="cabinet-bezel" aria-hidden="true">
+      <span class="bezel-brand">★ CAPY VERSE ACADEMY ★ CYBER DEFENSE ★</span>
+      <div class="bezel-leds">
+        <span class="led led-blue"></span>
+        <span class="led led-vermillion"></span>
+        <span class="led led-sky"></span>
+      </div>
+    </div>
+
+  </div><!-- /.arcade-cabinet -->
+
+  <!-- ───── OVERLAYS ───── -->
+
+  <!-- PAUSE OVERLAY -->
+  <div id="overlay-pause" class="overlay" role="dialog" aria-modal="true" aria-label="Pause menu" style="display:none">
+    <div class="overlay-window pause-window">
+      <div class="win95-titlebar">
+        <span class="win95-titlebar-text">⏸ PAUSED</span>
+      </div>
+      <div class="overlay-body">
+        <button class="btn-overlay-action" onclick="togglePause()" data-i18n="resume">▶ RESUME</button>
+        <button class="btn-overlay-action" onclick="openSyllabus()" data-i18n="syllabus-btn">📖 SYLLABUS</button>
+        <button class="btn-overlay-action btn-danger" onclick="confirmQuit()" data-i18n="back-menu">⌂ BACK TO MENU</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- SYLLABUS OVERLAY -->
+  <div id="overlay-syllabus" class="overlay" role="dialog" aria-modal="true" aria-label="Threat syllabus" style="display:none">
+    <div class="overlay-window syllabus-window">
+      <div class="win95-titlebar">
+        <span class="win95-titlebar-text" data-i18n="syllabus-title">📖 THREAT SYLLABUS</span>
+        <button class="win95-close-btn" onclick="closeSyllabus()" aria-label="Close syllabus">✕</button>
+      </div>
+      <div class="syllabus-body" id="syllabus-body" role="list"></div>
+    </div>
+  </div>
+
+  <!-- COUNTER SELECTION POPUP -->
+  <div id="overlay-counter" class="overlay counter-overlay" role="dialog" aria-modal="true" aria-label="Select your counter" style="display:none">
+    <div class="counter-popup" id="counter-popup">
+      <div class="popup-threat-display" id="popup-threat-display" aria-hidden="true"></div>
+      <p class="counter-question" data-i18n="counter-question">HOW DO YOU COUNTER THIS?</p>
+      <div class="counter-options" id="counter-options" role="group" aria-label="Counter options"></div>
+      <div class="wrong-msg" id="wrong-msg" style="display:none" aria-live="assertive" role="alert"></div>
+      <div class="popup-resume-hint" aria-hidden="true" data-i18n="popup-resume-hint">Click the correct counter to resume</div>
+    </div>
+  </div>
+
+  <!-- WAVE ANNOUNCEMENT -->
+  <div id="overlay-wave" class="overlay wave-overlay" aria-live="assertive" aria-atomic="true" style="display:none; pointer-events:none">
+    <div class="wave-announce" id="wave-announce"></div>
+  </div>
+
+  <!-- QUIT CONFIRM -->
+  <div id="overlay-quit" class="overlay" role="dialog" aria-modal="true" aria-label="Quit to menu?" style="display:none">
+    <div class="overlay-window quit-window">
+      <div class="win95-titlebar">
+        <span class="win95-titlebar-text" data-i18n="quit-title">QUIT GAME?</span>
+      </div>
+      <div class="overlay-body">
+        <p class="quit-msg" data-i18n="quit-msg">Progress will be lost. Are you sure?</p>
+        <div class="quit-buttons">
+          <button class="btn-overlay-action btn-danger" onclick="goToMenu()" data-i18n="quit-yes">YES, QUIT</button>
+          <button class="btn-overlay-action" onclick="cancelQuit()" data-i18n="quit-no">CANCEL</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE FOOTER -->
+  <footer class="page-footer">
+    <span>© 2025 Capy Verse Academy · Educational CS Games</span>
+    <a href="../capyverse-academy.html" class="btn-back-academy">◀ Back to Academy</a>
+    <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+  </footer>
+
+</div><!-- /.page-wrapper -->
+
+<script src="script.js"></script>
+</body>
+</html>
