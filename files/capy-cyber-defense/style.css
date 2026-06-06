@@ -314,6 +314,19 @@ body {
   border-bottom: 2px solid #00c98f;
   border-right: 2px solid #00c98f;
 }
+.name-error {
+  font-family: var(--pixel-font);
+  font-size: 7px;
+  color: var(--vermillion);
+  letter-spacing: 1px;
+  text-align: center;
+  background: #1a0000;
+  border: 1px solid var(--vermillion);
+  padding: 8px 12px;
+  line-height: 1.8;
+  animation: shake .3s ease;
+}
+
 .name-entry-hint {
   position: relative;
   z-index: 1;

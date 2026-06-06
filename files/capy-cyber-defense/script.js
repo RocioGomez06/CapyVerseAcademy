@@ -230,6 +230,7 @@ const TRANSLATIONS = {
     'name-hint':        'Up to 12 characters',
     'name-confirm':     '▶ CONFIRM',
     'name-entry-hint':  'Your name is saved locally. No account needed.',
+    'name-error':       'You need a callsign to continue!',
     'switch-player':    '⇄ SWITCH PLAYER',
     'podium-title':     '★ TOP DEFENDERS ★',
     'select-mode':      'SELECT GAMEMODE',
@@ -274,6 +275,7 @@ const TRANSLATIONS = {
     'name-hint':        'Máximo 12 caracteres',
     'name-confirm':     '▶ CONFIRMAR',
     'name-entry-hint':  'Tu nombre se guarda localmente. No necesitas cuenta.',
+    'name-error':       'Debes ingresar un nombre para continuar.',
     'switch-player':    '⇄ CAMBIAR JUGADOR',
     'podium-title':     '★ MEJORES DEFENSORES ★',
     'select-mode':      'SELECCIONAR MODO',
@@ -535,12 +537,18 @@ function initNameEntry() {
 
 function confirmName() {
   const input = document.getElementById('name-input');
+  const errorEl = document.getElementById('name-error');
   const name = input.value.trim().toUpperCase().replace(/[^A-Z0-9_-]/g, '').slice(0, 12);
   if (!name) {
-    input.style.boxShadow = '0 0 0 2px #D55E00';
-    setTimeout(() => { input.style.boxShadow = ''; }, 800);
+    errorEl.textContent = t('name-error');
+    errorEl.style.display = 'block';
+    // Re-trigger shake animation
+    errorEl.style.animation = 'none';
+    requestAnimationFrame(() => { errorEl.style.animation = ''; });
+    input.focus();
     return;
   }
+  errorEl.style.display = 'none';
   addPlayer(name);
   initMenu();
   showScreen('screen-menu');
