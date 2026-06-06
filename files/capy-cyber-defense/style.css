@@ -1296,6 +1296,9 @@ body {
   50%     { opacity: .2; }
 }
 
+/* Hide footer when the game is embedded inside the Academy overlay iframe */
+.standalone-only { display: none; }
+
 /* ── PAGE FOOTER ── */
 .page-footer {
   width: 100%;

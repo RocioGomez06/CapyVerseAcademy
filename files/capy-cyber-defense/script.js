@@ -1466,6 +1466,11 @@ function toggleFullscreen() {
 // ═══════════════════════════════════════════
 
 document.addEventListener('DOMContentLoaded', () => {
+  // Show the standalone footer only when not embedded inside the Academy overlay
+  if (window.self === window.top) {
+    document.querySelectorAll('.standalone-only').forEach(el => el.style.display = '');
+  }
+
   loadPlayers();
 
   if (state.players.length === 0) {

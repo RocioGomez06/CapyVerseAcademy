@@ -345,7 +345,7 @@
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn-play" onclick="openGame('capy-code-quest/index.html')" data-i18n="btn-play">▶ PLAY NOW</button>
+            <button class="btn-play" onclick="openGame('capy-code-quest/index.html','Capy Code Quest')" data-i18n="btn-play">▶ PLAY NOW</button>
           </div>
         </article>
 
@@ -445,7 +445,7 @@
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn-play" onclick="openGame('capy-cyber-defense/index.html')" data-i18n="btn-play">▶ PLAY NOW</button>
+            <button class="btn-play" onclick="openGame('capy-cyber-defense/index.html','Capy Cyber Defense')" data-i18n="btn-play">▶ PLAY NOW</button>
           </div>
         </article>
 
@@ -578,12 +578,12 @@
   </footer>
 
   <!-- ── GAME OVERLAY ── -->
-  <div id="game-overlay" class="game-overlay" aria-modal="true" role="dialog" aria-label="Capy Code Quest" hidden>
+  <div id="game-overlay" class="game-overlay" aria-modal="true" role="dialog" aria-label="Game" hidden>
     <div class="overlay-topbar">
-      <span class="overlay-topbar-left">🐾 Capy Code Quest</span>
+      <span class="overlay-topbar-left" id="overlay-game-title">🐾 CapyVerse Academy</span>
       <button class="overlay-back" onclick="closeGame()" aria-label="Back to CapyVerse Academy">⟵ BACK TO ACADEMY</button>
     </div>
-    <iframe id="game-frame" class="overlay-frame" src="" title="Capy Code Quest game" allowfullscreen></iframe>
+    <iframe id="game-frame" class="overlay-frame" src="" title="Game" allowfullscreen></iframe>
   </div>
 
   <script>
@@ -776,11 +776,15 @@
 
   // ── GAME OVERLAY ──
   let _overlayTrigger = null;
-  function openGame(src) {
-    const overlay = document.getElementById('game-overlay');
-    const frame   = document.getElementById('game-frame');
-    _overlayTrigger = document.activeElement;
-    frame.src = src;
+  function openGame(src, name) {
+    const overlay    = document.getElementById('game-overlay');
+    const frame      = document.getElementById('game-frame');
+    const titleEl    = document.getElementById('overlay-game-title');
+    _overlayTrigger  = document.activeElement;
+    frame.src        = src;
+    frame.title      = name || 'Game';
+    if (titleEl) titleEl.textContent = '🐾 ' + (name || 'CapyVerse Academy');
+    overlay.setAttribute('aria-label', name || 'Game');
     overlay.hidden = false;
     requestAnimationFrame(() => {
       overlay.classList.add('open');
