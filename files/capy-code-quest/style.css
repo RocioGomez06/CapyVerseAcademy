@@ -147,6 +147,16 @@ body {
   box-shadow: none;
 }
 
+.lang-btn.active {
+  background: var(--accent-gold);
+  color: #000;
+  border-top-color: #ffe080;
+  border-left-color: #ffe080;
+  border-bottom-color: #8a6000;
+  border-right-color: #8a6000;
+}
+.lang-btn.active:hover { background: var(--accent-gold); }
+
 .fullscreen-btn {
   font-size: 12px;
   padding: 2px 6px;

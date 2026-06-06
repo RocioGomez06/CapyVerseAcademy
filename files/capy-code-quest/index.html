@@ -26,9 +26,9 @@
           <span class="title-bar-text">Capy Code Quest</span>
         </div>
         <div class="title-bar-controls">
-          <button class="title-btn lang-btn" onclick="changeLanguage('es')" title="Español">ES</button>
-          <button class="title-btn lang-btn" onclick="changeLanguage('en')" title="English">EN</button>
-          <button class="title-btn lang-btn" onclick="changeLanguage('pt')" title="Português">PT</button>
+          <button class="title-btn lang-btn" data-lang="es" onclick="changeLanguage('es')" title="Español" aria-pressed="false">ES</button>
+          <button class="title-btn lang-btn" data-lang="en" onclick="changeLanguage('en')" title="English" aria-pressed="true">EN</button>
+          <button class="title-btn lang-btn" data-lang="pt" onclick="changeLanguage('pt')" title="Português" aria-pressed="false">PT</button>
           <button class="title-btn fullscreen-btn" id="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen" aria-label="Toggle fullscreen">⛶</button>
         </div>
       </div>
@@ -87,7 +87,7 @@
             <section class="controls-section">
               <h2 data-key="commandsTitle">Commands</h2>
               <div class="buttons">
-                <button id="btn-move"    data-key="moveFoward">moveForward</button>
+                <button id="btn-move"    data-key="moveForward">moveForward</button>
                 <button id="btn-left"    data-key="turnLeft">turnLeft</button>
                 <button id="btn-right"   data-key="turnRight">turnRight</button>
                 <button id="btn-repeat2" data-key="repeat2">repeatFwd 2x</button>

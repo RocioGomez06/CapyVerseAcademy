@@ -11,6 +11,7 @@ let currentLanguage = "en";
 const translations = {
   en: {
     title:           "Capy Code Quest",
+    gameTitle:       "Capy Code Quest",
     readyMessage:    "Ready! Build your program and press RUN.",
     runButton:       "▶ RUN",
     clearButton:     "✕ CLEAR",
@@ -48,6 +49,7 @@ const translations = {
   },
   es: {
     title:           "Capy Code Quest",
+    gameTitle:       "Capy Code Quest",
     readyMessage:    "¡Listo! Crea tu programa y pulsa EJECUTAR.",
     runButton:       "▶ EJECUTAR",
     clearButton:     "✕ BORRAR",
@@ -85,6 +87,7 @@ const translations = {
   },
   pt: {
     title:           "Capy Code Quest",
+    gameTitle:       "Capy Code Quest",
     readyMessage:    "Pronto! Crie seu programa e pressione EXECUTAR.",
     runButton:       "▶ EXECUTAR",
     clearButton:     "✕ LIMPAR",
@@ -288,6 +291,7 @@ loadProgress();
 createGrid();
 resetGameState();
 updateProgramList();
+changeLanguage('en');
 populateLevelList();
 showMessage(translations.en.readyMessage);
 showScreen("start");
@@ -758,20 +762,29 @@ function changeLanguage(lang) {
   currentLanguage = lang;
   const t = translations[lang];
 
+  // Update html[lang] for screen readers
+  document.documentElement.setAttribute('lang', lang);
+
+  // Highlight active lang button
+  document.querySelectorAll('.lang-btn').forEach(btn => {
+    const active = btn.dataset.lang === lang;
+    btn.classList.toggle('active', active);
+    btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+  });
+
   document.querySelectorAll("[data-key]").forEach(el => {
     const key = el.getAttribute("data-key");
     if (t[key] !== undefined) {
-      // Use innerHTML for keys that contain HTML tags
       if (key === "startSubtitle") el.innerHTML = t[key];
       else el.textContent = t[key];
     }
   });
 
-  btnRun.textContent    = t.runButton;
-  btnClear.textContent  = t.clearButton;
-  btnMove.textContent   = t.moveForward;
-  btnLeft.textContent   = t.turnLeft;
-  btnRight.textContent  = t.turnRight;
+  btnRun.textContent     = t.runButton;
+  btnClear.textContent   = t.clearButton;
+  btnMove.textContent    = t.moveForward;
+  btnLeft.textContent    = t.turnLeft;
+  btnRight.textContent   = t.turnRight;
   btnRepeat2.textContent = t.repeat2;
   btnRepeat3.textContent = t.repeat3;
 
