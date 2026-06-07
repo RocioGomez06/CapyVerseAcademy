@@ -1617,9 +1617,12 @@ function setLang(lang) {
 // ═══════════════════════════════════════════
 
 function toggleFullscreen() {
-  const cabinet = document.getElementById('cabinet');
+  // Fullscreen the whole page (documentElement) instead of the cabinet,
+  // so the cabinet keeps its natural max-width and the page's space
+  // background fills the surrounding area.
+  const root = document.documentElement;
   if (!document.fullscreenElement) {
-    (cabinet.requestFullscreen || cabinet.webkitRequestFullscreen || cabinet.mozRequestFullScreen).call(cabinet);
+    (root.requestFullscreen || root.webkitRequestFullscreen || root.mozRequestFullScreen).call(root);
   } else {
     (document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen).call(document);
   }

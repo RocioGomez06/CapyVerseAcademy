@@ -712,11 +712,14 @@ function hideNextLevel() {
 // ==== FULLSCREEN ====
 
 function toggleFullscreen() {
-  const cabinet = document.querySelector(".arcade-cabinet");
+  // Fullscreen the whole page instead of the cabinet, so the cabinet
+  // keeps its natural max-width and is centered with the page's
+  // background filling the surrounding area.
+  const root = document.documentElement;
   const btn = document.getElementById("btn-fullscreen");
 
   if (!document.fullscreenElement) {
-    cabinet.requestFullscreen().then(() => {
+    root.requestFullscreen().then(() => {
       btn.textContent = "⛶✕";
       btn.title = "Exit Fullscreen";
     }).catch(err => {

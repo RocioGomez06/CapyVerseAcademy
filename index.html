@@ -19,6 +19,10 @@
     }
     *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
     html{scroll-behavior:smooth}
+    /* ── CAPY HAND CURSOR (pixel art, 2x scaled with nearest-neighbor) ── */
+    *{cursor:url("assets/cursor/capyHandCursor@2x.png") 8 4, auto}
+    a,button,[role='button'],.swatch,input[type='submit'],input[type='button'],.btn-play,.btn-ghost,.lang-btn,.overlay-back,.nav-link{cursor:url("assets/cursor/capyHandCursor@2x.png") 8 4, pointer !important}
+    *:active,a:active,button:active,[role='button']:active{cursor:url("assets/cursor/capyHandCursorClosed@2x.png") 8 4, pointer !important}
     body{background:var(--bg);color:var(--white);font-family:var(--font-body);font-size:18px;line-height:1.7;overflow-x:hidden}
     body::before{content:'';position:fixed;inset:0;background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);pointer-events:none;z-index:9999}
     ::selection{background:var(--orange);color:var(--bg)}
