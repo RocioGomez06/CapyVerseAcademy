@@ -226,16 +226,17 @@ let completedLevels = [];
 
 function loadProgress() {
   const saved = localStorage.getItem("capyCompletedLevels");
+  let parsed = null;
   if (saved) {
-    try {
-      const parsed = JSON.parse(saved);
-      completedLevels = levels.map((_, i) => !!parsed[i]);
-    } catch {
-      completedLevels = levels.map(() => false);
-    }
-  } else {
-    completedLevels = levels.map(() => false);
+    try { parsed = JSON.parse(saved); } catch { parsed = null; }
   }
+  // Normalize: must be an array of booleans matching levels.length; coerce
+  // truthy/falsy entries and pad/truncate to the current level count.
+  if (!Array.isArray(parsed)) {
+    completedLevels = levels.map(() => false);
+    return;
+  }
+  completedLevels = levels.map((_, i) => Boolean(parsed[i]));
 }
 
 function saveProgress() {

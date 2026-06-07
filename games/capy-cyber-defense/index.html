@@ -6,7 +6,7 @@
   <title>Capy Cyber Defense</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=5" />
+  <link rel="stylesheet" href="style.css?v=6" />
 </head>
 <body>
 
@@ -113,7 +113,7 @@
         <!-- HUD -->
         <div class="hud" id="hud" role="status">
           <div class="hud-left">
-            <div class="hud-hearts" id="hud-hearts" aria-label="Lives remaining"></div>
+            <div class="hud-hearts" id="hud-hearts" aria-label="Lives remaining" aria-live="polite" aria-atomic="true"></div>
           </div>
           <div class="hud-center">
             <div class="hud-gm-name" id="hud-gm-name"></div>
@@ -121,7 +121,7 @@
           </div>
           <div class="hud-right">
             <div class="hud-score-label" data-i18n="score-label">SCORE</div>
-            <div class="hud-score" id="hud-score" aria-label="Score: 0">000000</div>
+            <div class="hud-score" id="hud-score" aria-label="Score: 0" aria-live="polite" aria-atomic="true">000000</div>
           </div>
         </div>
 
@@ -256,6 +256,6 @@
 
 </div><!-- /.page-wrapper -->
 
-<script src="script.js?v=5"></script>
+<script src="script.js?v=6"></script>
 </body>
 </html>

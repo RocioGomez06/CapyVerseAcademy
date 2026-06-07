@@ -547,10 +547,26 @@ function generateFieldStars() {
 //  LOCALSTORAGE
 // ═══════════════════════════════════════════
 
+function normalizePlayer(p) {
+  // Coerce a possibly-stale or tampered player record into the expected shape.
+  if (!p || typeof p !== 'object') return null;
+  const name = typeof p.name === 'string'
+    ? p.name.toUpperCase().replace(/[^A-Z0-9_-]/g, '').slice(0, 12)
+    : '';
+  if (!name) return null;
+  return {
+    name,
+    completed:  Array.isArray(p.completed)  ? p.completed.filter(n => Number.isInteger(n)) : [],
+    highScore:  Number.isFinite(p.highScore) ? Math.max(0, Math.floor(p.highScore)) : 0,
+    syllabus:   Array.isArray(p.syllabus)   ? p.syllabus.filter(k => typeof k === 'string' && THREATS[k]) : [],
+  };
+}
+
 function loadPlayers() {
   try {
     const raw = localStorage.getItem('ccd_players');
-    state.players = raw ? JSON.parse(raw) : [];
+    const parsed = raw ? JSON.parse(raw) : [];
+    state.players = Array.isArray(parsed) ? parsed.map(normalizePlayer).filter(Boolean) : [];
   } catch {
     state.players = [];
   }
@@ -712,14 +728,30 @@ function renderPodium() {
     const entry = document.createElement('div');
     entry.className = 'podium-entry';
     entry.setAttribute('role', 'listitem');
-    entry.innerHTML = `
-      <span class="podium-medal" aria-hidden="true">${medals[i]}</span>
-      <div class="podium-block ${rankClasses[i]}">
-        <span class="podium-name">${ranked[i].name}</span>
-        <span class="podium-score">${String(ranked[i].highScore).padStart(6, '0')}</span>
-      </div>
-      <span class="podium-rank">#${i + 1}</span>
-    `;
+
+    // Build with DOM nodes so player names from localStorage can't inject HTML
+    const medal = document.createElement('span');
+    medal.className = 'podium-medal';
+    medal.setAttribute('aria-hidden', 'true');
+    medal.textContent = medals[i];
+
+    const block = document.createElement('div');
+    block.className = `podium-block ${rankClasses[i]}`;
+
+    const nameEl = document.createElement('span');
+    nameEl.className = 'podium-name';
+    nameEl.textContent = ranked[i].name;
+
+    const scoreEl = document.createElement('span');
+    scoreEl.className = 'podium-score';
+    scoreEl.textContent = String(ranked[i].highScore).padStart(6, '0');
+
+    const rank = document.createElement('span');
+    rank.className = 'podium-rank';
+    rank.textContent = `#${i + 1}`;
+
+    block.append(nameEl, scoreEl);
+    entry.append(medal, block, rank);
     display.appendChild(entry);
   });
 }
@@ -1023,9 +1055,10 @@ function spawnThreat(threatKey, speedMult) {
   const el = document.createElement('div');
   el.className = 'threat';
   el.id = id;
-  el.setAttribute('role', 'button');
-  el.setAttribute('tabindex', '0');
-  el.setAttribute('aria-label', `${data[state.lang].name} — click to defend`);
+  // Threats are mouse/touch targets only — they animate down the screen,
+  // so keyboard tabbing to them isn't viable. aria-hidden keeps the moving
+  // soup out of the screen reader's accessibility tree.
+  el.setAttribute('aria-hidden', 'true');
   el.style.setProperty('--threat-color', data.color);
 
   const baseDur = (22 - data.speed * 2);
@@ -1063,9 +1096,6 @@ function spawnThreat(threatKey, speedMult) {
   };
 
   el.addEventListener('click', handleActivate);
-  el.addEventListener('keydown', e => {
-    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); handleActivate(); }
-  });
 
   document.getElementById('game-field').appendChild(el);
 }
@@ -1080,6 +1110,10 @@ function applyCounterDirect(threatId) {
   const data = THREATS[obj.key];
 
   if (!state.gm5SelectedCounter) {
+    // Count a click without a selected counter as a missed attempt so the
+    // accuracy stat reflects reality.
+    state.sessionTotalAnswers++;
+    state.scoreMultiplier = 1;
     obj.el.classList.add('hit');
     setTimeout(() => obj.el && obj.el.classList.remove('hit'), 300);
     return;
@@ -1099,7 +1133,8 @@ function applyCounterDirect(threatId) {
       obj.el.classList.add('hit');
       setTimeout(() => obj.el && obj.el.classList.remove('hit'), 300);
     }
-    addScore(data.damage * 10 * state.currentWave + 10);
+    // Unified scoring formula (same as selectCounter): damage × 10 × multiplier.
+    addScore(data.damage * 10 * state.scoreMultiplier);
     state.scoreMultiplier = Math.min(state.scoreMultiplier + .5, 5);
   } else {
     state.scoreMultiplier = 1;
@@ -1171,6 +1206,12 @@ function selectCounter(threatId, chosenKey) {
   if (!obj) { closeCounterPopup(); return; }
   const data = THREATS[obj.key];
 
+  // Guard against double-clicks during the 300ms feedback window: lock all
+  // option buttons immediately. On a wrong answer we'll re-enable the
+  // remaining (non-chosen) buttons so the player can try again.
+  const optionBtns = document.querySelectorAll('#counter-options .counter-option-btn');
+  optionBtns.forEach(b => { b.disabled = true; });
+
   state.sessionTotalAnswers++;
 
   if (chosenKey === data.counter) {
@@ -1225,6 +1266,11 @@ function selectCounter(threatId, chosenKey) {
     const msg = data[wrongKey]?.[chosenKey] || fallbacks[state.lang] || fallbacks.en;
     wrongMsgEl.textContent = msg;
     wrongMsgEl.style.display = 'block';
+
+    // Re-enable the remaining (non-chosen) options so the player can try again.
+    optionBtns.forEach(b => {
+      if (b !== wrongBtn) b.disabled = false;
+    });
   }
 }
 
@@ -1287,8 +1333,6 @@ function destroyThreat(threatId) {
   state.sessionThreatsDestroyed++;
 
   const el = obj.el;
-  el.removeAttribute('tabindex');
-  el.setAttribute('aria-hidden', 'true');
   el.style.pointerEvents = 'none';
 
   // Add class to the threat element so CSS selector .threat.destroying .threat-emoji works
