@@ -287,6 +287,12 @@ const btnNext    = document.getElementById("btn-next-level");
 
 // ==== INIT ====
 
+// Hide page-footer when running inside the CapyVerse overlay iframe
+if (window.self !== window.top) {
+  const pf = document.querySelector('.page-footer');
+  if (pf) pf.style.display = 'none';
+}
+
 loadProgress();
 createGrid();
 resetGameState();

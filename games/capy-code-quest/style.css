@@ -399,6 +399,13 @@ main {
   background-color: #002200 !important;
 }
 
+/* When Capy is on a switch, always show Capy — switch activates via game logic */
+.cell.capy.switch,
+.cell.capy.switch.activated {
+  background-image: url("assets/capy-topdown.png") !important;
+  background-color: #0a1a2a !important;
+}
+
 /* GATE (fence) */
 .cell.gate {
   background-color: #2a1000 !important;
