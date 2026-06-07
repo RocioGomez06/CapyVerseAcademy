@@ -1028,8 +1028,8 @@ function spawnThreat(threatKey, speedMult) {
   el.setAttribute('aria-label', `${data[state.lang].name} — click to defend`);
   el.style.setProperty('--threat-color', data.color);
 
-  const baseDur = (14 - data.speed * 2);
-  const duration = Math.max(2, baseDur / speedMult);
+  const baseDur = (22 - data.speed * 2);
+  const duration = Math.max(4, baseDur / speedMult);
   el.style.setProperty('--dur', duration + 's');
   el.style.left = (8 + Math.random() * 72) + '%';
 
@@ -1045,8 +1045,9 @@ function spawnThreat(threatKey, speedMult) {
   // Track
   state.activeThreatObjects[id] = { key: threatKey, hp: data.hp, el };
 
-  // Reached bottom
-  el.addEventListener('animationend', () => {
+  // Reached bottom — filter so hit-flash / destroy bubbling don't trigger life loss
+  el.addEventListener('animationend', (e) => {
+    if (e.animationName !== 'descend') return;
     if (state.activeThreatObjects[id]) threatReachedBottom(id);
   });
 
@@ -1141,7 +1142,9 @@ function openCounterPopup(threatId) {
     <span class="popup-threat-name">${data[state.lang].name}</span>
   `;
 
-  document.getElementById('wrong-msg').style.display = 'none';
+  const wrongMsgInit = document.getElementById('wrong-msg');
+  wrongMsgInit.style.display = 'none';
+  wrongMsgInit.classList.remove('damaged-hint');
   document.getElementById('counter-question').textContent = t('counter-question');
   document.getElementById('popup-resume-hint').textContent = t('popup-resume-hint');
 
@@ -1179,25 +1182,23 @@ function selectCounter(threatId, chosenKey) {
     if (btn) btn.classList.add('correct');
 
     setTimeout(() => {
-      // Re-fetch obj in case state changed during timeout
       const liveObj = state.activeThreatObjects[threatId];
-      closeCounterPopup();
-
-      if (!liveObj) return; // threat was already gone (e.g. reached bottom during popup)
+      if (!liveObj) { closeCounterPopup(); return; }
 
       liveObj.hp--;
       updateHpDisplay(liveObj);
       fireProjectile(liveObj.el);
+      addScore(data.damage * 10 * state.scoreMultiplier);
+      state.scoreMultiplier = Math.min(state.scoreMultiplier + .5, 5);
 
       if (liveObj.hp <= 0) {
+        closeCounterPopup();
         destroyThreat(threatId);
       } else {
         liveObj.el.classList.add('hit');
         setTimeout(() => liveObj.el && liveObj.el.classList.remove('hit'), 400);
+        rearmCounterPopup(threatId);
       }
-
-      addScore(data.damage * 10 * state.scoreMultiplier);
-      state.scoreMultiplier = Math.min(state.scoreMultiplier + .5, 5);
     }, 300);
 
   } else {
@@ -1225,6 +1226,40 @@ function selectCounter(threatId, chosenKey) {
     wrongMsgEl.textContent = msg;
     wrongMsgEl.style.display = 'block';
   }
+}
+
+function rearmCounterPopup(threatId) {
+  const obj = state.activeThreatObjects[threatId];
+  if (!obj) { closeCounterPopup(); return; }
+  const data = THREATS[obj.key];
+
+  // Rebuild option list (fresh order, fresh distractors)
+  const optionCount = Math.min(2 + Math.floor(state.currentWave / 2) + 1, 4);
+  let options = [data.counter, ...shuffleArray(data.distractors).slice(0, optionCount - 1)];
+  options = shuffleArray(options);
+  if (!options.includes(data.counter)) { options[0] = data.counter; options = shuffleArray(options); }
+
+  const optionsEl = document.getElementById('counter-options');
+  optionsEl.innerHTML = '';
+  options.forEach(key => {
+    const btn = document.createElement('button');
+    btn.className = 'counter-option-btn';
+    btn.textContent = getCounterName(key);
+    btn.setAttribute('data-counter', key);
+    btn.setAttribute('aria-label', `Use ${getCounterName(key)}`);
+    btn.onclick = () => selectCounter(threatId, key);
+    optionsEl.appendChild(btn);
+  });
+
+  const wrongMsgEl = document.getElementById('wrong-msg');
+  const hint = state.lang === 'es' ? `¡DAÑADO! ARMADURA RESTANTE: ${obj.hp} · GOLPEA DE NUEVO`
+             : state.lang === 'pt' ? `DANIFICADO! ARMADURA RESTANTE: ${obj.hp} · ACERTE NOVAMENTE`
+             :                       `DAMAGED! ARMOR LEFT: ${obj.hp} · HIT IT AGAIN`;
+  wrongMsgEl.textContent = hint;
+  wrongMsgEl.style.display = 'block';
+  wrongMsgEl.classList.add('damaged-hint');
+
+  setTimeout(() => { const f = optionsEl.querySelector('button'); if (f) f.focus(); }, 50);
 }
 
 function closeCounterPopup() {
