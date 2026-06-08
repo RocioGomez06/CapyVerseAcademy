@@ -1,0 +1,23 @@
+CapyVerse Academy — Music Credits
+==================================
+
+All tracks in this directory were composed and produced by
+Matías Ramírez. © Matías Ramírez. All rights reserved.
+
+These works are not registered with any collective rights
+organisation and have not been released under any public
+licence.
+
+Used in this project by personal, explicit permission of the
+author for non-commercial educational purposes only.
+
+This permission does NOT transfer to forks, mirrors, or
+derivative works. If you have cloned this repository:
+
+  - Do not redistribute, stream, embed, sample, or repackage
+    these audio files.
+  - Do not use them for commercial purposes of any kind.
+  - To request your own permission, contact the project lead
+    or the author directly.
+
+See ../../README.md ("License" section) for full terms.

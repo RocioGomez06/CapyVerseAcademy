@@ -32,8 +32,8 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
 
 ---
 
-- **Capy Cyber Defense 1st level*
-- *<img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/b0604fe5-0d74-4c8b-b0bc-1b2e19f1fa78" />
+- **Capy Cyber Defense 1st level**
+<img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/b0604fe5-0d74-4c8b-b0bc-1b2e19f1fa78" />
 
 
 
@@ -129,12 +129,40 @@ Game-specific contributions: each game's `script.js` is a single self-contained 
 
 ## License
 
-[**CC BY-NC-SA 4.0**](https://creativecommons.org/licenses/by-nc-sa/4.0/) — Creative Commons Attribution-NonCommercial-ShareAlike.
+Different parts of this project are covered by different licenses. Please read both before reusing anything.
 
-You're free to use, modify, and share the code and assets for non-commercial educational purposes, as long as you credit the project and share derivatives under the same license. Commercial use requires written permission.
+### Code, game design, and visual assets
+
+All HTML, CSS, JavaScript, pixel art (capybara, cursors, logos, sprites), level design, and written content are licensed under [**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+
+You're free to use, modify, and share this material for **non-commercial educational purposes**, provided you:
+
+- **Attribute** the original work to Rocío Gómez and CapyVerse Academy with a link back to this repository.
+- **Share alike** — any derivative work must be released under the same CC BY-NC-SA 4.0 license.
+- **Non-commercial** — commercial use (including ad-supported sites, paid courses, or bundled products) requires prior written permission.
+
+### Music
+
+The soundtrack is **separately licensed and not covered by CC BY-NC-SA**.
+
+All tracks in `assets/music/`, `games/capy-code-quest/music/`, and `games/capy-cyber-defense/music/` were composed and produced by **Matías Ramírez**, who retains full copyright. The works are not registered with any collective rights organisation (SADAIC, ASCAP, PRS, etc.) and have not been released under any public license.
+
+Matías has granted CapyVerse Academy **explicit, personal permission** to include these tracks for use within this educational, non-commercial project only. This permission:
+
+- **Does not transfer** to forks, mirrors, or derivative works. If you fork this repository, you may **not** redistribute, embed, stream, sample, or repackage the audio files. Please remove them from your fork or replace them with your own licensed material.
+- **Does not authorise commercial use** of any kind, including monetised hosting.
+- **Does not waive Matías's moral or economic rights** as the author.
+
+If you'd like to use any of his music in your own project, please contact Rocío or Matías directly to request permission. Don't assume the project's CC license covers it — it doesn't.
 
 ---
 
 ## Credits
 
-Created by Rocío Gómez ([@RocioGomez06](https://github.com/RocioGomez06)). Capybara art, pixel cursors, and game design original to the project.
+**Project lead, code, game design, pixel art** — Rocío Gómez ([@RocioGomez06](https://github.com/RocioGomez06)).
+
+**Original soundtrack** — Matías Ramírez. Used by personal permission of the author. All rights reserved.
+
+**Fonts** — *Press Start 2P* and *Pixelify Sans* via Google Fonts, both released under the SIL Open Font License.
+
+**Colour palette** — based on Bang Wong's eight-colour palette ([Bang Wong, *Nature Methods*, 2011](https://www.nature.com/articles/nmeth.1618)), designed for accessibility under common forms of colour blindness.
