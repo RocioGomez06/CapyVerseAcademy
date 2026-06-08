@@ -30,14 +30,18 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
 | Capy Net World | Networking, protocols | Coming soon |
 
 - **Capy Code Quest 1st level**
-<img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/90ab0b58-9bab-4cb4-8dcb-f6f7787c85fe" />
+
+<p align="center">
+  <img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/90ab0b58-9bab-4cb4-8dcb-f6f7787c85fe" />
+</p>
 
 ---
 
 - **Capy Cyber Defense 1st level**
-<img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/b0604fe5-0d74-4c8b-b0bc-1b2e19f1fa78" />
-
-
+  
+<p align="center">
+  <img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/b0604fe5-0d74-4c8b-b0bc-1b2e19f1fa78" />
+</p>
 
 ---
 
