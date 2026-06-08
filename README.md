@@ -1,14 +1,17 @@
 # CapyVerse Academy
 
-<img width="320" height="320" alt="pixil-frame-1(1)" src="https://github.com/user-attachments/assets/6e54139c-547a-4791-90da-2971131b7768" />
+<img width="280" height="280" alt="pixil-frame-1(1)" src="https://github.com/user-attachments/assets/6e54139c-547a-4791-90da-2971131b7768" />
 
 An interactive learning platform where programming meets play. Free, open-source educational games that teach Computer Science and IT fundamentals to young students and beginners through gamification and CLIL (Content and Language Integrated Learning).
 
 <img width="1921" height="1065" alt="image" src="https://github.com/user-attachments/assets/b6ea6afa-1edf-4a83-80f7-a71236824d53" />
 
+
 <img width="1487" height="824" alt="image" src="https://github.com/user-attachments/assets/bef472bc-04f9-439d-a249-4270e61363e3" />
 
+
 Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette), and built with vanilla HTML/CSS/JS — no frameworks, no build step, no tracking.
+
 
 <img width="1302" height="719" alt="image" src="https://github.com/user-attachments/assets/15328e8a-62aa-474f-bd5a-3371c0bd548b" />
 
@@ -26,6 +29,8 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
 
 - **Capy Code Quest 1st level**
 <img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/90ab0b58-9bab-4cb4-8dcb-f6f7787c85fe" />
+
+---
 
 - **Capy Cyber Defense 1st level**
 <img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/afa6f5de-5591-4e55-aea1-3b69742fc4c4" />
