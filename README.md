@@ -127,13 +127,28 @@ Game-specific contributions: each game's `script.js` is a single self-contained 
 
 ---
 
+## Authorship
+
+**The entirety of CapyVerse Academy — except the music — was created by Rocío Gómez.**
+
+This includes, without limitation:
+
+- the original concept and educational vision of the platform
+- the name, branding, and identity of "CapyVerse Academy"
+- every game concept, mechanic, level design, and curriculum mapping (Capy Code Quest, Capy Cyber Defense, Capy Logic Labs, Capy Data Vault, Capy Net World)
+- all pixel art (capybara mascot, custom cursors, logos, threat icons, sprites, UI chrome)
+- all written copy, in-game text, translations, and pedagogical material
+- all HTML, CSS, JavaScript, and configuration
+
+The only external creative contribution is the soundtrack by Matías Ramírez (see Music subsection below).
+
 ## License
 
 Different parts of this project are covered by different licenses. Please read both before reusing anything.
 
-### Code, game design, and visual assets
+### Code, game design, and visual assets — © Rocío Gómez
 
-All HTML, CSS, JavaScript, pixel art (capybara, cursors, logos, sprites), level design, and written content are licensed under [**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**](https://creativecommons.org/licenses/by-nc-sa/4.0/).
+All HTML, CSS, JavaScript, pixel art (capybara, cursors, logos, sprites), level design, written content, and the project's underlying concept and branding are © Rocío Gómez and are licensed under [**Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International (CC BY-NC-SA 4.0)**](https://creativecommons.org/licenses/by-nc-sa/4.0/).
 
 You're free to use, modify, and share this material for **non-commercial educational purposes**, provided you:
 
@@ -159,9 +174,9 @@ If you'd like to use any of his music in your own project, please contact Rocío
 
 ## Credits
 
-**Project lead, code, game design, pixel art** — Rocío Gómez ([@RocioGomez06](https://github.com/RocioGomez06)).
+**Concept, project lead, branding, game design, level design, pixel art, code, written content** — Rocío Gómez ([@RocioGomez06](https://github.com/RocioGomez06)). © Rocío Gómez. All rights reserved beyond the CC BY-NC-SA 4.0 grant.
 
-**Original soundtrack** — Matías Ramírez. Used by personal permission of the author. All rights reserved.
+**Original soundtrack** — Matías Ramírez. Used by personal permission of the author. © Matías Ramírez. All rights reserved.
 
 **Fonts** — *Press Start 2P* and *Pixelify Sans* via Google Fonts, both released under the SIL Open Font License.
 
