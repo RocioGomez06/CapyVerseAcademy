@@ -1,9 +1,6 @@
 # CapyVerse Academy
 
-img {<img width="280" height="280" alt="pixil-frame-1(1)" src="https://github.com/user-attachments/assets/6e54139c-547a-4791-90da-2971131b7768" />
-  display: block;
-  margin: auto;
-}
+<img width="280" height="280" alt="pixil-frame-1(1)" src="https://github.com/user-attachments/assets/6e54139c-547a-4791-90da-2971131b7768" />
 
 An interactive learning platform where programming meets play. Free, open-source educational games that teach Computer Science and IT fundamentals to young students and beginners through gamification and CLIL (Content and Language Integrated Learning).
 
