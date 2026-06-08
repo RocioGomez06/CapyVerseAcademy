@@ -796,12 +796,16 @@
       if (backBtn) backBtn.focus();
     });
     document.body.style.overflow = 'hidden';
+    // Hand off audio to the game's player.
+    window.dispatchEvent(new CustomEvent('capy-game:opened'));
   }
   function closeGame() {
     const overlay = document.getElementById('game-overlay');
     const frame   = document.getElementById('game-frame');
     overlay.classList.remove('open');
     document.body.style.overflow = '';
+    // Take audio back.
+    window.dispatchEvent(new CustomEvent('capy-game:closed'));
     setTimeout(() => {
       overlay.hidden = true;
       frame.src = '';
@@ -869,5 +873,21 @@
     });
   }, {passive:true});
   </script>
+
+  <!-- ── CAPY MUSIC PLAYER ── -->
+  <link rel="stylesheet" href="assets/styles/capy-music-player.css" />
+  <script>
+    window.CAPY_MUSIC = {
+      basePath: 'assets/music/',
+      credit: 'Matías Ramírez',
+      playlist: [
+        { title: 'Dancing Days',         file: 'Dancing Days.mp3' },
+        { title: 'Dreams Of Yesteryear', file: 'Dreams Of Yesteryear.mp3' },
+        { title: 'End Of The Journey',   file: 'End Of The Journey.mp3' },
+        { title: 'Golden Times',         file: 'Golden Times.mp3' },
+      ],
+    };
+  </script>
+  <script src="assets/scripts/capy-music-player.js" defer></script>
 </body>
 </html>

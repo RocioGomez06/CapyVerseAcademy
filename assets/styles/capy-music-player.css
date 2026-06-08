@@ -1,0 +1,251 @@
+/* =========================================================
+   CAPY MUSIC PLAYER — pixel Win95-style mini reproductor
+   Sits fixed at the bottom-right with a collapsible side tab.
+   ========================================================= */
+
+:root {
+  --cmp-bg: #2e2e2e;
+  --cmp-bg-2: #232323;
+  --cmp-win-hi: #6a6a6a;
+  --cmp-win-sh: #111;
+  --cmp-text: #F0EEE4;
+  --cmp-dim: #999;
+  --cmp-orange: #E69F00;
+  --cmp-green: #009E73;
+  --cmp-sky: #56B4E9;
+  --cmp-yellow: #F0E442;
+}
+
+/* ── ROOT WRAPPER (always present, contains tab + window) ── */
+.cmp {
+  position: fixed;
+  right: 0;
+  bottom: 24px;
+  z-index: 9000;
+  display: flex;
+  align-items: flex-end;
+  font-family: 'Press Start 2P', monospace;
+  color: var(--cmp-text);
+  pointer-events: none; /* children re-enable */
+}
+.cmp * { pointer-events: auto; }
+
+/* ── SIDE TAB (clickable handle, always visible) ── */
+.cmp-tab {
+  background: linear-gradient(180deg, #004a7c 0%, var(--cmp-sky) 100%);
+  color: var(--cmp-text);
+  border-top: 2px solid var(--cmp-win-hi);
+  border-left: 2px solid var(--cmp-win-hi);
+  border-bottom: 2px solid var(--cmp-win-sh);
+  width: 26px;
+  padding: 10px 4px;
+  cursor: pointer;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 7px;
+  letter-spacing: 1px;
+  writing-mode: vertical-rl;
+  text-orientation: mixed;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  user-select: none;
+  transition: filter .1s, background .15s;
+  align-self: flex-end;
+  margin-bottom: 8px;
+}
+.cmp-tab:hover { filter: brightness(1.15); }
+.cmp-tab:focus-visible { outline: 2px solid var(--cmp-yellow); outline-offset: 2px; }
+.cmp-tab-icon { font-size: 12px; writing-mode: horizontal-tb; }
+
+/* When window is open, hide the tab */
+.cmp.is-open .cmp-tab { display: none; }
+
+/* ── WINDOW (the Win95 box) ── */
+.cmp-window {
+  background: var(--cmp-bg);
+  border-top: 2px solid var(--cmp-win-hi);
+  border-left: 2px solid var(--cmp-win-hi);
+  border-right: 2px solid var(--cmp-win-sh);
+  border-bottom: 2px solid var(--cmp-win-sh);
+  width: 280px;
+  display: none;
+  flex-direction: column;
+  box-shadow: 0 6px 24px rgba(0,0,0,.6);
+  margin-right: 8px;
+}
+.cmp.is-open .cmp-window { display: flex; }
+
+/* Title bar — like Win95 */
+.cmp-titlebar {
+  background: linear-gradient(90deg, #004a7c 0%, var(--cmp-sky) 100%);
+  padding: 5px 6px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 7px;
+  letter-spacing: 1px;
+}
+.cmp-titlebar-icon { font-size: 10px; }
+.cmp-titlebar-text { flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.cmp-close {
+  width: 16px; height: 16px;
+  background: var(--cmp-bg);
+  border-top: 1px solid var(--cmp-win-hi);
+  border-left: 1px solid var(--cmp-win-hi);
+  border-right: 1px solid var(--cmp-win-sh);
+  border-bottom: 1px solid var(--cmp-win-sh);
+  font-family: monospace;
+  font-size: 10px;
+  line-height: 1;
+  color: var(--cmp-text);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+.cmp-close:hover { background: #5a1010; }
+.cmp-close:focus-visible { outline: 2px solid var(--cmp-yellow); outline-offset: 1px; }
+
+/* Body */
+.cmp-body {
+  padding: 10px 10px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--cmp-bg);
+}
+
+/* Now playing line + marquee */
+.cmp-nowplaying-label {
+  font-size: 6px;
+  color: var(--cmp-orange);
+  letter-spacing: 1.2px;
+}
+.cmp-song {
+  background: var(--cmp-bg-2);
+  border-top: 1px solid var(--cmp-win-sh);
+  border-left: 1px solid var(--cmp-win-sh);
+  border-right: 1px solid var(--cmp-win-hi);
+  border-bottom: 1px solid var(--cmp-win-hi);
+  padding: 6px 8px;
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 13px;
+  color: var(--cmp-green);
+  letter-spacing: .5px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.cmp-credit {
+  font-family: 'Pixelify Sans', monospace;
+  font-size: 11px;
+  color: var(--cmp-dim);
+  letter-spacing: .3px;
+}
+
+/* Progress bar */
+.cmp-progress-wrap {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--cmp-dim);
+}
+.cmp-progress {
+  flex: 1;
+  height: 8px;
+  background: var(--cmp-bg-2);
+  border-top: 1px solid var(--cmp-win-sh);
+  border-left: 1px solid var(--cmp-win-sh);
+  border-right: 1px solid var(--cmp-win-hi);
+  border-bottom: 1px solid var(--cmp-win-hi);
+  position: relative;
+  cursor: pointer;
+}
+.cmp-progress-bar {
+  position: absolute;
+  inset: 0;
+  width: 0%;
+  background: linear-gradient(180deg, var(--cmp-green) 0%, #006650 100%);
+  transition: width .1s linear;
+}
+
+/* Controls row */
+.cmp-controls {
+  display: flex;
+  gap: 4px;
+  justify-content: center;
+}
+.cmp-btn {
+  background: var(--cmp-bg);
+  border-top: 2px solid var(--cmp-win-hi);
+  border-left: 2px solid var(--cmp-win-hi);
+  border-right: 2px solid var(--cmp-win-sh);
+  border-bottom: 2px solid var(--cmp-win-sh);
+  color: var(--cmp-text);
+  font-family: monospace;
+  font-size: 11px;
+  width: 32px;
+  height: 24px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background .1s;
+}
+.cmp-btn:hover { background: #3a3a3a; }
+.cmp-btn:active,
+.cmp-btn.is-active {
+  border-top: 2px solid var(--cmp-win-sh);
+  border-left: 2px solid var(--cmp-win-sh);
+  border-right: 2px solid var(--cmp-win-hi);
+  border-bottom: 2px solid var(--cmp-win-hi);
+}
+.cmp-btn:focus-visible { outline: 2px solid var(--cmp-yellow); outline-offset: 1px; }
+
+/* Volume row */
+.cmp-volume-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 6px;
+  color: var(--cmp-dim);
+}
+.cmp-volume {
+  flex: 1;
+  -webkit-appearance: none;
+  appearance: none;
+  height: 8px;
+  background: var(--cmp-bg-2);
+  border-top: 1px solid var(--cmp-win-sh);
+  border-left: 1px solid var(--cmp-win-sh);
+  border-right: 1px solid var(--cmp-win-hi);
+  border-bottom: 1px solid var(--cmp-win-hi);
+  cursor: pointer;
+}
+.cmp-volume::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 10px;
+  height: 14px;
+  background: var(--cmp-orange);
+  border: 1px solid var(--cmp-win-sh);
+  cursor: pointer;
+}
+.cmp-volume::-moz-range-thumb {
+  width: 10px;
+  height: 14px;
+  background: var(--cmp-orange);
+  border: 1px solid var(--cmp-win-sh);
+  cursor: pointer;
+  border-radius: 0;
+}
+
+/* Small-screen tuning */
+@media (max-width: 480px) {
+  .cmp { bottom: 8px; }
+  .cmp-window { width: 240px; }
+}
