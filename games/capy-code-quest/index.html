@@ -154,9 +154,9 @@
 
   </div><!-- /.page-wrapper -->
 
-  <script src="script.js?v=4"></script>
+  <script src="script.js?v=6"></script>
 
-  <!-- ── CAPY MUSIC PLAYER ── -->
+  <!-- ── CAPY MUSIC PLAYER + SFX ── -->
   <link rel="stylesheet" href="../../assets/styles/capy-music-player.css" />
   <script>
     window.CAPY_MUSIC = {
@@ -168,7 +168,18 @@
         { title: 'Tomorrow Frenzy', file: 'Tomorrow Frenzy.mp3' },
       ],
     };
+    window.CAPY_SFX = {
+      basePath: 'sfx/',
+      sounds: {
+        'apple-grabbed': 'apple-grabbed.mp3',
+        'run-code':      'run-code.mp3',
+        // won.mp3 is quieter than the rest — boost so the level-clear
+        // fanfare cuts through the music.
+        'won':           { file: 'won.mp3', gain: 2.2 },
+      },
+    };
   </script>
   <script src="../../assets/scripts/capy-music-player.js" defer></script>
+  <script src="../../assets/scripts/capy-sfx.js" defer></script>
 </body>
 </html>

@@ -1331,6 +1331,7 @@ function destroyThreat(threatId) {
   delete state.activeThreatObjects[threatId];
 
   state.sessionThreatsDestroyed++;
+  if (window.capySfx) window.capySfx.play('threat-death');
 
   const el = obj.el;
   el.style.pointerEvents = 'none';
@@ -1354,6 +1355,7 @@ function threatReachedBottom(threatId) {
 
   state.lives--;
   updateHeartsDisplay();
+  if (window.capySfx) window.capySfx.play('life-lost');
 
   // Flash ship
   const ship = document.getElementById('ship');
@@ -1377,6 +1379,7 @@ function fireProjectile(threatEl) {
   const field = document.getElementById('game-field');
   const ship  = document.getElementById('ship');
   if (!field || !ship || !threatEl) return;
+  if (window.capySfx) window.capySfx.play('zap');
 
   const fieldRect  = field.getBoundingClientRect();
   const shipRect   = ship.getBoundingClientRect();
@@ -1545,6 +1548,7 @@ function cancelQuit() {
 function gameOver() {
   stopGame();
   hideAllOverlays();
+  if (window.capySfx) window.capySfx.play('game-over');
 
   let isNewHigh = false;
   if (state.currentGamemode === 4) {
@@ -1577,6 +1581,7 @@ function gameOver() {
 function gamemodeComplete() {
   stopGame();
   hideAllOverlays();
+  if (window.capySfx) window.capySfx.play('won');
 
   const gmIdx = state.currentGamemode;
   markGamemodeComplete(gmIdx);

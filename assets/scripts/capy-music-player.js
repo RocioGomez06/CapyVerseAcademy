@@ -99,6 +99,8 @@
   const audio = new Audio();
   audio.preload = 'metadata';
   audio.volume = state.volume;
+  // Publish current volume so capySfx can pick the same level.
+  window.capyMusicVolume = state.volume;
 
   // ── DOM refs ──────────────────────────────────────────────
   const elSong     = win.querySelector('#cmp-song');
@@ -154,6 +156,7 @@
     const v = Number(elVol.value) / 100;
     audio.volume = v;
     state.volume = v;
+    window.capyMusicVolume = v; // sync for capySfx
     saveState();
   });
 
@@ -242,10 +245,24 @@
   loadTrack(trackIdx, false);
   updatePlayButton(false);
 
-  // Inside an iframe, attempt autoplay. The user just clicked PLAY NOW
-  // in the parent so the activation usually transfers; if the browser
-  // refuses, the player simply stays paused until the user opens the tab.
-  if (inIframe) {
-    setTimeout(() => audio.play().catch(() => {}), 150);
+  // ── autoplay on entry ─────────────────────────────────────
+  // Inside an iframe (game opened from the academy), the parent click
+  // already provides user activation so audio.play() usually succeeds.
+  // On the parent page itself (academy load/refresh), most browsers
+  // block autoplay until any user gesture, so we attempt it once and
+  // — if blocked — arm a one-shot listener that starts playback on the
+  // user's very first click/keypress/tap anywhere on the page.
+  function attemptAutoplay() {
+    audio.play().catch(() => {
+      const events = ['click', 'keydown', 'touchstart', 'pointerdown'];
+      const start = () => {
+        audio.play().catch(() => {});
+        events.forEach(ev => document.removeEventListener(ev, start, true));
+      };
+      events.forEach(ev => document.addEventListener(ev, start, true));
+    });
   }
+
+  // Small delay lets metadata land first so the play() promise is reliable.
+  setTimeout(attemptAutoplay, 150);
 })();

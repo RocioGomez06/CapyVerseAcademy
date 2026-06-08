@@ -266,37 +266,42 @@ body {
   letter-spacing: 2px;
   text-align: center;
 }
+/* The bordered "input box" is actually the row wrapper, so the decorative
+   blinking caret can sit inside the same chrome as the input itself. */
 .name-input-row {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  gap: 6px;
-}
-#name-input {
-  font-family: var(--pixel-font);
-  font-size: 16px;
+  gap: 4px;
   background: #000018;
-  color: var(--yellow);
-  border: none;
   border-top: 2px solid var(--win-sh);
   border-left: 2px solid var(--win-sh);
   border-bottom: 2px solid var(--win-hi);
   border-right: 2px solid var(--win-hi);
   padding: 12px 16px;
-  width: 260px;
+  margin: 0 auto;
+}
+.name-input-row:focus-within {
+  outline: 3px solid var(--yellow);
+  outline-offset: 2px;
+}
+#name-input {
+  font-family: var(--pixel-font);
+  font-size: 16px;
+  background: transparent;
+  color: var(--yellow);
+  border: none;
+  padding: 0;
+  width: 240px;
   text-transform: uppercase;
   letter-spacing: 4px;
   outline: none;
-  caret-color: var(--yellow);
-}
-#name-input:focus {
-  outline: 3px solid var(--yellow);
-  outline-offset: 2px;
+  caret-color: transparent; /* native caret off; the decorative one is the visible blink */
 }
 .cursor-blink {
   display: inline-block; width: 10px; height: 18px;
   background: var(--yellow); vertical-align: middle;
   animation: blink 1s step-end infinite;
+  flex-shrink: 0;
 }
 @keyframes blink { 50% { opacity: 0; } }
 .name-hint {

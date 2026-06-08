@@ -542,6 +542,8 @@ function runProgram() {
     return;
   }
 
+  if (window.capySfx) window.capySfx.play('run-code');
+
   resetGameState();
   hideNextLevel();
   messageEl.classList.remove("msg-win", "msg-error");
@@ -621,6 +623,8 @@ function handleLevelCompleted() {
   isRunning = false;
   updateProgramList(); // clear highlight
 
+  if (window.capySfx) window.capySfx.play('won');
+
   messageEl.classList.add("msg-win");
   showMessage(translations[currentLanguage].win);
 
@@ -649,7 +653,10 @@ function moveForward() {
 
   // Collect apples
   apples.forEach(a => {
-    if (!a.collected && a.x === capy.x && a.y === capy.y) a.collected = true;
+    if (!a.collected && a.x === capy.x && a.y === capy.y) {
+      a.collected = true;
+      if (window.capySfx) window.capySfx.play('apple-grabbed');
+    }
   });
 
   // Activate switches

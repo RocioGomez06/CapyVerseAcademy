@@ -781,6 +781,7 @@
   // ── GAME OVERLAY ──
   let _overlayTrigger = null;
   function openGame(src, name, logo) {
+    if (window.capySfx) window.capySfx.play('enter-game');
     const overlay   = document.getElementById('game-overlay');
     const frame     = document.getElementById('game-frame');
     const logoEl    = document.getElementById('overlay-game-logo');
@@ -887,7 +888,31 @@
         { title: 'Golden Times',         file: 'Golden Times.mp3' },
       ],
     };
+    window.CAPY_SFX = {
+      basePath: 'assets/sfx/',
+      sounds: {
+        'enter-game':    'enter-game.mp3',
+        'enter-academy': 'enter-academy.mp3',
+        'learn-more':    'learn-more.mp3',
+      },
+    };
   </script>
   <script src="assets/scripts/capy-music-player.js" defer></script>
+  <script src="assets/scripts/capy-sfx.js" defer></script>
+  <script defer>
+    // Bind SFX to academy buttons once the page is ready.
+    window.addEventListener('DOMContentLoaded', () => {
+      const click = (selector, name) => {
+        document.querySelectorAll(selector).forEach(el => {
+          el.addEventListener('click', () => {
+            if (window.capySfx) window.capySfx.play(name);
+          });
+        });
+      };
+      click('[data-i18n="hero-cta1"]',                 'enter-academy'); // ▶ ENTER ACADEMY
+      click('[data-i18n="hero-cta2"]',                 'learn-more');    // hero LEARN MORE
+      click('[data-i18n="feat-more"]',                 'learn-more');    // feature card "Learn more →" buttons
+    });
+  </script>
 </body>
 </html>

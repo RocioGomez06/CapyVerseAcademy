@@ -6,7 +6,7 @@
   <title>Capy Cyber Defense</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css?v=7" />
+  <link rel="stylesheet" href="style.css?v=8" />
 </head>
 <body>
 
@@ -45,6 +45,7 @@
             <div class="name-window-body">
               <p class="name-prompt-label" data-i18n="name-prompt">ENTER YOUR CALLSIGN:</p>
               <div class="name-input-row">
+                <span class="cursor-blink" aria-hidden="true"></span>
                 <input type="text" id="name-input" maxlength="12"
                   autocomplete="off" autocorrect="off" autocapitalize="characters" spellcheck="false"
                   aria-label="Player callsign" placeholder="PLAYER1" />
@@ -255,9 +256,9 @@
 
 </div><!-- /.page-wrapper -->
 
-<script src="script.js?v=6"></script>
+<script src="script.js?v=7"></script>
 
-<!-- ── CAPY MUSIC PLAYER ── -->
+<!-- ── CAPY MUSIC PLAYER + SFX ── -->
 <link rel="stylesheet" href="../../assets/styles/capy-music-player.css" />
 <script>
   window.CAPY_MUSIC = {
@@ -267,7 +268,21 @@
       { title: 'Epic Adventure', file: 'Epic Adventure.mp3' },
     ],
   };
+  window.CAPY_SFX = {
+    basePath: 'sfx/',
+    sounds: {
+      'zap':          'zap.mp3',
+      'threat-death': 'threat-death.mp3',
+      'life-lost':    'life-lost.mp3',
+      // Both the won and game-over source files are noticeably quieter
+      // than the rest. Hard-boost so the end-of-run cue cuts through
+      // the music — tune these two if the mix still feels off.
+      'game-over':    { file: 'game-over.mp3', gain: 3.0 },
+      'won':          { file: 'won.mp3',       gain: 3.5 },
+    },
+  };
 </script>
 <script src="../../assets/scripts/capy-music-player.js" defer></script>
+<script src="../../assets/scripts/capy-sfx.js" defer></script>
 </body>
 </html>
