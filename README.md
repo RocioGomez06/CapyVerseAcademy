@@ -32,8 +32,9 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
 
 ---
 
-- **Capy Cyber Defense 1st level**
-<img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/afa6f5de-5591-4e55-aea1-3b69742fc4c4" />
+- **Capy Cyber Defense 1st level*
+- *<img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/b0604fe5-0d74-4c8b-b0bc-1b2e19f1fa78" />
+
 
 
 ---
