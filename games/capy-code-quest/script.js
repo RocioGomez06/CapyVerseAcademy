@@ -662,12 +662,16 @@ function moveForward() {
   // Activate switches
   switchesArr.forEach(s => {
     if (s.x === capy.x && s.y === capy.y) {
+      const wasActivated = s.activated;
       s.activated = true; // track activation for visual state
       if (typeof s.gateIndex === "number" && gates[s.gateIndex]) {
         gates[s.gateIndex].opened = true;
       } else {
         gates.forEach(g => (g.opened = true));
       }
+      // Play the click sound only the first time a switch is stepped on
+      // so re-crossing it doesn't re-trigger the cue.
+      if (!wasActivated && window.capySfx) window.capySfx.play('switch-pressed');
     }
   });
 }

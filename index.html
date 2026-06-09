@@ -891,9 +891,10 @@
     window.CAPY_SFX = {
       basePath: 'assets/sfx/',
       sounds: {
-        'enter-game':    'enter-game.mp3',
-        'enter-academy': 'enter-academy.mp3',
-        'learn-more':    'learn-more.mp3',
+        'enter-game':      'enter-game.mp3',
+        'enter-academy':   'enter-academy.mp3',
+        'learn-more':      'learn-more.mp3',
+        'header-play-now': 'header-play-now.mp3',
       },
     };
   </script>
@@ -909,8 +910,9 @@
           });
         });
       };
-      click('[data-i18n="hero-cta1"]',                 'enter-academy'); // ▶ ENTER ACADEMY
-      click('[data-i18n="hero-cta2"]',                 'learn-more');    // hero LEARN MORE
+      click('[data-i18n="nav-cta"]',                   'header-play-now'); // header ▶ PLAY NOW (nav)
+      click('[data-i18n="hero-cta1"]',                 'enter-academy');   // ▶ ENTER ACADEMY
+      click('[data-i18n="hero-cta2"]',                 'learn-more');      // hero LEARN MORE
       click('[data-i18n="feat-more"]',                 'learn-more');    // feature card "Learn more →" buttons
     });
   </script>
