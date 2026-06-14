@@ -48,7 +48,7 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
 - **Capy Logic Labs**
 
 <p align="center">
-  <img width="800" alt="Capy Logic Labs — start screen" src="assets/screenshots/capy-logic-labs-gameplay.png" />
+  <img width="800" alt="Capy Logic Labs — start screen" src="assets/screenshots/CLL.png" />
 </p>
 
 ---
@@ -56,7 +56,7 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
 - **Capy Data Dungeon**
 
 <p align="center">
-  <img width="800" alt="Capy Data Dungeon — start screen" src="assets/screenshots/capy-data-dungeon-gameplay.png" />
+  <img width="800" alt="Capy Data Dungeon — start screen" src="assets/screenshots/CDD.png" />
 </p>
 
 ---
