@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>The Academy — CapyVerse Academy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root{
+      --bg:#232323;--bg-2:#2e2e2e;--bg-3:#1a1a1a;
+      --orange:#E69F00;--sky:#56B4E9;--green:#009E73;--yellow:#F0E442;--blue:#0072B2;--vermilion:#D55E00;--pink:#CC79A7;
+      --white:#F0EEE4;--gray:#9a9a9a;--gray-2:#666;
+      --win-hi:#4a4a4a;--win-sh:#111;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      background:var(--bg);color:var(--white);
+      font-family:'Pixelify Sans',monospace;
+      min-height:100vh;padding:2rem 1rem 4rem;
+      display:flex;flex-direction:column;align-items:center;gap:2rem;
+    }
+    body::before{
+      content:'';position:fixed;inset:0;pointer-events:none;z-index:9;
+      background:repeating-linear-gradient(to bottom,transparent 0px,transparent 3px,rgba(0,0,0,0.07) 3px,rgba(0,0,0,0.07) 4px);
+    }
+
+    /* ── Top bar with back-link + lang switch ── */
+    .topbar{
+      width:100%;max-width:880px;
+      display:flex;justify-content:space-between;align-items:center;gap:1rem;flex-wrap:wrap;
+    }
+    .back-link{
+      font-family:'Press Start 2P',monospace;font-size:8px;
+      background:var(--orange);color:var(--bg);
+      padding:10px 16px;text-decoration:none;letter-spacing:1px;
+      border-top:2px solid #ffc84a;border-left:2px solid #ffc84a;
+      border-right:2px solid #8a5e00;border-bottom:2px solid #8a5e00;
+      transition:filter .1s;
+    }
+    .back-link:hover{filter:brightness(1.2)}
+    .back-link:focus-visible{outline:3px solid var(--yellow);outline-offset:3px}
+    .lang-switch{display:flex;gap:4px}
+    .lang-btn{
+      font-family:'Press Start 2P',monospace;font-size:8px;
+      background:var(--bg-2);color:var(--white);
+      border-top:2px solid var(--win-hi);border-left:2px solid var(--win-hi);
+      border-right:2px solid var(--win-sh);border-bottom:2px solid var(--win-sh);
+      padding:8px 12px;cursor:pointer;letter-spacing:1px;
+    }
+    .lang-btn[aria-pressed="true"]{
+      background:var(--yellow);color:var(--bg);
+      border-top-color:var(--win-sh);border-left-color:var(--win-sh);
+      border-right-color:var(--win-hi);border-bottom-color:var(--win-hi);
+    }
+    .lang-btn:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+    /* ── Hero ── */
+    .hero{
+      width:100%;max-width:880px;text-align:center;
+      display:flex;flex-direction:column;align-items:center;gap:1rem;
+      padding:1rem 0;
+    }
+    .hero h1{
+      font-family:'Press Start 2P',monospace;
+      font-size:clamp(14px,3vw,22px);color:var(--orange);
+      line-height:1.6;letter-spacing:2px;
+    }
+    .hero p{font-size:18px;color:var(--gray);max-width:640px;line-height:1.5}
+
+    /* ── Section nav (anchors) ── */
+    .section-nav{
+      width:100%;max-width:880px;
+      display:flex;flex-wrap:wrap;gap:6px;justify-content:center;
+      padding:1rem;background:var(--bg-3);
+      border-top:2px solid var(--win-sh);border-left:2px solid var(--win-sh);
+      border-right:2px solid var(--win-hi);border-bottom:2px solid var(--win-hi);
+    }
+    .section-nav a{
+      font-family:'Press Start 2P',monospace;font-size:8px;
+      padding:8px 12px;color:var(--white);text-decoration:none;
+      background:var(--bg-2);letter-spacing:1px;
+      border-top:2px solid var(--win-hi);border-left:2px solid var(--win-hi);
+      border-right:2px solid var(--win-sh);border-bottom:2px solid var(--win-sh);
+      transition:filter .1s;
+    }
+    .section-nav a:hover{filter:brightness(1.3);color:var(--yellow)}
+    .section-nav a:focus-visible{outline:3px solid var(--yellow);outline-offset:2px}
+
+    /* ── Section window ── */
+    .win-box{
+      width:100%;max-width:880px;background:var(--bg-2);
+      border-top:2px solid var(--win-hi);border-left:2px solid var(--win-hi);
+      border-right:2px solid var(--win-sh);border-bottom:2px solid var(--win-sh);
+      scroll-margin-top:1rem;
+    }
+    .titlebar{
+      background:linear-gradient(90deg,#004a7c,var(--sky));
+      padding:7px 12px;font-family:'Press Start 2P',monospace;font-size:8px;
+      color:var(--white);letter-spacing:1px;
+      display:flex;align-items:center;gap:8px;
+    }
+    .titlebar.green{background:linear-gradient(90deg,#005c43,var(--green))}
+    .titlebar.yellow{background:linear-gradient(90deg,#8a7a00,var(--yellow));color:var(--bg)}
+    .titlebar.vermilion{background:linear-gradient(90deg,#7a3500,var(--vermilion))}
+    .titlebar.pink{background:linear-gradient(90deg,#7a3a5e,var(--pink));color:var(--bg)}
+
+    .win-body{padding:2rem 1.75rem}
+    .win-body h2{
+      font-family:'Press Start 2P',monospace;
+      font-size:clamp(11px,2vw,14px);color:var(--orange);
+      line-height:1.6;margin-bottom:1.25rem;letter-spacing:1px;
+    }
+    .win-body h3{
+      font-family:'Press Start 2P',monospace;
+      font-size:10px;color:var(--yellow);
+      line-height:1.6;margin:1.5rem 0 .75rem;letter-spacing:1px;
+    }
+    .win-body p{
+      font-size:17px;color:var(--white);line-height:1.6;
+      margin-bottom:1rem;
+    }
+    .win-body p.muted{color:var(--gray)}
+    .win-body em{color:var(--sky);font-style:normal}
+    .win-body .ref{
+      font-size:14px;color:var(--gray);font-style:italic;
+      padding-left:1rem;border-left:3px solid var(--win-hi);
+      margin:.5rem 0 1rem;
+    }
+    .win-body .placeholder-img{
+      width:100%;max-width:520px;margin:1rem auto;
+      aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;
+      background:var(--bg-3);color:var(--gray-2);
+      font-family:'Press Start 2P',monospace;font-size:8px;letter-spacing:1px;
+      border:2px dashed var(--win-hi);
+    }
+    .win-body .placeholder-link{
+      display:inline-block;margin:.5rem 0 1rem;
+      font-family:'Press Start 2P',monospace;font-size:8px;
+      color:var(--sky);padding:8px 12px;text-decoration:none;
+      background:var(--bg-3);
+      border-top:2px solid var(--win-hi);border-left:2px solid var(--win-hi);
+      border-right:2px solid var(--win-sh);border-bottom:2px solid var(--win-sh);
+    }
+    .win-body .placeholder-link:hover{color:var(--yellow);filter:brightness(1.2)}
+    .win-body .placeholder-link[href="#"]::after{content:' [TBA]';color:var(--gray-2)}
+    .win-body .screenshot{margin:1.5rem auto;max-width:560px;text-align:center}
+    .win-body .screenshot img{
+      width:100%;height:auto;display:block;image-rendering:pixelated;
+      border-top:2px solid var(--win-hi);border-left:2px solid var(--win-hi);
+      border-right:2px solid var(--win-sh);border-bottom:2px solid var(--win-sh);
+      background:var(--bg-3);
+    }
+    .win-body .screenshot figcaption{
+      margin-top:.6rem;font-size:14px;color:var(--gray);font-style:italic;
+    }
+    .win-body .screenshot a{display:inline-block;padding:0;background:none;border:none;text-decoration:none;letter-spacing:normal;font-family:inherit;font-size:inherit;color:inherit}
+    .win-body .screenshot.logo-figure img{max-width:220px;background:transparent;border:none;margin:0 auto}
+
+    /* ── Reduced motion ── */
+    @media (prefers-reduced-motion: reduce){
+      *{animation:none !important;transition:none !important}
+    }
+  </style>
+  <script src="../assets/scripts/capy-lang.js"></script>
+</head>
+<body>
+
+  <div class="topbar">
+    <a href="../index.html" class="back-link" data-i18n="back">← Back to Academy</a>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button class="lang-btn" data-lang="es" aria-pressed="false">ES</button>
+      <button class="lang-btn" data-lang="en" aria-pressed="true">EN</button>
+      <button class="lang-btn" data-lang="pt" aria-pressed="false">PT</button>
+    </div>
+  </div>
+
+  <header class="hero">
+    <h1 data-i18n="hero-title">The Academy</h1>
+    <p data-i18n="hero-sub">Everything that shaped CapyVerse Academy — its story, its principles, and the research behind it.</p>
+  </header>
+
+  <nav class="section-nav" aria-label="Sections">
+    <a href="#about"         data-i18n="nav-about">▸ About</a>
+    <a href="#accessibility" data-i18n="nav-a11y">▸ Accessibility</a>
+    <a href="#languages"     data-i18n="nav-lang">▸ Languages</a>
+    <a href="#pedagogy"      data-i18n="nav-ped">▸ Pedagogy</a>
+    <a href="#curriculum"    data-i18n="nav-cur">▸ Curriculum</a>
+  </nav>
+
+  <!-- ════════ ABOUT ════════ -->
+  <section class="win-box" id="about" aria-labelledby="about-h2">
+    <div class="titlebar"><span>⬛</span> <span data-i18n="about-titlebar">about.txt</span></div>
+    <div class="win-body">
+      <h2 id="about-h2" data-i18n="about-h2">About — how it started, where it's going</h2>
+      <p data-i18n="about-p1">CapyVerse Academy did not exist as a project until a year after its seed idea: in 2025, the only thing that existed was Capy Code Quest, a small block-based game that taught the basics of "programming" through simple visual graphics. The goal was already what it is today — to teach a subject through gamified learning to young learners who have had little to no contact with it.</p>
+      <a href="https://github.com/slgamedesign/capy-code-quest" target="_blank" rel="noopener noreferrer" class="placeholder-link" data-i18n="about-fork">Original Capy Code Quest fork on GitHub</a>
+      <p data-i18n="about-p2">A year later, in 2026, the same idea was tried out for other subjects in the field, and CapyVerse Academy was born: a single place gathering all the games that followed — <em>Capy Cyber Defense</em>, which teaches the basics of cybersecurity dynamically; <em>Capy Logic Labs</em>, which teaches logic gates through active learning where knowledge is applied as soon as it is acquired; and <em>Capy Data Dungeon</em>, which forces you to learn and use SQL to defend Capy inside a dungeon. A fifth game, <em>Capy Net World</em> — about networks, the internet, and how computers talk to each other — has been planned but its development is indefinitely on hold.</p>
+      <p data-i18n="about-p3">The conceptual and technical sides of the project evolved almost in parallel: a constant trial-and-error loop, switching back and forth between code, documentation, and the notes recorded along the way about improvements, observations, and ideas.</p>
+      <p data-i18n="about-p4">The plan is to make CapyVerse Academy seriously available to the public; it can already be reached through GitHub and the live site.</p>
+      <a href="https://github.com/RocioGomez06/CapyVerseAcademy" target="_blank" rel="noopener noreferrer" class="placeholder-link" data-i18n="about-live">Live site / GitHub repository</a>
+      <p data-i18n="about-p5">The main goal is to see this tool actually used in classrooms — not just to serve the purpose it was built for, but also to gather feedback directly from the audience it is meant to serve, so that feedback can drive future development.</p>
+      <figure class="screenshot">
+        <img src="../assets/screenshots/capy-code-quest-original.gif" alt="" />
+        <figcaption data-i18n="about-caption">Gameplay from the original Capy Code Quest — the 2025 prototype that started it all.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ ACCESSIBILITY ════════ -->
+  <section class="win-box" id="accessibility" aria-labelledby="a11y-h2">
+    <div class="titlebar green"><span>⬛</span> <span data-i18n="a11y-titlebar">accessibility.txt</span></div>
+    <div class="win-body">
+      <h2 id="a11y-h2" data-i18n="a11y-h2">Accessibility — lived experience, research, and an academic paper</h2>
+      <p data-i18n="a11y-p1">The focus on accessibility is a deliberate choice for this project, specifically because of its academic and open-source nature. Based on an academic paper written by the same devs (before CapyVerse Academy existed as the project it is today), it aims for maximum accessibility of its content, with materials thought of as tools for teaching, learning, and studying — for students, teachers, and anyone else who wants to take part in the experience. Information and access to it are seen here as a need and a right, and providing them in an understandable and accessible way to every audience is treated as an obligation. That is how CapyVerse Academy aims to be one more contribution to the broader movement of virtual academic spaces that take this seriously.</p>
+      <p data-i18n="a11y-p2">Accessibility shows up in several layers. The interface itself is one: a web space with no files to download or install, and no account required to use it. Then there's the constant use of semantic HTML tags, the adoption of the Bang Wong color palette for those with color-vision deficiencies (color and contrast being basic tools for the correct reception of visual information), screen-reader compatibility, support for system preferences like reduced motion, and WCAG 2.1 adopted as a central guideline for the project's development — and the list only keeps growing.</p>
+      <a href="../assets/papers/encif-9-ifsul.pdf" target="_blank" rel="noopener noreferrer" class="placeholder-link" data-i18n="a11y-paper">Read the academic paper (PDF)</a>
+      <figure class="screenshot">
+        <a href="../assets/papers/encif-9-ifsul.pdf" target="_blank" rel="noopener noreferrer">
+          <img src="../assets/screenshots/encif-paper-cover.png" alt="" />
+        </a>
+        <figcaption data-i18n="a11y-caption">Cover page of the ENCIF paper that grounds CapyVerse Academy's accessibility approach.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ LANGUAGES ════════ -->
+  <section class="win-box" id="languages" aria-labelledby="lang-h2">
+    <div class="titlebar yellow"><span>⬛</span> <span data-i18n="lang-titlebar">languages.txt</span></div>
+    <div class="win-body">
+      <h2 id="lang-h2" data-i18n="lang-h2">Languages — built trilingual, now reaching for more</h2>
+      <p data-i18n="lang-p1">In its earliest stage, the project was created inside a binational institution for a course whose main focus was learning English with a technical orientation. That is why Spanish, Portuguese, and English were chosen as the project's initial implementation languages — to maximize accessibility for the audience it was first built for.</p>
+      <p data-i18n="lang-p2">Given the accessibility-first nature of CapyVerse Academy (as discussed in the <em>Accessibility</em> section), the goal is to translate the site into as many languages as possible over time.</p>
+      <figure class="screenshot">
+        <img src="../assets/screenshots/language-dropdown.png" alt="" />
+        <figcaption data-i18n="lang-caption">The language switcher in the header — every page, every game.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ PEDAGOGY ════════ -->
+  <section class="win-box" id="pedagogy" aria-labelledby="ped-h2">
+    <div class="titlebar vermilion"><span>⬛</span> <span data-i18n="ped-titlebar">pedagogy.txt</span></div>
+    <div class="win-body">
+      <h2 id="ped-h2" data-i18n="ped-h2">Pedagogy — CLIL and what games teach us about learning</h2>
+      <p data-i18n="ped-p1">Two bibliographical references had the strongest influence on the pedagogical side of CapyVerse Academy:</p>
+      <h3 data-i18n="ped-h3-clil">Content and Language Integrated Learning (CLIL)</h3>
+      <p class="ref" data-i18n="ped-ref-clil">Coyle, D., Hood, P., &amp; Marsh, D. (2010). CLIL: Content and Language Integrated Learning. Cambridge University Press.</p>
+      <h3 data-i18n="ped-h3-gee">What Video Games Have to Teach Us About Learning and Literacy</h3>
+      <p class="ref" data-i18n="ped-ref-gee">Gee, J. P. (2003). What video games have to teach us about learning and literacy. Palgrave Macmillan.</p>
+      <h3 data-i18n="ped-h3-content">Teaching content and language</h3>
+      <p data-i18n="ped-p2">Teaching subject content through an additional language. "Language," here, is not limited to programming or logic languages — the mechanics of a game can also be a language. Adopting this learning model encourages the proactive identification of solutions, which in turn places real emphasis on language learning.</p>
+      <p data-i18n="ped-p3">According to Gee, talking about gaming-based learning, a game must be learned and then mastered in order to be played. What has to be learned is its mechanics — and those mechanics are based on the subject matter in question.</p>
+      <p data-i18n="ped-p4">CapyVerse's games are designed around these ideas, following a loop that looks something like this: a situation is presented, the available tools are shown, a brief tutorial or explanation is given, and then the level begins. The sequence repeats across all levels, with difficulty rising progressively.</p>
+      <p data-i18n="ped-p5">With a context or story in place, a sense of "duty" emerges in the student's mind — a mindset of "I have to fix this," and as a consequence, "how can I fix this?" This model gives students some freedom to come up with their own solutions, or to try different ones. Combined with classroom use, students quickly discover that the same problem has several solutions, and that some are more efficient than others. This experience can lead to teamwork between students as they get involved enough to find a solution together, for everyone.</p>
+      <figure class="screenshot">
+        <img src="../assets/screenshots/built-for-classroom.png" alt="" />
+        <figcaption data-i18n="ped-caption">The four pillars on the home page — accessibility, multilingual support, progressive difficulty, and curriculum alignment.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <!-- ════════ CURRICULUM ════════ -->
+  <section class="win-box" id="curriculum" aria-labelledby="cur-h2">
+    <div class="titlebar pink"><span>⬛</span> <span data-i18n="cur-titlebar">curriculum.txt</span></div>
+    <div class="win-body">
+      <h2 id="cur-h2" data-i18n="cur-h2">Curriculum — TADS and Technical English</h2>
+      <p data-i18n="cur-p1">The project began as the final assignment for the course "Technical English," part of the second-semester curriculum of the <em>Tecnologia em Análise e Desenvolvimento de Sistemas</em> degree at the Instituto Federal Sul-Rio-Grandense. That is why the subjects taught through CapyVerse Academy's games carry this technological and computer-science focus.</p>
+      <a href="https://ifrs.edu.br/riogrande/cursos/superiores/tads/" target="_blank" rel="noopener noreferrer" class="placeholder-link" data-i18n="cur-tads">About the TADS program</a>
+      <figure class="screenshot logo-figure">
+        <a href="https://ifrs.edu.br/riogrande/cursos/superiores/tads/" target="_blank" rel="noopener noreferrer">
+          <img src="../assets/screenshots/ifrs-campus-rio-grande.png" alt="" />
+        </a>
+        <figcaption data-i18n="cur-caption">Instituto Federal Sul-Rio-Grandense — Rio Grande campus, where TADS is taught.</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <script>
+    window.PAGE_I18N = {
+      en: {
+        'back': '← Back to Academy',
+        'hero-title': 'The Academy',
+        'hero-sub': "Everything that shaped CapyVerse Academy — its story, its principles, and the research behind it.",
+        'nav-about': '▸ About',
+        'nav-a11y':  '▸ Accessibility',
+        'nav-lang':  '▸ Languages',
+        'nav-ped':   '▸ Pedagogy',
+        'nav-cur':   '▸ Curriculum',
+        'img-placeholder': '[ image ]',
+
+        'about-titlebar': 'about.txt',
+        'about-h2': "About — how it started, where it's going",
+        'about-p1': 'CapyVerse Academy did not exist as a project until a year after its seed idea: in 2025, the only thing that existed was Capy Code Quest, a small block-based game that taught the basics of "programming" through simple visual graphics. The goal was already what it is today — to teach a subject through gamified learning to young learners who have had little to no contact with it.',
+        'about-fork': 'Original Capy Code Quest fork on GitHub',
+        'about-p2': 'A year later, in 2026, the same idea was tried out for other subjects in the field, and CapyVerse Academy was born: a single place gathering all the games that followed — Capy Cyber Defense, which teaches the basics of cybersecurity dynamically; Capy Logic Labs, which teaches logic gates through active learning where knowledge is applied as soon as it is acquired; and Capy Data Dungeon, which forces you to learn and use SQL to defend Capy inside a dungeon. A fifth game, Capy Net World — about networks, the internet, and how computers talk to each other — has been planned but its development is indefinitely on hold.',
+        'about-p3': 'The conceptual and technical sides of the project evolved almost in parallel: a constant trial-and-error loop, switching back and forth between code, documentation, and the notes recorded along the way about improvements, observations, and ideas.',
+        'about-p4': 'The plan is to make CapyVerse Academy seriously available to the public; it can already be reached through GitHub and the live site.',
+        'about-live': 'Live site / GitHub repository',
+        'about-p5': 'The main goal is to see this tool actually used in classrooms — not just to serve the purpose it was built for, but also to gather feedback directly from the audience it is meant to serve, so that feedback can drive future development.',
+        'about-caption': 'Gameplay from the original Capy Code Quest — the 2025 prototype that started it all.',
+
+        'a11y-titlebar': 'accessibility.txt',
+        'a11y-h2': 'Accessibility — lived experience, research, and an academic paper',
+        'a11y-p1': "The focus on accessibility is a deliberate choice for this project, specifically because of its academic and open-source nature. Based on an academic paper written by the same devs (before CapyVerse Academy existed as the project it is today), it aims for maximum accessibility of its content, with materials thought of as tools for teaching, learning, and studying — for students, teachers, and anyone else who wants to take part in the experience. Information and access to it are seen here as a need and a right, and providing them in an understandable and accessible way to every audience is treated as an obligation. That is how CapyVerse Academy aims to be one more contribution to the broader movement of virtual academic spaces that take this seriously.",
+        'a11y-p2': "Accessibility shows up in several layers. The interface itself is one: a web space with no files to download or install, and no account required to use it. Then there's the constant use of semantic HTML tags, the adoption of the Bang Wong color palette for those with color-vision deficiencies (color and contrast being basic tools for the correct reception of visual information), screen-reader compatibility, support for system preferences like reduced motion, and WCAG 2.1 adopted as a central guideline for the project's development — and the list only keeps growing.",
+        'a11y-paper': 'Read the academic paper (PDF)',
+        'a11y-caption': "Cover page of the ENCIF paper that grounds CapyVerse Academy's accessibility approach.",
+
+        'lang-titlebar': 'languages.txt',
+        'lang-h2': 'Languages — built trilingual, now reaching for more',
+        'lang-p1': "In its earliest stage, the project was created inside a binational institution for a course whose main focus was learning English with a technical orientation. That is why Spanish, Portuguese, and English were chosen as the project's initial implementation languages — to maximize accessibility for the audience it was first built for.",
+        'lang-p2': 'Given the accessibility-first nature of CapyVerse Academy (as discussed in the Accessibility section), the goal is to translate the site into as many languages as possible over time.',
+        'lang-caption': 'The language switcher in the header — every page, every game.',
+
+        'ped-titlebar': 'pedagogy.txt',
+        'ped-h2': 'Pedagogy — CLIL and what games teach us about learning',
+        'ped-p1': 'Two bibliographical references had the strongest influence on the pedagogical side of CapyVerse Academy:',
+        'ped-h3-clil': 'Content and Language Integrated Learning (CLIL)',
+        'ped-ref-clil': 'Coyle, D., Hood, P., & Marsh, D. (2010). CLIL: Content and Language Integrated Learning. Cambridge University Press.',
+        'ped-h3-gee': 'What Video Games Have to Teach Us About Learning and Literacy',
+        'ped-ref-gee': 'Gee, J. P. (2003). What video games have to teach us about learning and literacy. Palgrave Macmillan.',
+        'ped-h3-content': 'Teaching content and language',
+        'ped-p2': 'Teaching subject content through an additional language. "Language," here, is not limited to programming or logic languages — the mechanics of a game can also be a language. Adopting this learning model encourages the proactive identification of solutions, which in turn places real emphasis on language learning.',
+        'ped-p3': 'According to Gee, talking about gaming-based learning, a game must be learned and then mastered in order to be played. What has to be learned is its mechanics — and those mechanics are based on the subject matter in question.',
+        'ped-p4': "CapyVerse's games are designed around these ideas, following a loop that looks something like this: a situation is presented, the available tools are shown, a brief tutorial or explanation is given, and then the level begins. The sequence repeats across all levels, with difficulty rising progressively.",
+        'ped-p5': 'With a context or story in place, a sense of "duty" emerges in the student\'s mind — a mindset of "I have to fix this," and as a consequence, "how can I fix this?" This model gives students some freedom to come up with their own solutions, or to try different ones. Combined with classroom use, students quickly discover that the same problem has several solutions, and that some are more efficient than others. This experience can lead to teamwork between students as they get involved enough to find a solution together, for everyone.',
+        'ped-caption': 'The four pillars on the home page — accessibility, multilingual support, progressive difficulty, and curriculum alignment.',
+
+        'cur-titlebar': 'curriculum.txt',
+        'cur-h2': 'Curriculum — TADS and Technical English',
+        'cur-p1': 'The project began as the final assignment for the course "Technical English," part of the second-semester curriculum of the Tecnologia em Análise e Desenvolvimento de Sistemas degree at the Instituto Federal Sul-Rio-Grandense. That is why the subjects taught through CapyVerse Academy\'s games carry this technological and computer-science focus.',
+        'cur-tads': 'About the TADS program',
+        'cur-caption': 'Instituto Federal Sul-Rio-Grandense — Rio Grande campus, where TADS is taught.',
+      },
+
+      es: {
+        'back': '← Volver a la Academia',
+        'hero-title': 'La Academia',
+        'hero-sub': 'Todo lo que dio forma a CapyVerse Academy: su historia, sus principios y la investigación detrás del proyecto.',
+        'nav-about': '▸ Sobre',
+        'nav-a11y':  '▸ Accesibilidad',
+        'nav-lang':  '▸ Idiomas',
+        'nav-ped':   '▸ Pedagogía',
+        'nav-cur':   '▸ Currículum',
+        'img-placeholder': '[ imagen ]',
+
+        'about-titlebar': 'sobre.txt',
+        'about-h2': 'Sobre — cómo empezó, hacia dónde va',
+        'about-p1': 'El proyecto CapyVerse Academy no existió como tal hasta un año después de la creación de la idea inicial: en 2025, lo único que existía era el juego Capy Code Quest, un juego sencillo con un sistema de bloques en el que se enseña, mediante gráficos visuales básicos, cómo funciona "programar". El enfoque era el mismo de hoy: enseñar, mediante la gamificación del aprendizaje, una materia a personas jóvenes que han tenido pocos acercamientos al tema, o ninguno.',
+        'about-fork': 'Fork original de Capy Code Quest en GitHub',
+        'about-p2': 'Más tarde, al año siguiente (2026), se experimentó aplicar la misma idea de Capy Code Quest en otras materias del área, y así nació CapyVerse Academy: un único lugar que reúne todos los juegos que se crearían después — Capy Cyber Defense, que enseña las bases de la ciberseguridad de forma dinámica; Capy Logic Labs, que enseña puertas lógicas con un aprendizaje activo en el que se aplican los conocimientos tan pronto como se adquieren; y Capy Data Dungeon, que te obliga a aprender y a usar SQL para defender a Capy dentro de un calabozo. Existe también la idea de un quinto juego, Capy Net World, sobre redes, cómo funciona internet y cómo se comunican las computadoras entre sí, pero su desarrollo se aplazó de forma indefinida.',
+        'about-p3': 'El desarrollo conceptual y técnico del proyecto evolucionaron casi de forma paralela, implementando y cambiando activamente distintos aspectos según se veía necesario en el camino. Un bucle constante de prueba y error, en el que se alternaba entre el código, la documentación y las anotaciones sobre mejoras, observaciones y demás ideas.',
+        'about-p4': 'Se busca llevar a CapyVerse Academy al público de forma seria; ya se puede acceder al proyecto por GitHub y por el sitio en línea.',
+        'about-live': 'Sitio en línea / Repositorio en GitHub',
+        'about-p5': 'El enfoque principal es llegar a ver esta herramienta usada como tal en salones de clase, no solo para cumplir aquello para lo que fue hecha, sino también para obtener opiniones directamente del público al que se busca atender — y que esas opiniones generen un impacto directo en el desarrollo futuro de CapyVerse Academy.',
+        'about-caption': 'Gameplay del Capy Code Quest original — el prototipo de 2025 que dio inicio a todo.',
+
+        'a11y-titlebar': 'accesibilidad.txt',
+        'a11y-h2': 'Accesibilidad — experiencia propia, investigación y un papel académico',
+        'a11y-p1': 'El enfoque en accesibilidad es una elección deliberada para este proyecto, específicamente por su carácter académico y open source. Basado en un papel académico escrito por las mismas personas que desarrollan el proyecto (antes de que CapyVerse Academy existiera como tal), busca crear la máxima accesibilidad posible para sus contenidos, pensados como herramientas de enseñanza, aprendizaje y estudio — tanto para alumnos como para profesores, y para cualquier persona que quiera participar de la experiencia. La información y el acceso a ella son vistos aquí como una necesidad y un derecho, y brindarlos de manera entendible y accesible a todos los públicos se asume como una obligación. Así, CapyVerse Academy busca ser una contribución más a la gran iniciativa de espacios académicos virtuales que toman este tema con prioridad.',
+        'a11y-p2': 'La accesibilidad se hace visible en varios aspectos. La interfaz misma es uno de ellos: un espacio web, sin necesidad de descargar e instalar archivos ni de crear una cuenta para poder acceder. A esto se suman el uso constante de etiquetas semánticas en el código HTML, la adopción de la paleta de colores Bang Wong para quienes tienen algún tipo de daltonismo (siendo el color y el contraste herramientas básicas para asegurar la recepción correcta de la información visual), la compatibilidad con lectores de pantalla y con configuraciones del sistema como el movimiento reducido, y la adopción de las WCAG 2.1 como eje central para el desarrollo del proyecto — y la lista solo sigue creciendo.',
+        'a11y-paper': 'Leer el papel académico (PDF)',
+        'a11y-caption': 'Portada del papel ENCIF que fundamenta el enfoque de accesibilidad de CapyVerse Academy.',
+
+        'lang-titlebar': 'idiomas.txt',
+        'lang-h2': 'Idiomas — pensado trilingüe, en busca de más traducciones',
+        'lang-p1': 'En su etapa inicial, el proyecto fue creado dentro de una institución binacional para una materia cuyo foco principal era el aprendizaje del idioma inglés con enfoque técnico. Es así como el español, el portugués y el inglés fueron elegidos como los idiomas principales de implementación: para asegurar la mayor accesibilidad posible entre el público para el que fue hecho en un inicio.',
+        'lang-p2': 'Teniendo en cuenta la naturaleza accesible de CapyVerse Academy (como se menciona en la sección Accesibilidad), se busca traducir la página a la mayor cantidad de idiomas posibles en el futuro.',
+        'lang-caption': 'El selector de idioma en el encabezado — en cada página, en cada juego.',
+
+        'ped-titlebar': 'pedagogia.txt',
+        'ped-h2': 'Pedagogía — CLIL y lo que los juegos nos enseñan sobre aprender',
+        'ped-p1': 'Mencionaremos los dos materiales bibliográficos que más influyeron en la parte pedagógica de CapyVerse Academy:',
+        'ped-h3-clil': 'Aprendizaje Integrado de Contenido y Lengua (CLIL)',
+        'ped-ref-clil': 'Coyle, D., Hood, P. y Marsh, D. (2010). CLIL: Content and Language Integrated Learning. Cambridge University Press.',
+        'ped-h3-gee': 'Lo que los videojuegos tienen para enseñarnos sobre aprendizaje y alfabetización',
+        'ped-ref-gee': 'Gee, J. P. (2003). What video games have to teach us about learning and literacy. Palgrave Macmillan.',
+        'ped-h3-content': 'Enseñar contenido y lenguaje',
+        'ped-p2': 'Enseñar contenido a través de un idioma adicional. El "lenguaje", aquí, no se limita a los lenguajes de programación o de lógica: también pueden serlo las mecánicas de un juego en sí. Adoptando este modelo de aprendizaje, se impulsa la identificación proactiva de soluciones, lo que pone énfasis real en el aprendizaje del lenguaje.',
+        'ped-p3': 'Según Gee, hablando del aprendizaje basado en gaming, un juego debe ser aprendido y posteriormente dominado para poder ser jugado. Lo que hay que aprender son las mecánicas, las cuales están basadas en la materia en cuestión.',
+        'ped-p4': 'El método de aprendizaje de los juegos de CapyVerse se basa en estas ideas, siguiendo un bucle similar a este: se presenta una situación, se muestran las herramientas disponibles, se da un breve tutorial o explicación, y luego el nivel comienza. Esta secuencia se repite en todos los niveles, subiendo en dificultad de forma progresiva.',
+        'ped-p5': 'Con un contexto o una historia dados, surge en la mente del alumno un sentimiento de "deber" — una mentalidad de "tengo que arreglar esto" y, como consecuencia, "¿cómo puedo arreglar esto?". Con este modelo, se le permite cierta libertad al estudiante para crear sus propias soluciones o probar diferentes. Esto, combinado con el uso de la herramienta en el aula, hace que los estudiantes descubran rápidamente que existen varias soluciones al mismo problema, y la preferencia por aquellas que son más eficientes. Esta experiencia puede llevar al trabajo en equipo entre estudiantes una vez que se involucran lo suficiente para encontrar una solución entre todos, para todos.',
+        'ped-caption': 'Los cuatro pilares de la página principal: accesibilidad, soporte multilingüe, dificultad progresiva y alineación con el currículum.',
+
+        'cur-titlebar': 'curriculo.txt',
+        'cur-h2': 'Currículum — TADS e Inglés Técnico',
+        'cur-p1': 'El proyecto comenzó como un trabajo final para la materia "Inglés Técnico", parte del currículum del segundo semestre de la carrera Tecnologia em Análise e Desenvolvimento de Sistemas del Instituto Federal Sul-Rio-Grandense. Es por esto que las materias que son enseñadas en los juegos de CapyVerse Academy tienen este enfoque tecnológico e informático.',
+        'cur-tads': 'Sobre el programa TADS',
+        'cur-caption': 'Instituto Federal Sul-Rio-Grandense — campus de Rio Grande, donde se dicta la carrera TADS.',
+      },
+
+      pt: {
+        'back': '← Voltar à Academia',
+        'hero-title': 'A Academia',
+        'hero-sub': 'Tudo o que moldou a CapyVerse Academy: sua história, seus princípios e a pesquisa por trás do projeto.',
+        'nav-about': '▸ Sobre',
+        'nav-a11y':  '▸ Acessibilidade',
+        'nav-lang':  '▸ Idiomas',
+        'nav-ped':   '▸ Pedagogia',
+        'nav-cur':   '▸ Currículo',
+        'img-placeholder': '[ imagem ]',
+
+        'about-titlebar': 'sobre.txt',
+        'about-h2': 'Sobre — como começou, para onde vai',
+        'about-p1': 'O projeto CapyVerse Academy não existiu como tal até um ano após a criação da ideia inicial: em 2025, o que existia era apenas o jogo Capy Code Quest, um jogo simples com um sistema de blocos no qual se ensina, por meio de gráficos visuais básicos, como funciona "programar". O foco era o mesmo de hoje: ensinar, por meio da gamificação da aprendizagem, uma matéria a pessoas jovens que tiveram pouco ou nenhum contato com o tema.',
+        'about-fork': 'Fork original do Capy Code Quest no GitHub',
+        'about-p2': 'Mais tarde, no ano seguinte (2026), experimentou-se aplicar a mesma ideia do Capy Code Quest em outras matérias da área, e assim nasceu a CapyVerse Academy: um único lugar que reúne todos os jogos criados depois — Capy Cyber Defense, que ensina as bases da cibersegurança de forma dinâmica; Capy Logic Labs, que ensina portas lógicas com uma aprendizagem ativa em que os conhecimentos são aplicados assim que são adquiridos; e Capy Data Dungeon, que obriga você a aprender e usar SQL para defender o Capy dentro de uma masmorra. Existe ainda a ideia de um quinto jogo, Capy Net World, sobre redes, como funciona a internet e como os computadores se comunicam entre si, mas seu desenvolvimento foi adiado por tempo indeterminado.',
+        'about-p3': 'O desenvolvimento conceitual e técnico do projeto evoluíram quase em paralelo, implementando e alterando ativamente diferentes aspectos conforme se mostrava necessário. Um ciclo constante de tentativa e erro, alternando entre o código, a documentação e as anotações sobre melhorias, observações e demais ideias.',
+        'about-p4': 'A intenção é disponibilizar a CapyVerse Academy de forma séria ao público; já é possível acessá-la pelo GitHub e pelo site no ar.',
+        'about-live': 'Site no ar / Repositório no GitHub',
+        'about-p5': 'O foco principal é ver esta ferramenta sendo usada como tal em salas de aula — não apenas para cumprir aquilo para o que foi criada, mas também para obter opiniões diretamente do público que se quer atender, de forma que essas opiniões gerem um impacto direto no desenvolvimento futuro da CapyVerse Academy.',
+        'about-caption': 'Gameplay do Capy Code Quest original — o protótipo de 2025 que deu início a tudo.',
+
+        'a11y-titlebar': 'acessibilidade.txt',
+        'a11y-h2': 'Acessibilidade — experiência própria, pesquisa e um artigo acadêmico',
+        'a11y-p1': 'O foco em acessibilidade é uma escolha deliberada para este projeto, especificamente por seu caráter acadêmico e open source. Baseado em um artigo acadêmico escrito pelas mesmas pessoas que desenvolvem o projeto (antes de a CapyVerse Academy existir como tal), busca-se a máxima acessibilidade possível para seus conteúdos, pensados como ferramentas de ensino, aprendizagem e estudo — tanto para alunos quanto para professores, e para qualquer pessoa que queira participar da experiência. A informação e o acesso a ela são vistos aqui como uma necessidade e um direito, e oferecê-los de forma compreensível e acessível a todos os públicos é assumido como uma obrigação. É assim que a CapyVerse Academy busca ser mais uma contribuição à grande iniciativa dos espaços acadêmicos virtuais que tratam esse tema como prioridade.',
+        'a11y-p2': 'A acessibilidade se manifesta em vários aspectos. A própria interface é um deles: um espaço web, sem necessidade de baixar e instalar arquivos nem de criar uma conta para acessar. A isso se somam o uso constante de tags semânticas no código HTML, a adoção da paleta de cores Bang Wong para quem tem algum tipo de daltonismo (sendo cor e contraste ferramentas básicas para garantir a recepção correta da informação visual), a compatibilidade com leitores de tela e com configurações do sistema como o movimento reduzido, e a adoção das WCAG 2.1 como eixo central para o desenvolvimento do projeto — e a lista só continua crescendo.',
+        'a11y-paper': 'Ler o artigo acadêmico (PDF)',
+        'a11y-caption': 'Página de capa do artigo ENCIF que embasa a abordagem de acessibilidade da CapyVerse Academy.',
+
+        'lang-titlebar': 'idiomas.txt',
+        'lang-h2': 'Idiomas — pensado trilíngue, em busca de mais traduções',
+        'lang-p1': 'Em sua etapa inicial, o projeto foi criado dentro de uma instituição binacional para uma disciplina cujo foco principal era o aprendizado do idioma inglês com viés técnico. É assim que o espanhol, o português e o inglês foram escolhidos como os idiomas principais de implementação — para garantir a maior acessibilidade possível entre o público para o qual foi feito inicialmente.',
+        'lang-p2': 'Tendo em conta a natureza acessível da CapyVerse Academy (como mencionado na seção Acessibilidade), pretende-se traduzir a página para a maior quantidade de idiomas possível no futuro.',
+        'lang-caption': 'O seletor de idioma no cabeçalho — em cada página, em cada jogo.',
+
+        'ped-titlebar': 'pedagogia.txt',
+        'ped-h2': 'Pedagogia — CLIL e o que os jogos nos ensinam sobre aprender',
+        'ped-p1': 'Mencionaremos os dois materiais bibliográficos que mais influenciaram a parte pedagógica da CapyVerse Academy:',
+        'ped-h3-clil': 'Aprendizagem Integrada de Conteúdo e Língua (CLIL)',
+        'ped-ref-clil': 'Coyle, D., Hood, P. e Marsh, D. (2010). CLIL: Content and Language Integrated Learning. Cambridge University Press.',
+        'ped-h3-gee': 'O que os videogames têm a nos ensinar sobre aprendizagem e letramento',
+        'ped-ref-gee': 'Gee, J. P. (2003). What video games have to teach us about learning and literacy. Palgrave Macmillan.',
+        'ped-h3-content': 'Ensinar conteúdo e linguagem',
+        'ped-p2': 'Ensinar conteúdo por meio de um idioma adicional. "Linguagem", aqui, não se limita a linguagens de programação ou lógica: também podem ser as mecânicas de um jogo em si. Adotar esse modelo de aprendizagem impulsiona a identificação proativa de soluções, o que coloca ênfase real no aprendizado da linguagem.',
+        'ped-p3': 'Segundo Gee, falando sobre aprendizagem baseada em gaming, um jogo precisa ser aprendido e, depois, dominado para poder ser jogado. O que se tem de aprender são as mecânicas, e essas mecânicas são baseadas na matéria em questão.',
+        'ped-p4': 'O método de aprendizagem dos jogos da CapyVerse se baseia nessas ideias, seguindo um ciclo parecido com este: apresenta-se uma situação, mostram-se as ferramentas disponíveis, dá-se um breve tutorial ou explicação, e então o nível começa. Essa sequência se repete em todos os níveis, subindo em dificuldade de forma progressiva.',
+        'ped-p5': 'Com um contexto ou uma história dados, surge na mente do aluno um sentimento de "dever" — uma mentalidade de "tenho que arrumar isto" e, como consequência, "como posso arrumar isto?". Com esse modelo, permite-se ao estudante certa liberdade para criar suas próprias soluções ou tentar outras diferentes. Isto, combinado com o uso da ferramenta em sala de aula, faz com que os estudantes descubram rapidamente que existem várias soluções para o mesmo problema, e a preferência por aquelas que são mais eficientes. Essa experiência pode levar ao trabalho em equipe entre estudantes, à medida que se envolvem o suficiente para encontrar uma solução entre todos, para todos.',
+        'ped-caption': 'Os quatro pilares na página inicial: acessibilidade, suporte multilíngue, dificuldade progressiva e alinhamento curricular.',
+
+        'cur-titlebar': 'curriculo.txt',
+        'cur-h2': 'Currículo — TADS e Inglês Técnico',
+        'cur-p1': 'O projeto começou como trabalho final para a disciplina "Inglês Técnico", parte do currículo do segundo semestre do curso Tecnologia em Análise e Desenvolvimento de Sistemas do Instituto Federal Sul-Rio-Grandense. É por isso que as matérias ensinadas nos jogos da CapyVerse Academy carregam esse foco tecnológico e da computação.',
+        'cur-tads': 'Sobre o programa TADS',
+        'cur-caption': 'Instituto Federal Sul-Rio-Grandense — campus Rio Grande, onde o curso TADS é oferecido.',
+      },
+    };
+
+    (function () {
+      function applyLang(lang) {
+        var dict = window.PAGE_I18N[lang] || window.PAGE_I18N.en;
+        document.documentElement.setAttribute('lang', lang);
+        document.querySelectorAll('[data-i18n]').forEach(function (el) {
+          var k = el.getAttribute('data-i18n');
+          if (dict[k] !== undefined) el.textContent = dict[k];
+        });
+        document.querySelectorAll('.lang-btn').forEach(function (btn) {
+          var active = btn.dataset.lang === lang;
+          btn.setAttribute('aria-pressed', active ? 'true' : 'false');
+        });
+        if (dict['hero-title']) document.title = dict['hero-title'] + ' — CapyVerse Academy';
+      }
+      var initial = (window.CapyLang && window.CapyLang.get()) || 'en';
+      applyLang(initial);
+      document.querySelectorAll('.lang-btn').forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          var lang = btn.dataset.lang;
+          if (window.CapyLang) window.CapyLang.set(lang);
+          applyLang(lang);
+        });
+      });
+      window.addEventListener('capy:langchange', function (e) {
+        if (e.detail && e.detail.lang) applyLang(e.detail.lang);
+      });
+    })();
+  </script>
+</body>
+</html>

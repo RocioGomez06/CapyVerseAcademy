@@ -25,9 +25,9 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
 | --- | --- | --- |
 | **Capy Code Quest** | Algorithms, loops, sequential thinking | Available |
 | **Capy Cyber Defense** | Cybersecurity literacy (phishing, malware, MITM, ransomware, zero-day, …) | Available |
-| Capy Logic Labs | Logic gates, circuits | Coming soon |
-| Capy Data Vault | Databases, queries | Coming soon |
-| Capy Net World | Networking, protocols | Coming soon |
+| **Capy Logic Labs** | Logic gates, circuits, boolean reasoning | Available |
+| **Capy Data Dungeon** | SQL — `SELECT`, `WHERE`, `AND`, `ORDER BY`, `LIMIT`, joins | Available |
+| Capy Net World | Networking, protocols | Planned — on indefinite hold |
 
 - **Capy Code Quest 1st level**
 
@@ -41,6 +41,22 @@ Trilingual (English, Español, Português), color-blind-safe (Bang Wong palette)
   
 <p align="center">
   <img width="800" height="450" alt="image" src="https://github.com/user-attachments/assets/b0604fe5-0d74-4c8b-b0bc-1b2e19f1fa78" />
+</p>
+
+---
+
+- **Capy Logic Labs**
+
+<p align="center">
+  <img width="800" alt="Capy Logic Labs — start screen" src="assets/screenshots/capy-logic-labs-gameplay.png" />
+</p>
+
+---
+
+- **Capy Data Dungeon**
+
+<p align="center">
+  <img width="800" alt="Capy Data Dungeon — start screen" src="assets/screenshots/capy-data-dungeon-gameplay.png" />
 </p>
 
 ---
@@ -64,29 +80,39 @@ Then open <http://localhost:8000>.
 ```
 /
 ├── index.html              ← academy landing page (the entry point)
-├── assets/
-│   ├── logos/              ← cross-game logos (Code Quest, Cyber Defense, ship)
-│   └── cursor/             ← pixel-art capy hand cursor (open + closed)
-├── pages/                  ← static content pages
-│   ├── about.html
-│   ├── accessibility.html
-│   ├── curriculum.html
-│   ├── languages.html
-│   └── pedagogy.html
+├── README.md
+├── assets/                 ← shared, cross-game resources
+│   ├── cursor/             ← pixel-art capy hand cursor (open + closed)
+│   ├── logos/              ← per-game logos + capy mascot (kebab-case)
+│   ├── music/              ← academy-wide background tracks
+│   ├── papers/             ← the ENCIF accessibility paper (PDF)
+│   ├── screenshots/        ← imagery used on the academy page (GIFs, PNGs)
+│   ├── scripts/            ← shared JS: capy-lang, capy-sfx, capy-music-player
+│   ├── sfx/                ← shared sound effects (enter-academy, pause, …)
+│   └── styles/             ← shared CSS (music player chrome)
+├── pages/
+│   └── academy.html        ← single unified page (About · Accessibility ·
+│                              Languages · Pedagogy · Curriculum sections,
+│                              anchored, real-time language switching)
 └── games/                  ← one folder per game, fully self-contained
     ├── capy-code-quest/
-    │   ├── index.html
-    │   ├── script.js
-    │   ├── style.css
-    │   ├── levels.json
-    │   └── assets/         ← game-specific sprites
-    └── capy-cyber-defense/
-        ├── index.html
-        ├── script.js
-        └── style.css
+    │   ├── index.html · script.js · style.css · levels.json
+    │   ├── assets/         ← game-specific sprites
+    │   ├── music/          ← per-game soundtrack
+    │   └── sfx/            ← per-game sound effects
+    ├── capy-cyber-defense/
+    │   ├── index.html · script.js · style.css
+    │   ├── music/
+    │   └── sfx/
+    ├── capy-logic-labs/
+    │   ├── index.html · script.js · style.css · levels.json
+    │   └── sfx/
+    └── capy-data-dungeon/
+        ├── index.html · script.js · style.css · levels.json
+        └── assets/         ← 50+ pixel-art sprites for the dungeon
 ```
 
-Each game is fully standalone — its folder can be opened directly, or embedded in the academy via the `openGame()` overlay.
+Each game is fully standalone — its folder can be opened directly, or embedded in the academy via the `openGame()` overlay. The unified `pages/academy.html` is reached from the landing page's "Learn more →" buttons and from its footer.
 
 ---
 
@@ -94,8 +120,9 @@ Each game is fully standalone — its folder can be opened directly, or embedded
 
 - **HTML / CSS / vanilla JS** — no frameworks, no canvas, no game engine. Threats and game objects are absolutely-positioned DOM elements animated with CSS keyframes (`animation-play-state: paused/running` to freeze the world during popups).
 - **`localStorage`** — player profiles, progress, syllabus, high scores. All schema-validated on load.
+- **`sql.js`** — Capy Data Dungeon ships with an in-browser SQLite build so player queries run on a real schema; no server, no network call.
 - **Press Start 2P + Pixelify Sans** from Google Fonts — both free for any use.
-- **Bang Wong color-blind-safe palette** — the eight colors used across the UI are distinguishable by people with all common forms of color blindness.
+- **Bang Wong color-blind-safe palette** — the eight colors used across the UI are distinguishable by people with all common forms of color blindness. The full design rationale is in [the ENCIF paper](assets/papers/encif-9-ifsul.pdf) linked from the Accessibility section of the academy page.
 
 ---
 
@@ -109,7 +136,7 @@ Each game is fully standalone — its folder can be opened directly, or embedded
   - Keyboard-navigable menus (game-loop targets like falling threats are mouse/touch only by design; the menus, popups, and forms aren't).
   - Color-blind-safe by default.
   - ESC closes any popup or pause overlay.
-- **No tracking, no analytics, no third-party scripts.** Player data never leaves the browser.
+- **No tracking, no analytics, no telemetry.** Player data never leaves the browser. The only third-party fetches are static asset CDNs (Google Fonts, jsDelivr for `sql.js`) — none of them receive identifying or behavioural data.
 
 ---
 
@@ -117,11 +144,12 @@ Each game is fully standalone — its folder can be opened directly, or embedded
 
 The repo is structured so adding a new game is just creating a new folder under `games/`:
 
-1. `games/capy-<your-game>/` with `index.html`, `script.js`, `style.css`, and any `assets/`.
+1. `games/capy-<your-game>/` with `index.html`, `script.js`, `style.css`, and any `assets/`, `music/`, `sfx/` subfolders.
 2. Add the game card to `index.html` (academy landing) and wire its `openGame(...)` button.
-3. Add translations in the three language objects at the bottom of `index.html`.
+3. Add the card's strings to the three language objects at the bottom of `index.html`.
+4. Inside the game, keep its own `TRANSLATIONS` dict in `script.js` (one object per supported language, keys matched by `data-i18n` / `data-key` attributes in `index.html`). The shared `assets/scripts/capy-lang.js` persists the language choice across all pages and games via `localStorage`.
 
-Game-specific contributions: each game's `script.js` is a single self-contained file. State lives in a `state` object, screens are toggled via a `.active` class, and `localStorage` writes go through `savePlayers()` / `saveProgress()` so schema can stay validated.
+Game-specific contributions: each game's `script.js` is a single self-contained file. State lives in a `state` object, screens are toggled via a `.active` class, and `localStorage` writes go through helper functions so schema stays validated. For Capy Data Dungeon, levels are declared in `levels.json` (schema, narration, objective, expected query); the rendering of the level "scene" pulls from a `SCENE_LIB` keyed by emoji, with sprites picked from a `SPRITE_MAP` in `script.js` that gracefully falls back to the emoji glyph when a sprite isn't (yet) available.
 
 ---
 
@@ -141,8 +169,8 @@ This includes, without limitation:
 
 - the original concept and educational vision of the platform
 - the name, branding, and identity of "CapyVerse Academy"
-- every game concept, mechanic, level design, and curriculum mapping (Capy Code Quest, Capy Cyber Defense, Capy Logic Labs, Capy Data Vault, Capy Net World)
-- all pixel art (capybara mascot, custom cursors, logos, threat icons, sprites, UI chrome)
+- every game concept, mechanic, level design, and curriculum mapping (Capy Code Quest, Capy Cyber Defense, Capy Logic Labs, Capy Data Dungeon, Capy Net World)
+- all pixel art (capybara mascot, custom cursors, logos, threat icons, dungeon sprites, UI chrome)
 - all written copy, in-game text, translations, and pedagogical material
 - all HTML, CSS, JavaScript, and configuration
 
@@ -166,7 +194,7 @@ You're free to use, modify, and share this material for **non-commercial educati
 
 The soundtrack is **separately licensed and not covered by CC BY-NC-SA**.
 
-All tracks in `assets/music/`, `games/capy-code-quest/music/`, and `games/capy-cyber-defense/music/` were composed and produced by **Matías Ramírez**, who retains full copyright. The works are not registered with any collective rights organisation (SADAIC, ASCAP, PRS, etc.) and have not been released under any public license.
+All tracks in `assets/music/` and the per-game `music/` folders (Capy Code Quest, Capy Cyber Defense, and any future games that ship with a soundtrack) were composed and produced by **Matías Ramírez**, who retains full copyright. The works are not registered with any collective rights organisation (SADAIC, ASCAP, PRS, etc.) and have not been released under any public license.
 
 Matías has granted CapyVerse Academy **explicit, personal permission** to include these tracks for use within this educational, non-commercial project only. This permission:
 

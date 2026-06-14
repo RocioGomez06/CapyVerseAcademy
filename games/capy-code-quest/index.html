@@ -9,7 +9,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css?v=6" />
+  <link rel="stylesheet" href="style.css?v=7" />
+  <script src="../../assets/scripts/capy-lang.js"></script>
 </head>
 <body>
 
@@ -64,7 +65,7 @@
             </section>
           </main>
           <footer class="screen-footer">
-            <button id="btn-back-start" class="secondary" data-key="backToStart">⟵ Back to Start</button>
+            <button id="btn-back-start" class="secondary" data-key="backToStart">⟵ Start</button>
           </footer>
         </div>
 
@@ -95,6 +96,7 @@
               </div>
 
               <h2 data-key="programTitle">Program</h2>
+              <p class="program-hint" data-key="programHint">💡 Click a line to delete it.</p>
               <div class="program-box">
                 <ol id="program-list"></ol>
               </div>
@@ -141,7 +143,7 @@
 
     <!-- PAGE FOOTER -->
     <footer class="page-footer">
-      <span>© 2025 Capy Verse Academy &nbsp;·&nbsp; Educational Games for CS Learning</span>
+      <span>© 2026 Capy Verse Academy &nbsp;·&nbsp; Educational Games for CS Learning</span>
       <span>
         <a href="#">Capy Code Quest</a> &nbsp;·&nbsp;
         <a href="#">Logic Labs</a> &nbsp;·&nbsp;
@@ -153,6 +155,19 @@
     </footer>
 
   </div><!-- /.page-wrapper -->
+
+  <!-- FINAL WIN OVERLAY -->
+  <div id="final-win-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="final-win-title">
+    <div class="modal-box final-win-box">
+      <div class="final-win-emoji" aria-hidden="true">🚀</div>
+      <h2 class="modal-title final-win-title" id="final-win-title" data-key="finalWinTitle">ALL QUESTS COMPLETE!</h2>
+      <p class="final-win-msg" data-key="finalWinMsg">Capy navigated every grid, grabbed every apple, and reached every home. You've mastered the basics of programming logic.</p>
+      <div class="final-win-buttons">
+        <button id="final-win-levels" class="primary" data-key="finalWinLevels">⟵ Back to Levels</button>
+        <button id="final-win-close" class="secondary" data-key="finalWinClose">Close</button>
+      </div>
+    </div>
+  </div>
 
   <script src="script.js?v=7"></script>
 
@@ -180,7 +195,20 @@
       },
     };
   </script>
-  <script src="../../assets/scripts/capy-music-player.js" defer></script>
-  <script src="../../assets/scripts/capy-sfx.js" defer></script>
+  <script src="../../assets/scripts/capy-music-player.js?v=2" defer></script>
+  <script src="../../assets/scripts/capy-sfx.js?v=2" defer></script>
+
+  <!-- FINAL WIN OVERLAY -->
+  <div id="final-win-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="final-win-title">
+    <div class="modal-box final-win-box">
+      <div class="final-win-emoji" aria-hidden="true">🚀</div>
+      <h2 class="modal-title final-win-title" id="final-win-title" data-key="finalWinTitle">ALL QUESTS COMPLETE!</h2>
+      <p class="final-win-msg" data-key="finalWinMsg">Capy navigated every grid, grabbed every apple, and reached every home. You've mastered the basics of programming logic.</p>
+      <div class="final-win-buttons">
+        <button id="final-win-levels" class="primary" data-key="finalWinLevels">⟵ Back to Levels</button>
+        <button id="final-win-close" class="secondary" data-key="finalWinClose">Close</button>
+      </div>
+    </div>
+  </div>
 </body>
 </html>

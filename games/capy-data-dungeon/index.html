@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capy Data Dungeon</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css?v=2" />
+  <script src="../../assets/scripts/capy-lang.js"></script>
+</head>
+<body>
+
+  <div class="page-wrapper">
+    <div class="arcade-cabinet">
+
+      <!-- WIN95 TITLE BAR -->
+      <div class="title-bar">
+        <div class="title-bar-left">
+          <img class="title-bar-icon" src="../../assets/logos/capy-data-dungeon-logo.png" alt="" aria-hidden="true" />
+          <span class="title-bar-text">Capy Data Dungeon</span>
+        </div>
+        <div class="title-bar-controls">
+          <button class="title-btn lang-btn" data-lang="es" onclick="changeLanguage('es')" title="Español" aria-pressed="false">ES</button>
+          <button class="title-btn lang-btn active" data-lang="en" onclick="changeLanguage('en')" title="English" aria-pressed="true">EN</button>
+          <button class="title-btn lang-btn" data-lang="pt" onclick="changeLanguage('pt')" title="Português" aria-pressed="false">PT</button>
+          <button class="title-btn fullscreen-btn" onclick="toggleFullscreen()" title="Fullscreen" aria-label="Toggle fullscreen">⛶</button>
+        </div>
+      </div>
+
+      <div class="game-content" id="game-content">
+
+        <!-- START SCREEN -->
+        <div id="screen-start" class="screen active" role="main" aria-label="Start screen">
+          <div class="screen-center start-screen">
+            <img class="start-logo" src="../../assets/logos/capy-data-dungeon-logo.png" alt="" aria-hidden="true" />
+            <h1 data-key="gameTitle">Capy Data Dungeon</h1>
+            <p class="subtitle" data-key="startSubtitle">
+              Capy is trapped beneath the Archive of Forgotten Tables.<br/>
+              Cast SQL queries to open doors, banish foes, and escape.
+            </p>
+            <button id="btn-go-levels" class="primary big-button" data-key="startButton">▶ ENTER DUNGEON</button>
+          </div>
+        </div>
+
+        <!-- LEVEL SELECT -->
+        <div id="screen-levels" class="screen" role="main" aria-label="Level select">
+          <header class="screen-header">
+            <h1 data-key="selectRoomTitle">SELECT ROOM</h1>
+            <p class="subtitle" data-key="selectSubtitle">Each room hides a database puzzle.</p>
+          </header>
+          <main>
+            <div id="levels-list" class="levels-list" role="list"></div>
+          </main>
+          <footer class="screen-footer">
+            <button id="btn-back-start" class="secondary" data-key="backToStart">⟵ Start</button>
+          </footer>
+        </div>
+
+        <!-- GAME SCREEN -->
+        <div id="screen-game" class="screen" role="main" aria-label="Game screen">
+          <header class="game-header">
+            <h1 id="current-level-label">Room 1</h1>
+            <p id="current-level-sector" class="level-sector-line"></p>
+          </header>
+
+          <main class="game-main">
+
+            <!-- LEFT: SCENE -->
+            <section class="scene-section" aria-label="Dungeon scene">
+              <div id="scene" class="scene" aria-hidden="true"></div>
+              <div id="narration" class="narration"></div>
+              <div id="objective" class="objective"></div>
+            </section>
+
+            <!-- RIGHT: QUERY -->
+            <section class="query-section" aria-label="SQL query">
+              <h2 data-key="tablesTitle">TABLES</h2>
+              <div id="tables-view" class="tables-view"></div>
+
+              <h2 data-key="queryTitle">QUERY</h2>
+              <textarea id="query-input" class="query-input" spellcheck="false" autocomplete="off"
+                placeholder="SELECT ... FROM ..."></textarea>
+
+              <div class="query-controls">
+                <button id="btn-cast" class="primary" data-key="castButton">▶ CAST QUERY</button>
+                <button id="btn-hint" class="secondary" data-key="hintButton">💡 HINT</button>
+              </div>
+
+              <div id="result-panel" class="result-panel">
+                <div class="result-hint" data-key="resultHint">Results will appear here.</div>
+              </div>
+
+              <div id="message" class="message" aria-live="polite" data-key="readyMessage">
+                Ready. Read the scene, write the query, cast it.
+              </div>
+
+              <div class="next-level-container">
+                <button id="btn-next-level" class="primary hidden" data-key="nextLevel">Next Room ⟶</button>
+              </div>
+            </section>
+          </main>
+
+          <footer class="game-footer">
+            <div class="footer-left">
+              <button id="btn-back-levels" class="secondary" data-key="backToLevels">⟵ Rooms</button>
+            </div>
+            <div class="footer-center">
+              <span class="footer-brand">🐾 Capy Verse Academy</span>
+            </div>
+            <div class="footer-right">
+              <small>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+              </small>
+            </div>
+          </footer>
+        </div>
+
+      </div>
+
+      <div class="cabinet-bezel" aria-hidden="true">
+        <span class="bezel-brand">★ CAPY VERSE ACADEMY ★</span>
+        <div class="bezel-leds">
+          <span class="led led-green"></span>
+          <span class="led led-yellow"></span>
+          <span class="led led-red"></span>
+        </div>
+      </div>
+
+    </div>
+
+    <footer class="page-footer">
+      <span>© 2026 Capy Verse Academy &nbsp;·&nbsp; Educational Games for CS Learning</span>
+      <span>
+        <a href="../capy-code-quest/">Code Quest</a> &nbsp;·&nbsp;
+        <a href="../capy-logic-labs/">Logic Labs</a> &nbsp;·&nbsp;
+        <a href="../capy-cyber-defense/">Cyber Defense</a>
+      </span>
+      <span>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+      </span>
+    </footer>
+  </div>
+
+  <!-- HOW-TO MODAL -->
+  <div id="howto-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span class="modal-icon" aria-hidden="true">📜</span>
+        <h2 class="modal-title" data-key="howtoTitle">How to Play</h2>
+      </div>
+      <div class="howto-body">
+        <p><strong data-key="goalLabel">Goal:</strong> <span data-key="goalText"> Escape every room of the Archive by writing a SQL query that solves the puzzle.</span></p>
+        <p><strong data-key="howToPlayLabel">How to play:</strong> <span data-key="howToPlayText"> Read the scene on the left. The tables on the right show what you can query. Type a SELECT statement, press CAST QUERY. If your result matches the door's lock, the door opens.</span></p>
+      </div>
+      <button id="howto-close" class="primary" data-key="howtoClose">Light the Torch ▶</button>
+    </div>
+  </div>
+
+  <!-- FINAL WIN OVERLAY -->
+  <div id="final-win-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="final-win-title">
+    <div class="modal-box final-win-box">
+      <div class="final-win-emoji" aria-hidden="true">🏆</div>
+      <h2 class="modal-title final-win-title" id="final-win-title" data-key="finalWinTitle">DUNGEON CLEARED!</h2>
+      <p class="final-win-msg" data-key="finalWinMsg">Capy has escaped the Archive of Forgotten Tables. Every room conquered, every lock picked.</p>
+      <div class="final-win-buttons">
+        <button id="final-win-rooms" class="primary" data-key="finalWinRooms">⟵ Back to Rooms</button>
+        <button id="final-win-close" class="secondary" data-key="finalWinClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- HINT MODAL -->
+  <div id="hint-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="hint-title">
+    <div class="modal-box hint-box">
+      <div class="modal-header">
+        <span class="modal-icon" aria-hidden="true">💡</span>
+        <h2 class="modal-title" id="hint-title" data-key="hintTitle">Hint</h2>
+      </div>
+      <div class="hint-body" id="hint-body"></div>
+      <button id="hint-close" class="primary" data-key="hintClose">Got it ▶</button>
+    </div>
+  </div>
+
+  <!-- sql.js loader -->
+  <script src="https://cdn.jsdelivr.net/npm/sql.js@1.10.3/dist/sql-wasm.js"></script>
+  <script src="script.js"></script>
+
+  <!-- CAPY MUSIC PLAYER + SFX -->
+  <link rel="stylesheet" href="../../assets/styles/capy-music-player.css" />
+  <script>
+    window.CAPY_MUSIC = {
+      basePath: '../../assets/music/',
+      credit: 'Matías Ramírez',
+      playlist: [
+        { title: 'Dancing Days',         file: 'Dancing Days.mp3' },
+        { title: 'Dreams Of Yesteryear', file: 'Dreams Of Yesteryear.mp3' },
+        { title: 'End Of The Journey',   file: 'End Of The Journey.mp3' },
+        { title: 'Golden Times',         file: 'Golden Times.mp3' },
+      ],
+    };
+  </script>
+  <script src="../../assets/scripts/capy-music-player.js?v=2" defer></script>
+
+</body>
+</html>

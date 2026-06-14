@@ -4,6 +4,15 @@
    Bang Wong palette + pixel-art crispness
 ============================================= */
 
+/* ── CAPY HAND CURSOR ── */
+* { cursor: url("../../assets/cursor/capyHandCursor@2x.png") 8 4, auto; }
+a, button, [role='button'], .lang-btn, .title-btn, input[type='submit'], input[type='button'] {
+  cursor: url("../../assets/cursor/capyHandCursor@2x.png") 8 4, pointer !important;
+}
+*:active, a:active, button:active, [role='button']:active {
+  cursor: url("../../assets/cursor/capyHandCursorClosed@2x.png") 8 4, pointer !important;
+}
+
 :root {
   --bg-dark:      #1a1a2e;
   --bg-darker:    #0f0f1a;
@@ -62,7 +71,7 @@ body {
 
 .arcade-cabinet {
   width: 100%;
-  max-width: 1140px;
+  max-width: 1360px;
   background: var(--cabinet-body);
   border-radius: 4px;
   border: 3px solid var(--cabinet-trim);
@@ -231,6 +240,7 @@ body {
   display: flex;
   justify-content: center;
 }
+.screen-footer > button { width: auto; }
 
 /* =============================================
    TYPOGRAPHY
@@ -289,12 +299,19 @@ header {
   margin-bottom: 16px;
 }
 
-main {
+#screen-game main {
   display: grid;
-  grid-template-columns: auto 1fr;
+  grid-template-columns: 1fr 380px;
   gap: 24px;
-  align-items: start;
+  align-items: stretch;
 }
+.grid-section,
+.controls-section {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+.grid-section .grid { flex: 1 1 auto; }
 
 #screen-levels main {
   display: block;
@@ -426,7 +443,8 @@ main {
   font-family: var(--pixel-font);
   font-size: 0.65rem;
   line-height: 1.6;
-  min-height: 38px;
+  height: 72px;
+  overflow: hidden;
   max-width: 320px;
   text-shadow: 0 0 6px rgba(0, 255, 136, 0.5);
 }
@@ -549,9 +567,8 @@ button.secondary:hover {
   border-bottom-color: #4040aa;
   border-right-color: #4040aa;
   padding: 8px 10px;
-  max-height: 200px;
+  height: 200px;
   overflow-y: auto;
-  min-height: 80px;
 }
 
 #program-list {
@@ -615,7 +632,9 @@ button.secondary:hover {
 
 .next-level-container {
   margin-top: 8px;
+  height: 40px;
 }
+.next-level-container .hidden { display: block !important; visibility: hidden; }
 
 .hidden {
   display: none !important;
@@ -825,20 +844,14 @@ html:-webkit-full-screen body,
 html:-moz-full-screen body {
   min-height: 100vh;
   height: auto;
+  padding: 0;
+  justify-content: center;
 }
 
-.arcade-cabinet:fullscreen .game-content,
-.arcade-cabinet:-webkit-full-screen .game-content,
-.arcade-cabinet:-moz-full-screen .game-content {
-  flex: 1;
-  overflow-y: auto;
-}
-
-:fullscreen body,
-:-webkit-full-screen body,
-:-moz-full-screen body {
-  background: #000;
-  justify-content: flex-start;
+:fullscreen .arcade-cabinet,
+:-webkit-full-screen .arcade-cabinet,
+:-moz-full-screen .arcade-cabinet {
+  max-width: min(96vw, 1600px);
 }
 
 :fullscreen .page-footer,
@@ -922,4 +935,64 @@ html:-moz-full-screen body {
     text-align: center;
     gap: 4px;
   }
+}
+
+/* ── FINAL WIN OVERLAY ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.82);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 20px;
+}
+.modal-overlay.hidden { display: none !important; }
+.modal-box {
+  background: #1a1a2e;
+  border: 3px solid #e69f00;
+  border-top-color: #ffd060;
+  border-left-color: #ffd060;
+  max-width: 540px;
+  width: 100%;
+  padding: 28px 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 0 40px rgba(230, 159, 0, 0.4);
+}
+.modal-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.95rem;
+  color: #e69f00;
+  letter-spacing: 2px;
+  margin: 0;
+}
+.final-win-emoji {
+  font-size: 72px;
+  filter: drop-shadow(0 0 22px rgba(230, 159, 0, 0.7));
+}
+.final-win-msg {
+  color: #f0f0f0;
+  font-size: 1.05rem;
+  line-height: 1.55;
+}
+.final-win-buttons {
+  display: flex;
+  gap: 10px;
+  width: 100%;
+}
+.final-win-buttons button { flex: 1; }
+
+/* Inline hint above the program list */
+.program-hint {
+  font-family: 'Pixelify Sans', sans-serif;
+  font-size: 0.85rem;
+  color: #b0a8a0;
+  margin: -4px 0 6px;
+  letter-spacing: 0.5px;
+  font-style: italic;
 }

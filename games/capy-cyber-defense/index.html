@@ -7,6 +7,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css?v=8" />
+  <script src="../../assets/scripts/capy-lang.js"></script>
 </head>
 <body>
 
@@ -247,10 +248,28 @@
     </div>
   </div>
 
+  <!-- CAMPAIGN WIN OVERLAY (shown once when all finite gamemodes are cleared) -->
+  <div id="campaign-win-overlay" class="overlay" role="dialog" aria-modal="true" aria-label="Campaign complete" style="display:none">
+    <div class="overlay-window campaign-win-window">
+      <div class="win95-titlebar">
+        <span class="win95-titlebar-text" data-i18n="campaign-win-title">SECTOR DEFENDED</span>
+      </div>
+      <div class="overlay-body campaign-win-body">
+        <div class="campaign-win-emoji" aria-hidden="true">🛡️</div>
+        <h2 class="campaign-win-heading" data-i18n="campaign-win-heading">ALL SECTORS SECURED!</h2>
+        <p class="campaign-win-msg" data-i18n="campaign-win-msg">You cleared every defense mode. Infinite mode remains for endless practice.</p>
+        <div class="quit-buttons">
+          <button class="btn-overlay-action" id="campaign-win-menu" data-i18n="campaign-win-menu">⌂ BACK TO MENU</button>
+          <button class="btn-overlay-action" id="campaign-win-close" data-i18n="campaign-win-close">CLOSE</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- PAGE FOOTER — only visible when opened standalone, not inside the Academy overlay -->
   <footer class="page-footer standalone-only">
-    <span>© 2025 Capy Verse Academy · Educational CS Games</span>
-    <a href="../../index.html" class="btn-back-academy">◀ Back to Academy</a>
+    <span data-i18n="footer-copyright">© 2026 Capy Verse Academy · Educational CS Games</span>
+    <a href="../../index.html" class="btn-back-academy" data-i18n="back-academy">◀ Back to Academy</a>
     <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
   </footer>
 
@@ -271,18 +290,21 @@
   window.CAPY_SFX = {
     basePath: 'sfx/',
     sounds: {
-      'zap':          'zap.mp3',
-      'threat-death': 'threat-death.mp3',
-      'life-lost':    'life-lost.mp3',
+      'zap':            'zap.mp3',
+      'threat-death':   'threat-death.mp3',
+      'life-lost':      'life-lost.mp3',
+      'threat-select':  'threat-select.mp3',
+      'confirm-name':   'confirm-name.mp3',
+      'wrong':          'wrong.mp3',
       // Both the won and game-over source files are noticeably quieter
       // than the rest. Hard-boost so the end-of-run cue cuts through
       // the music — tune these two if the mix still feels off.
-      'game-over':    { file: 'game-over.mp3', gain: 3.0 },
-      'won':          { file: 'won.mp3',       gain: 3.5 },
+      'game-over':      { file: 'game-over.mp3', gain: 3.0 },
+      'won':            { file: 'won.mp3',       gain: 3.5 },
     },
   };
 </script>
-<script src="../../assets/scripts/capy-music-player.js" defer></script>
-<script src="../../assets/scripts/capy-sfx.js" defer></script>
+<script src="../../assets/scripts/capy-music-player.js?v=2" defer></script>
+<script src="../../assets/scripts/capy-sfx.js?v=2" defer></script>
 </body>
 </html>

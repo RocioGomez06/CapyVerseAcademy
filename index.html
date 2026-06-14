@@ -125,6 +125,10 @@
     .card-preview-grid{position:absolute;inset:0;background:repeating-linear-gradient(0deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 24px),repeating-linear-gradient(90deg,rgba(255,255,255,.03) 0,rgba(255,255,255,.03) 1px,transparent 1px,transparent 24px)}
     .card-preview-emoji{font-size:48px;position:relative;z-index:1;filter:drop-shadow(0 0 12px currentColor);animation:float 3s ease-in-out infinite}
     .capy-preview{width:80px;height:80px;image-rendering:pixelated;position:relative;z-index:1;filter:drop-shadow(0 0 10px var(--orange));animation:float 3s ease-in-out infinite}
+    .game-card:has(.card-titlebar.pink) .capy-preview{filter:drop-shadow(0 0 10px var(--pink))}
+    .game-card:has(.card-titlebar.green) .capy-preview{filter:drop-shadow(0 0 10px var(--green))}
+    .game-card:has(.card-titlebar.blue) .capy-preview{filter:drop-shadow(0 0 10px var(--sky))}
+    .game-card:has(.card-titlebar.sky) .capy-preview{filter:drop-shadow(0 0 10px var(--sky))}
     @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
     .badge-live{position:absolute;top:8px;right:8px;background:var(--green);color:var(--white);font-family:var(--font-pixel);font-size:6px;padding:3px 6px;letter-spacing:1px;animation:pulse-green 2s ease-in-out infinite}
     @keyframes pulse-green{0%,100%{box-shadow:0 0 0 0 rgba(0,158,115,.5)}50%{box-shadow:0 0 0 6px rgba(0,158,115,0)}}
@@ -238,6 +242,7 @@
       .game-overlay { transition: none !important; }
     }
   </style>
+  <script src="assets/scripts/capy-lang.js"></script>
 </head>
 <body>
 
@@ -263,8 +268,8 @@
           <span aria-hidden="true">▾</span>
         </button>
         <div id="lang-menu" class="lang-dropdown" role="listbox" aria-label="Select language">
-          <button role="option" data-lang="en" aria-pressed="true"><span class="lang-flag">🇺🇸</span>English</button>
-          <button role="option" data-lang="es" aria-pressed="false"><span class="lang-flag">🇦🇷</span>Español</button>
+          <button role="option" data-lang="en" aria-pressed="true"><span class="lang-flag">🇬🇧</span>English</button>
+          <button role="option" data-lang="es" aria-pressed="false"><span class="lang-flag">🇺🇾</span>Español</button>
           <button role="option" data-lang="pt" aria-pressed="false"><span class="lang-flag">🇧🇷</span>Português</button>
         </div>
       </div>
@@ -310,11 +315,11 @@
   <div class="marquee-strip" aria-hidden="true">
     <div class="marquee-track">
       <span>🦫 CAPY CODE QUEST</span><span>⚡ LOGIC LABS</span><span>🗄️ DATA DUNGEON</span>
-      <span>🌐 NET WORLD</span><span>🛡️ CYBER DEFENSE</span><span>🎓 LEARN BY DOING</span>
-      <span>♿ ACCESSIBLE DESIGN</span><span>🌍 MULTILINGUAL</span>
+      <span>🌐 NET WORLD</span><span>🛡️ CYBER DEFENSE</span><span>🎓 <span data-i18n="marquee-learn">LEARN BY DOING</span></span>
+      <span>♿ <span data-i18n="marquee-a11y">ACCESSIBLE DESIGN</span></span><span>🌍 <span data-i18n="marquee-multi">MULTILINGUAL</span></span>
       <span>🦫 CAPY CODE QUEST</span><span>⚡ LOGIC LABS</span><span>🗄️ DATA DUNGEON</span>
-      <span>🌐 NET WORLD</span><span>🛡️ CYBER DEFENSE</span><span>🎓 LEARN BY DOING</span>
-      <span>♿ ACCESSIBLE DESIGN</span><span>🌍 MULTILINGUAL</span>
+      <span>🌐 NET WORLD</span><span>🛡️ CYBER DEFENSE</span><span>🎓 <span data-i18n="marquee-learn">LEARN BY DOING</span></span>
+      <span>♿ <span data-i18n="marquee-a11y">ACCESSIBLE DESIGN</span></span><span>🌍 <span data-i18n="marquee-multi">MULTILINGUAL</span></span>
     </div>
   </div>
 
@@ -336,7 +341,7 @@
           <div class="card-body">
             <div class="card-preview" aria-hidden="true">
               <div class="card-preview-grid"></div>
-              <img src="assets/logos/capyCodeQuestLogo.png" alt="" role="presentation" class="capy-preview" style="image-rendering:pixelated;width:80px;height:80px" />
+              <img src="assets/logos/capy-code-quest-logo.png" alt="" role="presentation" class="capy-preview" style="image-rendering:pixelated;width:80px;height:80px" />
               <span class="badge-live" aria-hidden="true" data-i18n="badge-live">● LIVE</span>
             </div>
             <h3 class="card-name" data-i18n="game1-name">Capy Code Quest</h3>
@@ -349,20 +354,20 @@
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn-play" onclick="openGame('games/capy-code-quest/index.html','Capy Code Quest','assets/logos/capyCodeQuestLogo.png')" data-i18n="btn-play">▶ PLAY NOW</button>
+            <button class="btn-play" onclick="openGame('games/capy-code-quest/index.html','Capy Code Quest','assets/logos/capy-code-quest-logo.png')" data-i18n="btn-play">▶ PLAY NOW</button>
           </div>
         </article>
 
         <!-- 2: Cyber Defense -->
         <article class="game-card" role="listitem" aria-label="Capy Cyber Defense – Available now">
           <div class="card-titlebar pink" aria-hidden="true">
-            <span class="card-titlebar-text">cyber_defense.exe</span>
+            <span class="card-titlebar-text">capy_cyber_defense.exe</span>
             <div class="win-buttons"><div class="win-btn" aria-hidden="true">─</div><div class="win-btn" aria-hidden="true">□</div><div class="win-btn" aria-hidden="true">✕</div></div>
           </div>
           <div class="card-body">
             <div class="card-preview" aria-hidden="true">
               <div class="card-preview-grid"></div>
-              <img src="assets/logos/capyCyberDefenseLogo.png" alt="" role="presentation" class="capy-preview" style="image-rendering:pixelated;width:80px;height:80px" />
+              <img src="assets/logos/capy-cyber-defense-logo.png" alt="" role="presentation" class="capy-preview" style="image-rendering:pixelated;width:80px;height:80px" />
               <span class="badge-live" aria-hidden="true" data-i18n="badge-live">● LIVE</span>
             </div>
             <h3 class="card-name" data-i18n="game5-name">Capy Cyber Defense</h3>
@@ -374,49 +379,49 @@
             </div>
           </div>
           <div class="card-footer">
-            <button class="btn-play" onclick="openGame('games/capy-cyber-defense/index.html','Capy Cyber Defense','assets/logos/capyCyberDefenseLogo.png')" data-i18n="btn-play">▶ PLAY NOW</button>
+            <button class="btn-play" onclick="openGame('games/capy-cyber-defense/index.html','Capy Cyber Defense','assets/logos/capy-cyber-defense-logo.png')" data-i18n="btn-play">▶ PLAY NOW</button>
           </div>
         </article>
 
         <!-- 3: Logic Labs -->
-        <article class="game-card coming-soon" role="listitem" aria-label="Capy Logic Labs – Coming soon">
+        <article class="game-card" role="listitem" aria-label="Capy Logic Labs – Available now">
           <div class="card-titlebar green" aria-hidden="true">
-            <span class="card-titlebar-text">logic_labs.exe</span>
+            <span class="card-titlebar-text">capy_logic_labs.exe</span>
             <div class="win-buttons"><div class="win-btn" aria-hidden="true">─</div><div class="win-btn" aria-hidden="true">□</div><div class="win-btn" aria-hidden="true">✕</div></div>
           </div>
           <div class="card-body">
             <div class="card-preview" aria-hidden="true">
               <div class="card-preview-grid"></div>
-              <span class="card-preview-emoji" style="color:var(--green)">⚡</span>
-              <span class="badge-soon" aria-hidden="true" data-i18n="badge-soon">COMING SOON</span>
+              <img src="assets/logos/capy-logic-labs-logo.png" alt="" role="presentation" class="capy-preview" style="image-rendering:pixelated;width:80px;height:80px" />
+              <span class="badge-live" aria-hidden="true" data-i18n="badge-live">● LIVE</span>
             </div>
             <h3 class="card-name" data-i18n="game2-name">Capy Logic Labs</h3>
-            <p class="card-desc" data-i18n="game2-desc">Wire up logic gates to repair Capy's planetary defense system. Solve circuit puzzles with AND, OR, NOT and XOR.</p>
+            <p class="card-desc" data-i18n="game2-desc">Repair the megacomputer by dragging logic gates into broken circuits. 11 levels covering AND, OR, NOT, NAND and NOR.</p>
             <div class="card-tags" aria-label="Topics covered">
               <span class="tag tag-green" data-i18n="tag-gates">Logic Gates</span>
               <span class="tag tag-sky" data-i18n="tag-circuits">Circuits</span>
-              <span class="tag tag-pink" data-i18n="tag-puzzle">Puzzle</span>
+              <span class="tag tag-pink">11 <span data-i18n="tag-levels">Levels</span></span>
             </div>
           </div>
           <div class="card-footer">
-            <span class="btn-disabled" aria-disabled="true" data-i18n="btn-locked">LOCKED 🔒</span>
+            <button class="btn-play" onclick="openGame('games/capy-logic-labs/index.html','Capy Logic Labs','assets/logos/capy-logic-labs-logo.png')" data-i18n="btn-play">▶ PLAY NOW</button>
           </div>
         </article>
 
         <!-- 4: Data Dungeon -->
-        <article class="game-card coming-soon" role="listitem" aria-label="Capy Data Dungeon – Coming soon">
+        <article class="game-card" role="listitem" aria-label="Capy Data Dungeon – Available now">
           <div class="card-titlebar blue" aria-hidden="true">
-            <span class="card-titlebar-text">data_dungeon.exe</span>
+            <span class="card-titlebar-text">capy_data_dungeon.exe</span>
             <div class="win-buttons"><div class="win-btn" aria-hidden="true">─</div><div class="win-btn" aria-hidden="true">□</div><div class="win-btn" aria-hidden="true">✕</div></div>
           </div>
           <div class="card-body">
             <div class="card-preview" aria-hidden="true">
               <div class="card-preview-grid"></div>
-              <span class="card-preview-emoji" style="color:var(--sky)">🗄️</span>
-              <span class="badge-soon" aria-hidden="true" data-i18n="badge-soon">COMING SOON</span>
+              <img src="assets/logos/capy-data-dungeon-logo.png" alt="" role="presentation" class="capy-preview" style="image-rendering:pixelated;width:80px;height:80px" />
+              <span class="badge-live" aria-hidden="true" data-i18n="badge-live">● LIVE</span>
             </div>
             <h3 class="card-name" data-i18n="game3-name">Capy Data Dungeon</h3>
-            <p class="card-desc" data-i18n="game3-desc">Explore dungeons made of database tables. Write SQL queries to unlock doors and advance through the underground data realm.</p>
+            <p class="card-desc" data-i18n="game3-desc">Escape a dungeon of forgotten tables by casting real SQL queries. Each room is a puzzle solved with SELECT, WHERE, JOIN and more.</p>
             <div class="card-tags" aria-label="Topics covered">
               <span class="tag tag-sky">SQL</span>
               <span class="tag tag-blue" data-i18n="tag-db">Databases</span>
@@ -424,7 +429,7 @@
             </div>
           </div>
           <div class="card-footer">
-            <span class="btn-disabled" aria-disabled="true" data-i18n="btn-locked">LOCKED 🔒</span>
+            <button class="btn-play" onclick="openGame('games/capy-data-dungeon/index.html','Capy Data Dungeon','assets/logos/capy-data-dungeon-logo.png')" data-i18n="btn-play">▶ PLAY NOW</button>
           </div>
         </article>
 
@@ -469,25 +474,25 @@
           <div class="feature-icon" aria-hidden="true">♿</div>
           <h3 class="feature-title" data-i18n="feat1-title">Accessibility First</h3>
           <p class="feature-desc" data-i18n="feat1-desc">Designed with the Bang Wong color palette — optimized for color-blind users and high contrast readability from day one.</p>
-          <a href="pages/accessibility.html" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
+          <a href="pages/academy.html#accessibility" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
         </div>
         <div class="feature-box">
           <div class="feature-icon" aria-hidden="true">🌐</div>
           <h3 class="feature-title" data-i18n="feat2-title">Multilingual Support</h3>
           <p class="feature-desc" data-i18n="feat2-desc">Fully playable in English, Spanish and Portuguese. More languages on the way — because learning has no borders.</p>
-          <a href="pages/languages.html" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
+          <a href="pages/academy.html#languages" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
         </div>
         <div class="feature-box">
           <div class="feature-icon" aria-hidden="true">📈</div>
           <h3 class="feature-title" data-i18n="feat3-title">Progressive Difficulty</h3>
           <p class="feature-desc" data-i18n="feat3-desc">Every game introduces concepts gradually — from basic sequences to SQL joins and logic circuits — always building on what you know.</p>
-          <a href="pages/pedagogy.html" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
+          <a href="pages/academy.html#pedagogy" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
         </div>
         <div class="feature-box">
           <div class="feature-icon" aria-hidden="true">🎓</div>
           <h3 class="feature-title" data-i18n="feat4-title">Curriculum Aligned</h3>
           <p class="feature-desc" data-i18n="feat4-desc">Developed at the <strong>Instituto Federal Sul Rio-Grandense</strong> for the <em>Técnico em Análise e Desenvolvimento de Sistemas</em> program. Originally created as a final project for <strong>Inglês Técnico I</strong>, CapyVerse covers topics relevant to anyone beginning or aspiring to study systems development or similar careers.</p>
-          <a href="pages/curriculum.html" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
+          <a href="pages/academy.html#curriculum" class="btn-ghost" data-i18n="feat-more">Learn more →</a>
         </div>
       </div>
     </div>
@@ -537,8 +542,8 @@
           <button class="swatch" role="listitem" style="background:#232323;border-color:#666 #111 #111 #666" title="Base #232323" aria-label="Base #232323 – click to copy"></button>
         </div>
         <div class="about-links">
-          <a href="pages/about.html" class="btn-ghost" data-i18n="about-more">Full story →</a>
-          <a href="https://github.com/slgamedesign/capy-code-quest" target="_blank" rel="noopener" class="btn-ghost">GitHub ↗</a>
+          <a href="pages/academy.html#about" class="btn-ghost" data-i18n="about-more">Full story →</a>
+          <a href="https://github.com/RocioGomez06/CapyVerseAcademy" target="_blank" rel="noopener" class="btn-ghost">GitHub ↗</a>
         </div>
       </div>
     </div>
@@ -558,25 +563,25 @@
       <div class="footer-col">
         <h4 data-i18n="footer-games">GAMES</h4>
         <ul>
-          <li><a href="https://github.com/slgamedesign/capy-code-quest" target="_blank" rel="noopener">Capy Code Quest</a></li>
-          <li><a href="#" aria-disabled="true">Logic Labs</a></li>
-          <li><a href="#" aria-disabled="true">Data Dungeon</a></li>
-          <li><a href="#" aria-disabled="true">Net World</a></li>
+          <li><a href="games/capy-code-quest/index.html">Capy Code Quest</a></li>
+          <li><a href="games/capy-logic-labs/index.html">Logic Labs</a></li>
+          <li><a href="games/capy-data-dungeon/index.html">Data Dungeon</a></li>
           <li><a href="games/capy-cyber-defense/index.html">Cyber Defense</a></li>
         </ul>
       </div>
       <div class="footer-col">
         <h4 data-i18n="footer-project">PROJECT</h4>
         <ul>
-          <li><a href="pages/about.html" data-i18n="footer-about">About</a></li>
-          <li><a href="pages/curriculum.html" data-i18n="footer-curriculum">Curriculum</a></li>
-          <li><a href="pages/accessibility.html" data-i18n="footer-a11y">Accessibility</a></li>
-          <li><a href="https://github.com/slgamedesign/capy-code-quest" target="_blank" rel="noopener">GitHub ↗</a></li>
+          <li><a href="pages/academy.html#about" data-i18n="footer-about">About</a></li>
+          <li><a href="pages/academy.html#curriculum" data-i18n="footer-curriculum">Curriculum</a></li>
+          <li><a href="pages/academy.html#accessibility" data-i18n="footer-a11y">Accessibility</a></li>
+          <li><a href="https://github.com/RocioGomez06/CapyVerseAcademy" target="_blank" rel="noopener">GitHub ↗</a></li>
+          <li><a href="mailto:rociogomezmusician@gmail.com" data-i18n="footer-contact">Contact dev ✉</a></li>
         </ul>
       </div>
     </div>
     <div class="footer-bottom">
-      <p>© 2025 CAPYVERSE ACADEMY — <span>IFSul · TADS · Inglês Técnico I</span></p>
+      <p>© 2026 CAPYVERSE ACADEMY — <span>IFSul · TADS · Inglês Técnico I</span></p>
       <span class="cc-badge" aria-label="Creative Commons BY-NC-SA 4.0 License">CC BY-NC-SA 4.0</span>
     </div>
   </footer>
@@ -633,10 +638,10 @@
       "hero-cta1":"▶ ENTER ACADEMY","hero-cta2":"LEARN MORE",
       "games-tag":"THE GAMES","games-title":"Choose your ","games-title-em":"quest",
       "game1-name":"Capy Code Quest","game1-desc":"Guide Capy through a grid maze using code commands. Learn sequences, loops, and algorithmic thinking.",
-      "game2-name":"Capy Logic Labs","game2-desc":"Wire up logic gates to repair Capy's planetary defense system. Solve circuit puzzles with AND, OR, NOT and XOR.",
-      "game3-name":"Capy Data Dungeon","game3-desc":"Explore dungeons made of database tables. Write SQL queries to unlock doors and advance through the underground data realm.",
+      "game2-name":"Capy Logic Labs","game2-desc":"Repair the megacomputer by dragging logic gates into broken circuits. 11 levels covering AND, OR, NOT, NAND and NOR.",
+      "game3-name":"Capy Data Dungeon","game3-desc":"Escape a dungeon of forgotten tables by casting real SQL queries. Each room is a puzzle solved with SELECT, WHERE, JOIN and more.",
       "game4-name":"Capy Net World","game4-desc":"Navigate Capy through a simulated internet. Learn how networks, protocols and IP routing work by connecting nodes across the globe.",
-      "game5-name":"Capy Cyber Defense","game5-desc":"Help Capy defend a server from attacks. Learn cybersecurity fundamentals: encryption, firewalls, social engineering and safe practices.",
+      "game5-name":"Capy Cyber Defense","game5-desc":"Identify incoming cyber threats and pick the right counter before they hit. A fast-paced briefing-and-defense arcade with a built-in threat syllabus.",
       "badge-live":"● LIVE","badge-soon":"COMING SOON","btn-play":"▶ PLAY NOW","btn-locked":"LOCKED 🔒",
       "tag-algo":"Algorithms","tag-loops":"Loops","tag-levels":"Levels","tag-beginner":"Beginner","tag-gates":"Logic Gates","tag-circuits":"Circuits","tag-puzzle":"Puzzle","tag-db":"Databases","tag-networks":"Networks","tag-protocols":"Protocols","tag-cyber":"Cybersecurity","tag-encryption":"Encryption","tag-defense":"Defense",
       "features-tag":"WHY CAPYVERSE","features-title":"Built for the ","features-title-em":"classroom",
@@ -651,7 +656,8 @@
       "about-p3":"Every game runs in any browser with no install needed, and the Bang Wong palette ensures the interface works for <strong>everyone in the room</strong>.",
       "about-more":"Full story →",
       "footer-tagline":"Educational CS games for students and teachers. Free, open, and accessible.",
-      "footer-games":"GAMES","footer-project":"PROJECT","footer-about":"About","footer-curriculum":"Curriculum","footer-a11y":"Accessibility"
+      "footer-games":"GAMES","footer-project":"PROJECT","footer-about":"About","footer-curriculum":"Curriculum","footer-a11y":"Accessibility","footer-contact":"Contact dev ✉",
+"marquee-learn":"LEARN BY DOING","marquee-a11y":"ACCESSIBLE DESIGN","marquee-multi":"MULTILINGUAL"
     },
     es: {
       "skip":"Saltar al contenido principal","nav-brand":"CapyVerse","nav-games":"Juegos","nav-features":"Características","nav-about":"Acerca de","nav-cta":"▶ JUGAR AHORA",
@@ -659,10 +665,10 @@
       "hero-cta1":"▶ ENTRAR A LA ACADEMIA","hero-cta2":"SABER MÁS",
       "games-tag":"LOS JUEGOS","games-title":"Elige tu ","games-title-em":"misión",
       "game1-name":"Capy Code Quest","game1-desc":"Guía a Capy por un laberinto usando comandos de código. Aprende secuencias, bucles y pensamiento algorítmico.",
-      "game2-name":"Capy Logic Labs","game2-desc":"Conecta compuertas lógicas para reparar el sistema de defensa planetaria de Capy. Resuelve puzzles con AND, OR, NOT y XOR.",
-      "game3-name":"Capy Data Dungeon","game3-desc":"Explora mazmorras hechas de tablas de base de datos. Escribe consultas SQL para abrir puertas y avanzar.",
+      "game2-name":"Capy Logic Labs","game2-desc":"Repara la megacomputadora arrastrando compuertas lógicas a los circuitos rotos. 11 niveles con AND, OR, NOT, NAND y NOR.",
+      "game3-name":"Capy Data Dungeon","game3-desc":"Escapa de una mazmorra de tablas olvidadas lanzando consultas SQL reales. Cada sala es un puzzle resuelto con SELECT, WHERE, JOIN y más.",
       "game4-name":"Capy Net World","game4-desc":"Navega a Capy por una internet simulada. Aprende cómo funcionan las redes, protocolos y el enrutamiento IP.",
-      "game5-name":"Capy Cyber Defense","game5-desc":"Ayuda a Capy a defender un servidor de ataques. Aprende fundamentos de ciberseguridad: cifrado, firewalls y más.",
+      "game5-name":"Capy Cyber Defense","game5-desc":"Identifica las ciberamenazas entrantes y elige el contraataque correcto antes de que impacten. Un arcade de defensa rápido con un syllabus de amenazas integrado.",
       "badge-live":"● ACTIVO","badge-soon":"PRÓXIMAMENTE","btn-play":"▶ JUGAR AHORA","btn-locked":"BLOQUEADO 🔒",
       "tag-algo":"Algoritmos","tag-loops":"Bucles","tag-levels":"Niveles","tag-beginner":"Principiante","tag-gates":"Compuertas Lógicas","tag-circuits":"Circuitos","tag-puzzle":"Puzzle","tag-db":"Bases de Datos","tag-networks":"Redes","tag-protocols":"Protocolos","tag-cyber":"Ciberseguridad","tag-encryption":"Cifrado","tag-defense":"Defensa",
       "features-tag":"POR QUÉ CAPYVERSE","features-title":"Hecho para el ","features-title-em":"aula",
@@ -677,7 +683,8 @@
       "about-p3":"Cada juego funciona en cualquier navegador sin instalación, y la paleta Bang Wong garantiza que la interfaz funcione para <strong>todos en el aula</strong>.",
       "about-more":"Historia completa →",
       "footer-tagline":"Juegos educativos de CS para estudiantes y docentes. Gratis, abierto y accesible.",
-      "footer-games":"JUEGOS","footer-project":"PROYECTO","footer-about":"Acerca de","footer-curriculum":"Currículo","footer-a11y":"Accesibilidad"
+      "footer-games":"JUEGOS","footer-project":"PROYECTO","footer-about":"Acerca de","footer-curriculum":"Currículo","footer-a11y":"Accesibilidad","footer-contact":"Contacto ✉",
+"marquee-learn":"APRENDER HACIENDO","marquee-a11y":"DISEÑO ACCESIBLE","marquee-multi":"MULTILINGÜE"
     },
     pt: {
       "skip":"Ir para o conteúdo principal","nav-brand":"CapyVerse","nav-games":"Jogos","nav-features":"Recursos","nav-about":"Sobre","nav-cta":"▶ JOGAR AGORA",
@@ -685,10 +692,10 @@
       "hero-cta1":"▶ ENTRAR NA ACADEMIA","hero-cta2":"SAIBA MAIS",
       "games-tag":"OS JOGOS","games-title":"Escolha sua ","games-title-em":"missão",
       "game1-name":"Capy Code Quest","game1-desc":"Guie Capy por um labirinto usando comandos de código. Aprenda sequências, laços e pensamento algorítmico.",
-      "game2-name":"Capy Logic Labs","game2-desc":"Conecte portas lógicas para reparar o sistema de defesa planetária de Capy. Resolva puzzles com AND, OR, NOT e XOR.",
-      "game3-name":"Capy Data Dungeon","game3-desc":"Explore masmorras feitas de tabelas de banco de dados. Escreva consultas SQL para abrir portas e avançar.",
+      "game2-name":"Capy Logic Labs","game2-desc":"Conserte o megacomputador arrastando portas lógicas nos circuitos quebrados. 11 níveis cobrindo AND, OR, NOT, NAND e NOR.",
+      "game3-name":"Capy Data Dungeon","game3-desc":"Escape de uma masmorra de tabelas esquecidas lançando consultas SQL reais. Cada sala é um puzzle resolvido com SELECT, WHERE, JOIN e mais.",
       "game4-name":"Capy Net World","game4-desc":"Navegue com Capy por uma internet simulada. Aprenda como funcionam redes, protocolos e roteamento IP.",
-      "game5-name":"Capy Cyber Defense","game5-desc":"Ajude Capy a defender um servidor de ataques. Aprenda fundamentos de segurança: criptografia, firewalls e boas práticas.",
+      "game5-name":"Capy Cyber Defense","game5-desc":"Identifique as ciberameaças que chegam e escolha o contra-ataque certo antes que elas atinjam. Um arcade de defesa rápido com um syllabus de ameaças integrado.",
       "badge-live":"● ATIVO","badge-soon":"EM BREVE","btn-play":"▶ JOGAR AGORA","btn-locked":"BLOQUEADO 🔒",
       "tag-algo":"Algoritmos","tag-loops":"Laços","tag-levels":"Níveis","tag-beginner":"Iniciante","tag-gates":"Portas Lógicas","tag-circuits":"Circuitos","tag-puzzle":"Puzzle","tag-db":"Bancos de Dados","tag-networks":"Redes","tag-protocols":"Protocolos","tag-cyber":"Cibersegurança","tag-encryption":"Criptografia","tag-defense":"Defesa",
       "features-tag":"POR QUE CAPYVERSE","features-title":"Feito para a ","features-title-em":"sala de aula",
@@ -703,15 +710,17 @@
       "about-p3":"Cada jogo funciona em qualquer navegador sem instalação, e a paleta Bang Wong garante que a interface funcione para <strong>todos na sala</strong>.",
       "about-more":"História completa →",
       "footer-tagline":"Jogos educativos de CS para estudantes e professores. Gratuito, aberto e acessível.",
-      "footer-games":"JOGOS","footer-project":"PROJETO","footer-about":"Sobre","footer-curriculum":"Currículo","footer-a11y":"Acessibilidade"
+      "footer-games":"JOGOS","footer-project":"PROJETO","footer-about":"Sobre","footer-curriculum":"Currículo","footer-a11y":"Acessibilidade","footer-contact":"Contato ✉",
+"marquee-learn":"APRENDA FAZENDO","marquee-a11y":"DESIGN ACESSÍVEL","marquee-multi":"MULTILÍNGUE"
     }
   };
 
-  let currentLang = 'en';
+  let currentLang = (window.CapyLang && window.CapyLang.get()) || 'en';
 
   function setLang(lang) {
     if (!translations[lang]) return;
     currentLang = lang;
+    if (window.CapyLang) window.CapyLang.set(lang);
     const t = translations[lang];
     document.documentElement.lang = lang;
     langCurr.textContent = lang.toUpperCase();
@@ -754,6 +763,9 @@
   document.querySelectorAll('#lang-menu button').forEach(btn => {
     btn.addEventListener('click', () => setLang(btn.dataset.lang));
   });
+
+  // Apply the persisted/detected language on first load
+  setLang(currentLang);
 
   // Keyboard nav in dropdown
   langMenu.addEventListener('keydown', e => {
@@ -898,8 +910,8 @@
       },
     };
   </script>
-  <script src="assets/scripts/capy-music-player.js" defer></script>
-  <script src="assets/scripts/capy-sfx.js" defer></script>
+  <script src="assets/scripts/capy-music-player.js?v=2" defer></script>
+  <script src="assets/scripts/capy-sfx.js?v=2" defer></script>
   <script defer>
     // Bind SFX to academy buttons once the page is ready.
     window.addEventListener('DOMContentLoaded', () => {

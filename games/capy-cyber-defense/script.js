@@ -311,6 +311,13 @@ const TRANSLATIONS = {
     'resume':           '▶ RESUME',
     'syllabus-btn':     '📖 SYLLABUS',
     'back-menu':        '⌂ BACK TO MENU',
+    'back-academy':     '◀ Back to Academy',
+    'footer-copyright': '© 2026 Capy Verse Academy · Educational CS Games',
+    'campaign-win-title':   'SECTOR DEFENDED',
+    'campaign-win-heading': 'ALL SECTORS SECURED!',
+    'campaign-win-msg':     "You cleared every defense mode. Infinite mode remains for endless practice.",
+    'campaign-win-menu':    '⌂ BACK TO MENU',
+    'campaign-win-close':   'CLOSE',
     'syllabus-title':   '📖 THREAT SYLLABUS',
     'quit-title':       'QUIT GAME?',
     'quit-msg':         'Progress will be lost. Are you sure?',
@@ -356,6 +363,13 @@ const TRANSLATIONS = {
     'resume':           '▶ CONTINUAR',
     'syllabus-btn':     '📖 TEMÁRIO',
     'back-menu':        '⌂ VOLTAR AO MENU',
+    'back-academy':     '◀ Voltar à Academia',
+    'footer-copyright': '© 2026 Capy Verse Academy · Jogos Educativos de Computação',
+    'campaign-win-title':   'SETOR DEFENDIDO',
+    'campaign-win-heading': 'TODOS OS SETORES PROTEGIDOS!',
+    'campaign-win-msg':     'Você concluiu todos os modos de defesa. O modo infinito continua disponível para prática sem fim.',
+    'campaign-win-menu':    '⌂ VOLTAR AO MENU',
+    'campaign-win-close':   'FECHAR',
     'syllabus-title':   '📖 TEMÁRIO DE AMEAÇAS',
     'quit-title':       'SAIR DO JOGO?',
     'quit-msg':         'O progresso será perdido. Tem certeza?',
@@ -402,6 +416,13 @@ const TRANSLATIONS = {
     'resume':           '▶ CONTINUAR',
     'syllabus-btn':     '📖 TEMARIO',
     'back-menu':        '⌂ VOLVER AL MENÚ',
+    'back-academy':     '◀ Volver a la Academia',
+    'footer-copyright': '© 2026 Capy Verse Academy · Juegos Educativos de Computación',
+    'campaign-win-title':   'SECTOR DEFENDIDO',
+    'campaign-win-heading': '¡TODOS LOS SECTORES ASEGURADOS!',
+    'campaign-win-msg':     'Completaste todos los modos de defensa. El modo infinito sigue disponible para práctica sin fin.',
+    'campaign-win-menu':    '⌂ VOLVER AL MENÚ',
+    'campaign-win-close':   'CERRAR',
     'syllabus-title':   '📖 TEMARIO DE AMENAZAS',
     'quit-title':       '¿ABANDONAR PARTIDA?',
     'quit-msg':         'Se perderá el progreso. ¿Estás seguro/a?',
@@ -676,6 +697,7 @@ function confirmName() {
     return;
   }
   errorEl.style.display = 'none';
+  if (window.capySfx) window.capySfx.play('confirm-name');
   addPlayer(name);
   initMenu();
   showScreen('screen-menu');
@@ -1066,9 +1088,9 @@ function spawnThreat(threatKey, speedMult) {
   el.style.setProperty('--dur', duration + 's');
   el.style.left = (8 + Math.random() * 72) + '%';
 
-  // HP dots
+  // HP hearts
   let hpDots = '';
-  for (let i = 0; i < data.hp; i++) hpDots += `<span class="hp-dot" aria-hidden="true"></span>`;
+  for (let i = 0; i < data.hp; i++) hpDots += `<span class="hp-dot" aria-hidden="true">❤</span>`;
 
   el.innerHTML = `
     <div class="threat-emoji" aria-hidden="true" style="color:${data.color}">${data.emoji}</div>
@@ -1158,6 +1180,7 @@ function openCounterPopup(threatId) {
   if (!obj) return;
   const data = THREATS[obj.key];
 
+  if (window.capySfx) window.capySfx.play('threat-select');
   state.popupOpen = true;
   state.currentThreatId = threatId;
 
@@ -1245,6 +1268,7 @@ function selectCounter(threatId, chosenKey) {
   } else {
     // WRONG
     state.scoreMultiplier = 1;
+    if (window.capySfx) window.capySfx.play('wrong');
 
     // Highlight wrong button
     const wrongBtn = document.querySelector(`[data-counter="${chosenKey}"]`);
@@ -1608,6 +1632,28 @@ function gamemodeComplete() {
 
   applyTranslations();
   showScreen('screen-win');
+
+  // Final-campaign win: every NON-infinite gamemode (indices 0..3) cleared.
+  // Infinite mode (idx 4) is excluded by design.
+  const finite = [0, 1, 2, 3];
+  const completed = getPlayer().completed || [];
+  if (gmIdx !== 4 && finite.every(i => completed.includes(i))) {
+    setTimeout(showCampaignWin, 1200);
+  }
+}
+
+function showCampaignWin() {
+  const overlay = document.getElementById('campaign-win-overlay');
+  if (!overlay) return;
+  applyTranslations();
+  overlay.style.display = 'flex';
+  const close = () => { overlay.style.display = 'none'; };
+  document.getElementById('campaign-win-close')?.addEventListener('click', close, { once: true });
+  document.getElementById('campaign-win-menu')?.addEventListener('click', () => {
+    close();
+    initMenu();
+    showScreen('screen-menu');
+  }, { once: true });
 }
 
 // ═══════════════════════════════════════════
@@ -1642,6 +1688,7 @@ function goToMenu() {
 
 function setLang(lang) {
   state.lang = lang;
+  if (window.CapyLang) window.CapyLang.set(lang);
   document.getElementById('html-root').setAttribute('lang', lang);
 
   // Highlight the active lang button
@@ -1684,7 +1731,7 @@ function toggleFullscreen() {
 document.addEventListener('DOMContentLoaded', () => {
   // Show the standalone footer only when not embedded inside the Academy overlay
   if (window.self === window.top) {
-    document.querySelectorAll('.standalone-only').forEach(el => el.style.display = '');
+    document.querySelectorAll('.standalone-only').forEach(el => el.classList.remove('standalone-only'));
   }
 
   loadPlayers();
@@ -1698,7 +1745,7 @@ document.addEventListener('DOMContentLoaded', () => {
     showScreen('screen-menu');
   }
 
-  setLang('en'); // sets active button highlight + applies translations
+  setLang((window.CapyLang && window.CapyLang.get()) || 'en');
 
   // Keyboard: escape to pause/close popup
   document.addEventListener('keydown', e => {

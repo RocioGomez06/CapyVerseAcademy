@@ -26,11 +26,12 @@
       const raw = localStorage.getItem(STORAGE_KEY);
       const parsed = raw ? JSON.parse(raw) : {};
       return {
-        open:   typeof parsed.open === 'boolean' ? parsed.open : false,
-        volume: Number.isFinite(parsed.volume) ? Math.min(1, Math.max(0, parsed.volume)) : 0.6,
+        open:       typeof parsed.open === 'boolean' ? parsed.open : false,
+        volume:     Number.isFinite(parsed.volume)    ? Math.min(1, Math.max(0, parsed.volume))    : 0.6,
+        sfxVolume:  Number.isFinite(parsed.sfxVolume) ? Math.min(1, Math.max(0, parsed.sfxVolume)) : 0.7,
       };
     } catch {
-      return { open: false, volume: 0.6 };
+      return { open: false, volume: 0.6, sfxVolume: 0.7 };
     }
   }
   function saveState() {
@@ -84,8 +85,12 @@
         <button class="cmp-btn" id="cmp-next"  type="button" aria-label="Next track"     title="Next">⏭</button>
       </div>
       <div class="cmp-volume-row">
-        <span>VOL</span>
-        <input class="cmp-volume" id="cmp-volume" type="range" min="0" max="100" step="1" aria-label="Volume" />
+        <span>MUS</span>
+        <input class="cmp-volume" id="cmp-volume" type="range" min="0" max="100" step="1" aria-label="Music volume" />
+      </div>
+      <div class="cmp-volume-row">
+        <span>SFX</span>
+        <input class="cmp-volume" id="cmp-sfx-volume" type="range" min="0" max="100" step="1" aria-label="Sound effects volume" />
       </div>
     </div>
   `;
@@ -113,10 +118,13 @@
   const elPrev     = win.querySelector('#cmp-prev');
   const elNext     = win.querySelector('#cmp-next');
   const elVol      = win.querySelector('#cmp-volume');
+  const elSfxVol   = win.querySelector('#cmp-sfx-volume');
   const elClose    = win.querySelector('.cmp-close');
 
   elCredit.textContent = `— ${credit}`;
-  elVol.value = Math.round(state.volume * 100);
+  elVol.value    = Math.round(state.volume    * 100);
+  elSfxVol.value = Math.round(state.sfxVolume * 100);
+  window.capySfxVolume = state.sfxVolume;
 
   function fmtTime(s) {
     if (!Number.isFinite(s)) return '0:00';
@@ -156,7 +164,14 @@
     const v = Number(elVol.value) / 100;
     audio.volume = v;
     state.volume = v;
-    window.capyMusicVolume = v; // sync for capySfx
+    window.capyMusicVolume = v;
+    saveState();
+  });
+
+  elSfxVol.addEventListener('input', () => {
+    const v = Number(elSfxVol.value) / 100;
+    state.sfxVolume = v;
+    window.capySfxVolume = v; // capy-sfx reads this on next play
     saveState();
   });
 

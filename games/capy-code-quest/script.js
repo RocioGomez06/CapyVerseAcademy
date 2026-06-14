@@ -4,7 +4,7 @@
 //        Fullscreen, Switch visual state
 // =============================================
 
-let currentLanguage = "en";
+let currentLanguage = (window.CapyLang && window.CapyLang.get()) || "en";
 
 // ==== TRANSLATIONS ====
 
@@ -30,12 +30,13 @@ const translations = {
     repeat2:         "repeatFwd 2x",
     repeat3:         "repeatFwd 3x",
     clickDelete:     "Click to delete",
+    programHint:     "💡 Click a line to delete it.",
     completed:       "✓ Done",
     play:            "PLAY",
     playAgain:       "PLAY AGAIN",
     locked:          "LOCKED 🔒",
     lockedMessage:   "Complete the previous level first.",
-    backToStart:     "⟵ Back to Start",
+    backToStart:     "⟵ Start",
     backToLevelsBtn: "⟵ Levels",
     gameGrid:        "GAME GRID",
     programTitle:    "PROGRAM",
@@ -46,6 +47,10 @@ const translations = {
     selectLevelTitle:"SELECT LEVEL",
     commandsTitle:   "Commands",
     startSubtitle:   "Help the capybara find all the apples<br />using simple coding commands!",
+    finalWinTitle:   "🚀 ALL QUESTS COMPLETE!",
+    finalWinMsg:     "Capy navigated every grid, grabbed every apple, and reached every home. You've mastered the basics of programming logic.",
+    finalWinLevels:  "⟵ Back to Levels",
+    finalWinClose:   "Close",
   },
   es: {
     title:           "Capy Code Quest",
@@ -68,6 +73,7 @@ const translations = {
     repeat2:         "repetirAvanzar 2x",
     repeat3:         "repetirAvanzar 3x",
     clickDelete:     "Clic para borrar",
+    programHint:     "💡 Haz clic en una línea para borrarla.",
     completed:       "✓ Hecho",
     play:            "JUGAR",
     playAgain:       "JUGAR OTRA VEZ",
@@ -84,6 +90,10 @@ const translations = {
     selectLevelTitle:"SELECCIONAR NIVEL",
     commandsTitle:   "Comandos",
     startSubtitle:   "¡Ayuda al capibara a encontrar todas las manzanas<br />usando simples comandos de programación!",
+    finalWinTitle:   "🚀 ¡TODAS LAS MISIONES COMPLETADAS!",
+    finalWinMsg:     "Capy recorrió cada cuadrícula, recogió cada manzana y llegó a cada casa. ¡Dominaste los fundamentos de la lógica de programación!",
+    finalWinLevels:  "⟵ Volver a Niveles",
+    finalWinClose:   "Cerrar",
   },
   pt: {
     title:           "Capy Code Quest",
@@ -106,6 +116,7 @@ const translations = {
     repeat2:         "repetirFrente 2x",
     repeat3:         "repetirFrente 3x",
     clickDelete:     "Clique para remover",
+    programHint:     "💡 Clique numa linha para removê-la.",
     completed:       "✓ Concluído",
     play:            "JOGAR",
     playAgain:       "JOGAR NOVAMENTE",
@@ -122,6 +133,10 @@ const translations = {
     selectLevelTitle:"SELECIONAR NÍVEL",
     commandsTitle:   "Comandos",
     startSubtitle:   "Ajude a capivara a encontrar todas as maçãs<br />usando simples comandos de programação!",
+    finalWinTitle:   "🚀 TODAS AS MISSÕES CONCLUÍDAS!",
+    finalWinMsg:     "Capy percorreu cada grade, pegou cada maçã e chegou em cada casa. Você dominou os fundamentos da lógica de programação!",
+    finalWinLevels:  "⟵ Voltar aos Níveis",
+    finalWinClose:   "Fechar",
   }
 };
 
@@ -298,7 +313,7 @@ loadProgress();
 createGrid();
 resetGameState();
 updateProgramList();
-changeLanguage('en');
+changeLanguage(currentLanguage);
 populateLevelList();
 showMessage(translations.en.readyMessage);
 showScreen("start");
@@ -636,6 +651,23 @@ function handleLevelCompleted() {
   saveProgress();
   populateLevelList();
   showNextLevelIfAvailable();
+
+  // Final win — every level cleared
+  if (completedLevels.every(Boolean) && completedLevels.length === levels.length) {
+    setTimeout(showFinalWin, 900);
+  }
+}
+
+function showFinalWin() {
+  const overlay = document.getElementById('final-win-overlay');
+  if (!overlay) return;
+  overlay.classList.remove('hidden');
+  const close = () => overlay.classList.add('hidden');
+  document.getElementById('final-win-close')?.addEventListener('click', close, { once: true });
+  document.getElementById('final-win-levels')?.addEventListener('click', () => {
+    close();
+    showScreen('levels');
+  }, { once: true });
 }
 
 // ==== MOVEMENT ====
@@ -781,6 +813,7 @@ btnNext.addEventListener("click", () => {
 
 function changeLanguage(lang) {
   currentLanguage = lang;
+  if (window.CapyLang) window.CapyLang.set(lang);
   const t = translations[lang];
 
   // Update html[lang] for screen readers

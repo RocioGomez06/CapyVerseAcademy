@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Capy Logic Labs</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Pixelify+Sans:wght@400;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css?v=2" />
+  <script src="../../assets/scripts/capy-lang.js"></script>
+</head>
+<body>
+
+  <!-- PAGE WRAPPER -->
+  <div class="page-wrapper">
+
+    <!-- ARCADE CABINET FRAME -->
+    <div class="arcade-cabinet">
+
+      <!-- WIN95 TITLE BAR -->
+      <div class="title-bar">
+        <div class="title-bar-left">
+          <img class="title-bar-icon" src="../../assets/logos/capy-logic-labs-logo.png" alt="" aria-hidden="true" />
+
+          <span class="title-bar-text">Capy Logic Labs</span>
+        </div>
+        <div class="title-bar-controls">
+          <button class="title-btn lang-btn" data-lang="es" onclick="changeLanguage('es')" title="Español" aria-pressed="false">ES</button>
+          <button class="title-btn lang-btn active" data-lang="en" onclick="changeLanguage('en')" title="English" aria-pressed="true">EN</button>
+          <button class="title-btn lang-btn" data-lang="pt" onclick="changeLanguage('pt')" title="Português" aria-pressed="false">PT</button>
+          <button class="title-btn fullscreen-btn" id="btn-fullscreen" onclick="toggleFullscreen()" title="Fullscreen" aria-label="Toggle fullscreen">⛶</button>
+        </div>
+      </div>
+
+      <!-- GAME CONTENT AREA -->
+      <div class="game-content" id="game-content">
+
+        <!-- ══════════════ START SCREEN ══════════════ -->
+        <div id="screen-start" class="screen active" role="main" aria-label="Start screen">
+          <div class="screen-center start-screen">
+            <img class="start-logo" src="../../assets/logos/capy-logic-labs-logo.png" alt="" aria-hidden="true" />
+            <h1 data-key="gameTitle">Capy Logic Labs</h1>
+            <p class="subtitle" data-key="startSubtitle">
+              Capy must repair the circuits of the megacomputer!<br />
+              Learn logic gates by fixing each broken board.
+            </p>
+            <button id="btn-go-levels" class="primary big-button" data-key="startButton">▶ TAP TO START</button>
+          </div>
+        </div>
+
+        <!-- ══════════════ LEVEL SELECT SCREEN ══════════════ -->
+        <div id="screen-levels" class="screen" role="main" aria-label="Level select screen">
+          <header class="screen-header">
+            <h1 data-key="selectLevelTitle">SELECT LEVEL</h1>
+            <p class="subtitle" data-key="selectSubtitle">Choose a broken circuit to repair.</p>
+            <div class="instructions">
+              <p>
+                <strong data-key="goalLabel">Goal:</strong>
+                <span data-key="goalText"> Fix the broken circuit by dropping the correct logic gate into each empty slot.</span>
+              </p>
+              <p>
+                <strong data-key="howToPlayLabel">How to play:</strong>
+                <span data-key="howToPlayText"> Drag gates from the palette on the right into the circuit slots. Press CHECK to verify your solution.</span>
+              </p>
+            </div>
+          </header>
+          <main>
+            <div id="levels-list" class="levels-list" role="list"></div>
+          </main>
+          <footer class="screen-footer">
+            <button id="btn-back-start" class="secondary" data-key="backToStart">⟵ Start</button>
+          </footer>
+        </div>
+
+        <!-- ══════════════ GAME SCREEN ══════════════ -->
+        <div id="screen-game" class="screen" role="main" aria-label="Game screen">
+          <header>
+            <h1>Capy Logic Labs</h1>
+            <p id="current-level-label" class="subtitle">Level 1 — Power Circuit</p>
+          </header>
+
+          <main class="game-main">
+
+            <!-- LEFT: CIRCUIT AREA -->
+            <section class="circuit-section" aria-label="Circuit area">
+              <!-- Zone headers -->
+              <div class="zone-headers" aria-hidden="true">
+                <span class="zone-label" data-key="zoneInput">INPUT</span>
+                <span class="zone-label" data-key="zoneCircuit">CIRCUIT</span>
+                <span class="zone-label" data-key="zoneOutput">OUTPUT</span>
+              </div>
+
+              <!-- The circuit canvas: nodes + SVG wires -->
+              <div class="circuit-canvas" id="circuit-canvas" aria-label="Circuit diagram">
+                <!-- SVG wire overlay (filled by JS) -->
+                <svg id="wire-svg" class="wire-svg" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"></svg>
+                <!-- Nodes injected here by JS -->
+              </div>
+
+              <!-- Message / feedback -->
+              <div id="message" class="message" aria-live="polite" aria-atomic="true" data-key="readyMessage">
+                Ready! Drag gates into the empty slots, then press CHECK.
+              </div>
+            </section>
+
+            <!-- RIGHT: GATE PALETTE -->
+            <section class="palette-section" aria-label="Gate palette">
+              <h2 data-key="paletteTitle">GATES</h2>
+              <div id="gate-palette" class="gate-palette" role="list" aria-label="Available gates"></div>
+
+              <!-- Gate info panel -->
+              <div id="gate-info" class="gate-info" aria-live="polite">
+                <p class="gate-info-hint" data-key="gateInfoHint">Hover a gate to learn more.</p>
+              </div>
+
+              <!-- Check / controls -->
+              <div class="palette-controls">
+                <button id="btn-check" class="primary" data-key="checkButton">✔ CHECK</button>
+                <button id="btn-reset" class="secondary" data-key="resetButton">↺ RESET</button>
+              </div>
+
+              <div class="next-level-container">
+                <button id="btn-next-level" class="primary hidden" data-key="nextLevel">Next Level ⟶</button>
+              </div>
+            </section>
+
+          </main>
+
+          <footer class="game-footer">
+            <div class="footer-left">
+              <button id="btn-back-levels" class="secondary" data-key="backToLevels">⟵ Levels</button>
+            </div>
+            <div class="footer-center">
+              <span class="footer-brand">🐾 Capy Verse Academy</span>
+            </div>
+            <div class="footer-right">
+              <small>
+                <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+              </small>
+            </div>
+          </footer>
+        </div><!-- /#screen-game -->
+
+      </div><!-- /.game-content -->
+
+      <!-- BOTTOM BEZEL -->
+      <div class="cabinet-bezel" aria-hidden="true">
+        <span class="bezel-brand">★ CAPY VERSE ACADEMY ★</span>
+        <div class="bezel-leds">
+          <span class="led led-green"></span>
+          <span class="led led-yellow"></span>
+          <span class="led led-red"></span>
+        </div>
+      </div>
+
+    </div><!-- /.arcade-cabinet -->
+
+    <!-- PAGE FOOTER -->
+    <footer class="page-footer">
+      <span>© 2026 Capy Verse Academy &nbsp;·&nbsp; Educational Games for CS Learning</span>
+      <span>
+        <a href="../capy-code-quest/">Code Quest</a> &nbsp;·&nbsp;
+        <a href="#">Logic Labs</a> &nbsp;·&nbsp;
+        <a href="../capy-cyber-defense/">Cyber Defense</a>
+      </span>
+      <span>
+        <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">CC BY-NC-SA 4.0</a>
+      </span>
+    </footer>
+
+  </div><!-- /.page-wrapper -->
+
+  <!-- HOW-TO-PLAY INTRO MODAL (shown before level select) -->
+  <div id="howto-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="howto-title">
+    <div class="modal-box howto-box">
+      <div class="modal-header">
+        <span class="modal-gate-icon" aria-hidden="true">🔧</span>
+        <h2 id="howto-title" class="modal-title" data-key="howtoTitle">How to Play</h2>
+      </div>
+      <div class="howto-body">
+        <p>
+          <strong data-key="goalLabel">Goal:</strong>
+          <span data-key="goalText"> Fix the broken circuit by dropping the correct logic gate into each empty slot.</span>
+        </p>
+        <p>
+          <strong data-key="howToPlayLabel">How to play:</strong>
+          <span data-key="howToPlayText"> Drag gates from the palette on the right into the circuit slots. Press CHECK to verify your solution.</span>
+        </p>
+      </div>
+      <button id="howto-close" class="primary" data-key="howtoClose">Let's Go! ▶</button>
+    </div>
+  </div>
+
+  <!-- GATE INTRO MODAL -->
+  <div id="modal-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-box">
+      <div class="modal-header">
+        <span id="modal-gate-icon" class="modal-gate-icon" aria-hidden="true"></span>
+        <h2 id="modal-title" class="modal-title"></h2>
+      </div>
+      <div id="modal-explanation" class="modal-explanation"></div>
+      <div class="modal-truth-table" id="modal-truth-table"></div>
+      <button id="modal-close" class="primary" data-key="modalClose">Got it! ▶</button>
+    </div>
+  </div>
+
+  <!-- FINAL WIN OVERLAY -->
+  <div id="final-win-overlay" class="modal-overlay hidden" role="dialog" aria-modal="true" aria-labelledby="final-win-title">
+    <div class="modal-box final-win-box">
+      <div class="final-win-emoji" aria-hidden="true">🎉</div>
+      <h2 class="modal-title final-win-title" id="final-win-title" data-key="finalWinTitle">ALL CIRCUITS REPAIRED!</h2>
+      <p class="final-win-msg" data-key="finalWinMsg">Capy fixed every board in the lab. The megacomputer hums back to life.</p>
+      <div class="final-win-buttons">
+        <button id="final-win-levels" class="primary" data-key="finalWinLevels">⟵ Back to Levels</button>
+        <button id="final-win-close" class="secondary" data-key="finalWinClose">Close</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+
+  <!-- CAPY MUSIC PLAYER + SFX -->
+  <link rel="stylesheet" href="../../assets/styles/capy-music-player.css" />
+  <script>
+    window.CAPY_MUSIC = {
+      basePath: '../../assets/music/',
+      credit: 'Matías Ramírez',
+      playlist: [
+        { title: 'Dancing Days',        file: 'Dancing Days.mp3' },
+        { title: 'Dreams Of Yesteryear', file: 'Dreams Of Yesteryear.mp3' },
+        { title: 'End Of The Journey',  file: 'End Of The Journey.mp3' },
+        { title: 'Golden Times',        file: 'Golden Times.mp3' },
+      ],
+    };
+    window.CAPY_SFX = {
+      basePath: 'sfx/',
+      sounds: {
+        'gate-placed': 'gate-placed.mp3',
+        'error':       'error.mp3',
+        'win':         'win.mp3',
+      },
+    };
+  </script>
+  <script src="../../assets/scripts/capy-music-player.js?v=2" defer></script>
+  <script src="../../assets/scripts/capy-sfx.js?v=2" defer></script>
+
+</body>
+</html>

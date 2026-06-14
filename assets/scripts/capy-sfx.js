@@ -9,11 +9,9 @@
  *   capySfx.play('zap');
  *
  * Volume model:
- *   SFX play through a single master GainNode whose gain is set
- *   to musicVolume * SFX_BOOST (clamped to MAX_GAIN). This keeps
- *   every effect at the same level relative to the music and lets
- *   SFX sit above the music since GainNode can exceed 1.0
- *   (HTMLMediaElement.volume cannot).
+ *   SFX play through a single master GainNode whose gain tracks the
+ *   user's SFX slider (independent of music). GainNode can exceed 1.0
+ *   so we boost slightly to keep SFX audible above the music.
  * ========================================================== */
 (function () {
   'use strict';
@@ -60,21 +58,21 @@
     return ctx;
   }
 
-  function currentMusicVolume() {
-    if (typeof window.capyMusicVolume === 'number') return window.capyMusicVolume;
+  function currentSfxVolume() {
+    if (typeof window.capySfxVolume === 'number') return window.capySfxVolume;
     try {
       const raw = localStorage.getItem('capy_music_v1');
       if (raw) {
         const parsed = JSON.parse(raw);
-        if (Number.isFinite(parsed.volume)) return Math.max(0, Math.min(1, parsed.volume));
+        if (Number.isFinite(parsed.sfxVolume)) return Math.max(0, Math.min(1, parsed.sfxVolume));
       }
     } catch {}
-    return 0.6;
+    return 0.7;
   }
 
   function syncMasterGain() {
     if (!master) return;
-    const target = Math.min(MAX_GAIN, currentMusicVolume() * SFX_BOOST);
+    const target = Math.min(MAX_GAIN, currentSfxVolume() * SFX_BOOST);
     master.gain.setTargetAtTime(target, ctx.currentTime, 0.01);
   }
 

@@ -1,0 +1,727 @@
+[
+  {
+    "id": 1,
+    "title": "Power Circuit",
+    "title_es": "Circuito de Energía",
+    "title_pt": "Circuito de Energia",
+    "sector": "Sector A — Core 1",
+    "sector_es": "Sector A — Núcleo 1",
+    "sector_pt": "Setor A — Núcleo 1",
+    "description": "The megacomputer's first circuit board is broken! Both power signals are active — fix it with the right gate.",
+    "description_es": "¡La primera placa del megacomputador está rota! Ambas señales están activas — arréglala con la compuerta correcta.",
+    "description_pt": "A primeira placa do megacomputador está quebrada! Ambos os sinais estão ativos — conserte com a porta certa.",
+    "intro_gate": "AND",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "AND"
+    ]
+  },
+  {
+    "id": 2,
+    "title": "Half Signal",
+    "title_es": "Señal a Medias",
+    "title_pt": "Meio Sinal",
+    "sector": "Sector A — Core 2",
+    "sector_es": "Sector A — Núcleo 2",
+    "sector_pt": "Setor A — Núcleo 2",
+    "description": "Same circuit, but now only one signal is active. Does AND still work?",
+    "description_es": "Mismo circuito, pero ahora solo una señal está activa. ¿Sigue funcionando AND?",
+    "description_pt": "Mesmo circuito, mas agora só um sinal está ativo. O AND ainda funciona?",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 0
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 0
+      }
+    ],
+    "available_gates": [
+      "AND"
+    ]
+  },
+  {
+    "id": 3,
+    "title": "Dark Sector",
+    "title_es": "Sector Oscuro",
+    "title_pt": "Setor Escuro",
+    "sector": "Sector A — Core 3",
+    "sector_es": "Sector A — Núcleo 3",
+    "sector_pt": "Setor A — Núcleo 3",
+    "description": "Both signals are completely off. What will AND output?",
+    "description_es": "Ambas señales están apagadas. ¿Qué dará AND como salida?",
+    "description_pt": "Ambos os sinais estão desligados. Qual será a saída do AND?",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 0
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 0
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 0
+      }
+    ],
+    "available_gates": [
+      "AND"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Backup Route",
+    "title_es": "Ruta de Respaldo",
+    "title_pt": "Rota de Backup",
+    "sector": "Sector B — Core 1",
+    "sector_es": "Sector B — Núcleo 1",
+    "sector_pt": "Setor B — Núcleo 1",
+    "description": "The backup system only needs ANY signal to activate. Even one is enough!",
+    "description_es": "El sistema de respaldo solo necesita CUALQUIER señal para activarse. ¡Una basta!",
+    "description_pt": "O sistema de backup só precisa de QUALQUER sinal para ativar. Um já basta!",
+    "intro_gate": "OR",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 0
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "OR"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Choose Wisely",
+    "title_es": "Elige con Cuidado",
+    "title_pt": "Escolha com Cuidado",
+    "sector": "Sector B — Core 2",
+    "sector_es": "Sector B — Núcleo 2",
+    "sector_pt": "Setor B — Núcleo 2",
+    "description": "Two gates available — AND or OR. Which one gives the correct output?",
+    "description_es": "Dos compuertas disponibles — AND u OR. ¿Cuál da la salida correcta?",
+    "description_pt": "Duas portas disponíveis — AND ou OR. Qual dá a saída correta?",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 0
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "AND",
+      "OR"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Signal Flip",
+    "title_es": "Inversión de Señal",
+    "title_pt": "Inversão de Sinal",
+    "sector": "Sector C — Core 1",
+    "sector_es": "Sector C — Núcleo 1",
+    "sector_pt": "Setor C — Núcleo 1",
+    "description": "This circuit needs to invert the signal. One input, and we need the opposite as output.",
+    "description_es": "Este circuito necesita invertir la señal. Una entrada, y necesitamos lo opuesto en la salida.",
+    "description_pt": "Este circuito precisa inverter o sinal. Uma entrada, e precisamos do oposto na saída.",
+    "intro_gate": "NOT",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 0
+      }
+    ],
+    "available_gates": [
+      "NOT"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Wake Up Signal",
+    "title_es": "Señal de Encendido",
+    "title_pt": "Sinal de Despertar",
+    "sector": "Sector C — Core 2",
+    "sector_es": "Sector C — Núcleo 2",
+    "sector_pt": "Setor C — Núcleo 2",
+    "description": "The signal is off, but we need to turn it on. Use the inverter!",
+    "description_es": "La señal está apagada, pero necesitamos encenderla. ¡Usa el inversor!",
+    "description_pt": "O sinal está desligado, mas precisamos ligá-lo. Use o inversor!",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 0
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "NOT"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Chain Reaction",
+    "title_es": "Reacción en Cadena",
+    "title_pt": "Reação em Cadeia",
+    "sector": "Sector D — Core 1",
+    "sector_es": "Sector D — Núcleo 1",
+    "sector_pt": "Setor D — Núcleo 1",
+    "description": "Two broken gates in series! Fix both to restore the power flow.",
+    "description_es": "¡Dos compuertas rotas en serie! Arregla ambas para restaurar el flujo.",
+    "description_pt": "Duas portas quebradas em série! Conserte ambas para restaurar o fluxo.",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 1
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "value": 0
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      },
+      {
+        "id": "G2",
+        "from": [
+          "G1",
+          "C"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G2",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "AND",
+      "OR"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "NAND Node",
+    "title_es": "Nodo NAND",
+    "title_pt": "Nó NAND",
+    "sector": "Sector E — Core 1",
+    "sector_es": "Sector E — Núcleo 1",
+    "sector_pt": "Setor E — Núcleo 1",
+    "description": "A new gate type is needed: NAND. Think of it as AND... but inverted!",
+    "description_es": "Se necesita una nueva compuerta: NAND. Piensa en ella como AND... ¡pero invertida!",
+    "description_pt": "Uma nova porta é necessária: NAND. Pense nela como AND... mas invertida!",
+    "intro_gate": "NAND",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 0
+      }
+    ],
+    "available_gates": [
+      "NAND",
+      "AND"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "NOR Node",
+    "title_es": "Nodo NOR",
+    "title_pt": "Nó NOR",
+    "sector": "Sector E — Core 2",
+    "sector_es": "Sector E — Núcleo 2",
+    "sector_pt": "Setor E — Núcleo 2",
+    "description": "Another new gate: NOR. It's OR... inverted! Now fix this circuit.",
+    "description_es": "Otra compuerta nueva: NOR. Es OR... ¡invertida! Arregla este circuito.",
+    "description_pt": "Outra porta nova: NOR. É OR... invertida! Agora conserte este circuito.",
+    "intro_gate": "NOR",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 0
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 0
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G1",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "NOR",
+      "OR"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Inverted Pulse",
+    "title_es": "Pulso Invertido",
+    "title_pt": "Pulso Invertido",
+    "sector": "Sector E — Practice 1",
+    "sector_es": "Sector E — Práctica 1",
+    "sector_pt": "Setor E — Prática 1",
+    "description": "Signal A must be flipped before it meets signal B. Chain a NOT into an AND.",
+    "description_es": "La señal A debe invertirse antes de encontrarse con B. Encadena un NOT con un AND.",
+    "description_pt": "O sinal A precisa ser invertido antes de encontrar B. Encadeie um NOT com um AND.",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A"
+        ]
+      },
+      {
+        "id": "G2",
+        "from": [
+          "G1",
+          "B"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G2",
+        "expected": 0
+      }
+    ],
+    "available_gates": [
+      "AND",
+      "NOT"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Either Or Both",
+    "title_es": "Uno u Otro",
+    "title_pt": "Um Ou Outro",
+    "sector": "Sector E — Practice 2",
+    "sector_es": "Sector E — Práctica 2",
+    "sector_pt": "Setor E — Prática 2",
+    "description": "Three sensors guard the door — but two zones must each have at least one live signal. Combine two ORs with an AND.",
+    "description_es": "Tres sensores guardan la puerta — pero cada una de dos zonas necesita al menos una señal activa. Combina dos OR con un AND.",
+    "description_pt": "Três sensores guardam a porta — mas duas zonas precisam de pelo menos um sinal ativo cada. Combine dois OR com um AND.",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 0
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      },
+      {
+        "id": "G2",
+        "from": [
+          "B",
+          "C"
+        ]
+      },
+      {
+        "id": "G3",
+        "from": [
+          "G1",
+          "G2"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G3",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "AND",
+      "OR"
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Veto Power",
+    "title_es": "Poder de Veto",
+    "title_pt": "Poder de Veto",
+    "sector": "Sector E — Practice 3",
+    "sector_es": "Sector E — Práctica 3",
+    "sector_pt": "Setor E — Prática 3",
+    "description": "Two operators must agree (AND), but a third operator can VETO their decision — only blocking when their bit is OFF. Stack AND into a NAND.",
+    "description_es": "Dos operadores deben coincidir (AND), pero un tercero puede VETAR — solo bloquea cuando su bit está APAGADO. Encadena AND en un NAND.",
+    "description_pt": "Dois operadores precisam concordar (AND), mas um terceiro pode VETAR — só bloqueia quando seu bit está DESLIGADO. Encadeie AND num NAND.",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 1
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "value": 0
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      },
+      {
+        "id": "G2",
+        "from": [
+          "G1",
+          "C"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G2",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "AND",
+      "NAND"
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Double Negation",
+    "title_es": "Doble Negación",
+    "title_pt": "Dupla Negação",
+    "sector": "Sector E — Practice 4",
+    "sector_es": "Sector E — Práctica 4",
+    "sector_pt": "Setor E — Prática 4",
+    "description": "What happens if you flip a signal twice in a row? Build a NOT → NOT chain and see.",
+    "description_es": "¿Qué pasa si inviertes una señal dos veces seguidas? Construye una cadena NOT → NOT y observa.",
+    "description_pt": "O que acontece se você inverter um sinal duas vezes seguidas? Monte uma cadeia NOT → NOT e observe.",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A"
+        ]
+      },
+      {
+        "id": "G2",
+        "from": [
+          "G1"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G2",
+        "expected": 1
+      }
+    ],
+    "available_gates": [
+      "NOT"
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Megacore Restored",
+    "title_es": "Megacore Restaurado",
+    "title_pt": "Megacore Restaurado",
+    "sector": "Sector F — Final Core",
+    "sector_es": "Sector F — Núcleo Final",
+    "sector_pt": "Setor F — Núcleo Final",
+    "description": "The final circuit! Three inputs, two broken gates. Use everything you know to restore the megacomputer!",
+    "description_es": "¡El circuito final! Tres entradas, dos compuertas rotas. ¡Usa todo lo que sabes para restaurar el megacomputador!",
+    "description_pt": "O circuito final! Três entradas, duas portas quebradas. Use tudo o que aprendeu para restaurar o megacomputador!",
+    "inputs": [
+      {
+        "id": "A",
+        "label": "A",
+        "value": 1
+      },
+      {
+        "id": "B",
+        "label": "B",
+        "value": 0
+      },
+      {
+        "id": "C",
+        "label": "C",
+        "value": 1
+      }
+    ],
+    "slots": [
+      {
+        "id": "G1",
+        "from": [
+          "A",
+          "B"
+        ]
+      },
+      {
+        "id": "G2",
+        "from": [
+          "G1",
+          "C"
+        ]
+      }
+    ],
+    "outputs": [
+      {
+        "id": "OUT",
+        "label": "OUT",
+        "from": "G2",
+        "expected": 0
+      }
+    ],
+    "available_gates": [
+      "AND",
+      "OR",
+      "NOT",
+      "NAND",
+      "NOR"
+    ]
+  }
+]
